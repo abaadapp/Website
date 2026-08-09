@@ -8,11 +8,11 @@
 <body>
 <x-dc>
 <helmet>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>أبعاد — نظام بيع وإدارة متكامل</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&amp;display=swap" rel="stylesheet">
 <script src="./image-slot.js"></script>
 <style>
 :root{
@@ -48,7 +48,7 @@ input,select,textarea{font-family:inherit}
 <header style="position:sticky;top:0;z-index:60;background:rgba(251,251,251,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)">
   <div style="position:relative;max-width:1240px;margin:0 auto;padding:0 24px;height:76px;display:flex;align-items:center;gap:24px">
     <a href="#home" aria-label="أبعاد — الرئيسية" style="position:relative;display:flex;align-items:center">
-      <img src="uploads/Artboard%202.svg" alt="أبعاد" style="height:36px;width:auto;display:block" />
+      <img src="uploads/Artboard%202.svg" alt="أبعاد" style="height:36px;width:auto;display:block">
     </a>
 
     <nav aria-label="أقسام الموقع" style="position:absolute;inset-inline:0;justify-content:center;align-items:center;gap:4px;pointer-events:none" data-d="desk">
@@ -61,7 +61,7 @@ input,select,textarea{font-family:inherit}
 
     <div style="align-items:center;gap:12px;position:relative" data-d="desk">
       <button onClick="{{ toggleLang }}" aria-label="{{ t.langAria }}" style="background:none;border:0;padding:10px 14px;border-radius:999px;font-size:15px;font-weight:600;color:var(--ink2);cursor:pointer" style-hover="background:var(--bg2);color:var(--ink)">{{ t.langSwitch }}</button>
-      <a href="#contact" style="background:var(--ink);color:#fff;border-radius:999px;padding:13px 24px;font-size:15px;font-weight:700">{{ t.login }}</a>
+      <a href="https://app.abaadapp.om" style="background:var(--ink);color:#fff;border-radius:999px;padding:13px 24px;font-size:15px;font-weight:700">{{ t.login }}</a>
     </div>
 
     <button onClick="{{ toggleMenu }}" aria-label="فتح القائمة" style="width:44px;height:44px;flex:none;display:grid;place-items:center;border:1px solid var(--line);background:var(--card);border-radius:14px;cursor:pointer;color:var(--ink)" data-d="burger">
@@ -79,7 +79,7 @@ input,select,textarea{font-family:inherit}
           <a href="{{ s.href }}" onClick="{{ closeMenu }}" style="padding:15px 12px;border-bottom:1px solid var(--bg2);font-size:17px;font-weight:700">{{ s.label }}</a>
         </sc-for>
         <button onClick="{{ toggleLang }}" style="margin-top:14px;background:none;border:1px solid var(--line);border-radius:999px;padding:15px;font-size:16px;font-weight:700;color:var(--ink);cursor:pointer">{{ t.langSwitch }}</button>
-        <a href="#contact" onClick="{{ closeMenu }}" style="margin-top:10px;background:var(--ink);color:#fff;border-radius:999px;padding:16px;text-align:center;font-size:16px;font-weight:700">{{ t.login }}</a>
+        <a href="https://app.abaadapp.om" onClick="{{ closeMenu }}" style="margin-top:10px;background:var(--ink);color:#fff;border-radius:999px;padding:16px;text-align:center;font-size:16px;font-weight:700">{{ t.login }}</a>
       </div>
     </div>
   </sc-if>
@@ -90,12 +90,9 @@ input,select,textarea{font-family:inherit}
 <!-- HERO -->
 <section id="home" style="scroll-margin-top:90px">
   <div style="max-width:1240px;margin:0 auto;padding:32px 24px 0">
-    <div style="display:grid;grid-template-columns:1fr;gap:0;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--card)" data-g="split">
-      <div style="position:relative;min-height:440px;background:var(--bg2)">
-        <image-slot id="abaad-hero" shape="rect" placeholder="{{ t.slotHero }}"></image-slot>
-      </div>
-      <div style="display:flex;flex-direction:column;justify-content:center;padding:72px 32px;background:linear-gradient(210deg,#f4f6fa 0%,var(--card) 65%)" data-hero="text">
-        <h1 class="dsp" style="margin:0;font-size:clamp(36px,4.6vw,58px);line-height:1.2;font-weight:800;letter-spacing:-.02em;text-wrap:balance">{{ t.h1a }}<br />{{ t.h1b }}</h1>
+    <div style="display:grid;grid-template-columns:1fr;gap:0;border-radius:20px;overflow:hidden;background:linear-gradient(210deg,#f4f6fa 0%,var(--card) 65%)" data-g="split">
+      <div style="display:flex;flex-direction:column;justify-content:center;padding:56px 32px" data-hero="text">
+        <h1 class="dsp" style="margin:0;font-size:clamp(36px,4.6vw,58px);line-height:1.2;font-weight:800;letter-spacing:-.02em;text-wrap:balance">{{ t.h1a }}<br>{{ t.h1b }}</h1>
         <p style="margin:24px 0 0;font-size:18px;line-height:1.9;color:var(--ink2);max-width:460px;text-wrap:pretty">{{ t.heroSub }}</p>
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:36px">
           <a href="#contact" style="background:var(--ink);color:#fff;border-radius:999px;padding:17px 32px;font-size:16.5px;font-weight:700">{{ t.start }}</a>
@@ -104,6 +101,9 @@ input,select,textarea{font-family:inherit}
             {{ t.learnFeatures }}
           </a>
         </div>
+      </div>
+      <div style="position:relative;min-height:440px;aspect-ratio:4/3">
+        <image-slot id="abaad-hero" shape="rect" fit="cover" placeholder="{{ t.slotHero }}"></image-slot>
       </div>
     </div>
 
@@ -272,19 +272,19 @@ input,select,textarea{font-family:inherit}
           <form onSubmit="{{ submit }}" noValidate="{{ true }}">
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px">
               <label style="display:flex;flex-direction:column;gap:8px;font-size:14.5px;font-weight:700">{{ t.fName }}
-                <input name="name" type="text" placeholder="{{ t.phName }}" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400" />
+                <input name="name" type="text" placeholder="{{ t.phName }}" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400">
                 <sc-if value="{{ errName }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#c0392b;font-weight:600">{{ errName }}</span></sc-if>
               </label>
               <label style="display:flex;flex-direction:column;gap:8px;font-size:14.5px;font-weight:700">{{ t.fCompany }}
-                <input name="company" type="text" placeholder="{{ t.phCompany }}" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400" />
+                <input name="company" type="text" placeholder="{{ t.phCompany }}" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400">
                 <sc-if value="{{ errCompany }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#c0392b;font-weight:600">{{ errCompany }}</span></sc-if>
               </label>
               <label style="display:flex;flex-direction:column;gap:8px;font-size:14.5px;font-weight:700">{{ t.fPhone }}
-                <input name="phone" type="tel" dir="ltr" placeholder="+968 XXXX XXXX" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400;text-align:start" />
+                <input name="phone" type="tel" dir="ltr" placeholder="+968 XXXX XXXX" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400;text-align:start">
                 <sc-if value="{{ errPhone }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#c0392b;font-weight:600">{{ errPhone }}</span></sc-if>
               </label>
               <label style="display:flex;flex-direction:column;gap:8px;font-size:14.5px;font-weight:700">{{ t.fEmail }}
-                <input name="email" type="email" dir="ltr" placeholder="name@business.com" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400;text-align:start" />
+                <input name="email" type="email" dir="ltr" placeholder="name@business.com" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400;text-align:start">
                 <sc-if value="{{ errEmail }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#c0392b;font-weight:600">{{ errEmail }}</span></sc-if>
               </label>
               <label style="display:flex;flex-direction:column;gap:8px;font-size:14.5px;font-weight:700">{{ t.fSector }}
@@ -330,7 +330,7 @@ input,select,textarea{font-family:inherit}
 
 <footer style="background:var(--ink);color:#f4f4f4">
   <div style="max-width:1240px;margin:0 auto;padding:56px 24px;display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between">
-    <img src="uploads/Artboard%202.svg" alt="أبعاد" style="height:34px;width:auto;display:block;filter:brightness(0) invert(1)" />
+    <img src="uploads/Artboard%202.svg" alt="أبعاد" style="height:34px;width:auto;display:block;filter:brightness(0) invert(1)">
     <nav style="display:flex;flex-wrap:wrap;gap:22px">
       <sc-for list="{{ sections }}" as="s" hint-placeholder-count="3">
         <a href="{{ s.href }}" style="color:#d9d9d9;font-size:15px;font-weight:600" style-hover="color:#fff">{{ s.label }}</a>
