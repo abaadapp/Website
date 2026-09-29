@@ -40,6 +40,7 @@ input,select,textarea{font-family:inherit}
   [data-g="contact"]{grid-template-columns:1.15fr .85fr!important}
   [data-hero="text"]{padding-inline:56px 8px!important}
 }
+#abaad-hero::part(frame){background:transparent}
 </style>
 </helmet>
 
@@ -103,7 +104,7 @@ input,select,textarea{font-family:inherit}
         </div>
       </div>
       <div style="position:relative;min-height:440px;aspect-ratio:4/3">
-        <image-slot id="abaad-hero" shape="rect" fit="cover" placeholder="{{ t.slotHero }}"></image-slot>
+        <image-slot id="abaad-hero" shape="rect" fit="contain" src="uploads/hero-ipad.png" placeholder="{{ t.slotHero }}"></image-slot>
       </div>
     </div>
 
