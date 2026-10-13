@@ -208,3 +208,53 @@ test('the contact form refuses empty fields and then opens a ready email — nev
   assert.equal(form.hidden, false);
   assert.equal(form.elements.name.value, '');
 });
+
+/* ═══════════ ٦ · الأسعار باللغتين، ورقمٌ واحد ═══════════ */
+
+test('the whole pricing section turns to English with the same numbers, and back to the same Arabic', async (t) => {
+  const w = await page(t), d = w.document;
+  const section = () => d.getElementById('pricing');
+  const prices = () => [...d.querySelectorAll('[data-price]')].map((e) => e.textContent);
+  const shape = () => [...d.querySelectorAll('[data-plan]')].map((c) => c.querySelectorAll('li').length);
+  const cards = () => [...d.querySelectorAll('[data-plan]')].map((c) => c.outerHTML);
+  const ARABIC = /[؀-ۿ]/;
+
+  const arText = section().textContent, arCards = cards(), arShape = shape();
+  assert.match(arText, /الأساسية/);
+
+  click(w, '[data-action="lang"]');
+  assert.doesNotMatch(section().textContent, ARABIC, 'بقي نصٌّ عربيّ في الأسعار بالإنجليزية');
+  assert.deepEqual([...d.querySelectorAll('[data-plan] h3')].map((h) => h.textContent), ['Basic', 'Professional', 'Enterprise']);
+  assert.match(section().textContent, /Most popular/);
+  assert.equal(d.querySelector('[data-billing="m"]').textContent, 'Monthly');
+  assert.equal(d.querySelector('[data-billing="y"]').textContent, 'Yearly');
+  assert.deepEqual(prices(), ['9.900', '29.900', '69.900']);
+  assert.equal(d.querySelector('[data-plan="0"] [data-period]').textContent, 'OMR / month');
+  assert.deepEqual(shape(), arShape, 'تغيّر عددُ البنود بين اللغتين');
+
+  click(w, '[data-billing="y"]');
+  assert.doesNotMatch(section().textContent, ARABIC);
+  assert.deepEqual(prices(), ['99', '299', '699']);
+  assert.deepEqual([...d.querySelectorAll('[data-was] s')].map((s) => s.textContent), ['118.800', '358.800', '838.800']);
+  assert.equal(d.querySelector('[data-plan="0"] [data-period]').textContent, 'OMR / year');
+  assert.equal(d.querySelector('[data-plan="0"] [data-was]').textContent, 'instead of 118.800 OMR');
+  assert.equal(d.querySelector('[data-save]').textContent, 'Save two months');
+
+  // والسنويّ يبقى سنويًّا حين تتبدّل اللغة
+  click(w, '[data-action="lang"]');
+  assert.deepEqual(prices(), ['99', '299', '699']);
+  assert.equal(d.querySelector('[data-plan="0"] [data-period]').textContent, 'ر.ع / سنويًا');
+
+  click(w, '[data-billing="m"]');
+  assert.equal(section().textContent, arText, 'العربية لم تعد كما كانت');
+  assert.deepEqual(cards(), arCards);
+});
+
+test('one official contact number on the site and the three legal pages', () => {
+  const OFFICIAL = '71141624';
+  for (const f of ['index.html', 'assets/site.js', 'privacy/index.html', 'terms/index.html', 'data-deletion/index.html']) {
+    const numbers = [...read(f).matchAll(/\+?968[\s-]?(\d[\d\s]{6,9}\d)/g)].map((m) => m[1].replace(/\s/g, ''));
+    assert.ok(numbers.length > 0, `${f}: لا رقم تواصل`);
+    numbers.forEach((n) => assert.equal(n, OFFICIAL, `${f}: رقمٌ غير الرسمي ${n}`));
+  }
+});

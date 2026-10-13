@@ -194,8 +194,12 @@
     }
   };
 
-  // الأسعار بالعربية في اللغتين — كما في التصميم
-  var PRICING = {
+  /*
+   * الأسعار باللغتين — والأرقام واحدة فيهما (m شهريًا، y سنويًا، was ما يحلّ السنويُّ
+   * محلَّه)؛ تتبدّل الكلماتُ وحدها.
+   */
+  var PRICING = {};
+  PRICING.ar = {
     cur: 'ر.ع', perMonth: 'شهريًا', perYear: 'سنويًا', popular: 'الأكثر طلبًا', save: 'وفّر قيمة شهرين', instead: 'بدل',
     limitsH: 'حدود الاستخدام', waH: 'واتساب', excH: 'غير مشمول في هذه الباقة',
     addH: 'تخصيصات اختيارية', addTag: 'إضافة اختيارية', addCta: 'تواصل معنا للتفعيل',
@@ -218,6 +222,29 @@
         add: [{ t: 'رقم واتساب الشركة الخاص', d: '' }, { t: 'تخصيص الموقع ليتناسب مع الهوية والفروع', d: '' }] }
     ]
   };
+  PRICING.en = {
+    cur: 'OMR', perMonth: 'month', perYear: 'year', popular: 'Most popular', save: 'Save two months', instead: 'instead of',
+    limitsH: 'Usage limits', waH: 'WhatsApp', excH: 'Not included in this plan',
+    addH: 'Optional customizations', addTag: 'Optional add-on', addCta: 'Contact us to activate',
+    waNote: 'On plans that include WhatsApp: 100 free messages a month through the Abaad number.',
+    waPack: '500 extra messages — 7.500 OMR',
+    plans: [
+      { name: 'Basic', tag: 'Run your store day to day', desc: 'Everything you need to run and manage your store every day.', m: '9.900', y: '99', was: '118.800',
+        limits: ['1 branch', 'Up to 3 active employees', 'Up to 100 products'], incH: 'Operations',
+        inc: ['Point of sale, sales and orders', 'Product management', 'Inventory management', 'Customers', 'Suppliers and purchasing', 'Customer invoices', 'Finance and expenses', 'Payroll and employees', 'Preparation board', 'Dashboard and summaries', 'Basic reports'],
+        exc: ['WhatsApp', 'Website', 'Marketing tools', 'Loyalty program', 'Advanced reports', 'Custom permissions'] },
+      { name: 'Professional', tag: 'Management + growth', desc: 'Run your store and grow your sales with a digital presence and integrated growth tools.', m: '29.900', y: '299', was: '358.800', featured: true,
+        limits: ['Up to 3 branches', 'Up to 15 active employees', 'Up to 5,000 products'], incH: 'Features',
+        inc: ['Everything in Basic', 'Website', 'Publish your store and sell online', 'Website design and pages', 'Connect your store domain', 'SEO and visibility settings', 'Customer reviews', 'Coupons and offers', 'Loyalty program and points', 'Advanced reports', 'Waste analysis', 'Report export', 'Custom staff permissions'],
+        wa: ['WhatsApp notifications through the Abaad number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
+        add: [{ t: "Use your store's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the Abaad number — available as an optional add-on.' }, { t: 'Customize your website', d: 'Professional customization of your website to match your brand — an additional service.' }] },
+      { name: 'Enterprise', tag: 'Multi-branch operations', desc: 'For companies and stores running larger teams and several branches from one system.', m: '69.900', y: '699', was: '838.800',
+        limits: ['Up to 25 branches', 'Up to 100 active employees', 'Up to 100,000 products'], incH: 'Features',
+        inc: ['Everything in Professional', 'Run several branches from one system', 'Manage larger teams', 'Website', 'Marketing tools', 'Loyalty program', 'Advanced reports', 'Waste analysis', 'Report export', 'Custom permissions'],
+        wa: ['Abaad WhatsApp', '100 free WhatsApp messages a month', 'Option to buy extra credit'],
+        add: [{ t: "Your company's own WhatsApp number", d: '' }, { t: 'Website customization to fit your brand and branches', d: '' }] }
+    ]
+  };
 
   var CAP_IMGS = [null, IMG + 'invoices.webp', IMG + 'store.webp', IMG + 'customer.webp'];
   var TYPE_IMGS = [IMG + 'solution-retail.webp', IMG + 'solution-ecommerce.webp', IMG + 'solution-services.webp', IMG + 'solution-subscriptions.webp'];
@@ -233,6 +260,7 @@
   }
   function tr() { return T[S.lang]; }
   function data() { return DATA[S.lang]; }
+  function pricing() { return PRICING[S.lang]; }
   function arrow() { return S.lang === 'ar' ? '←' : '→'; }
   function $(sel, root) { return (root || document).querySelector(sel); }
   function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
@@ -379,7 +407,7 @@
       }).join('');
     },
     plans: function (t) {
-      var pr = PRICING, yearly = S.billing === 'y', a = arrow();
+      var pr = pricing(), yearly = S.billing === 'y', a = arrow();
       var check = function (stroke, f) {
         return '<li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="' + stroke + '" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>' + esc(f) + '</span></li>';
       };
@@ -465,7 +493,8 @@
     ];
   }
   function wasLine(p) {
-    return '<span>' + esc(PRICING.instead) + ' </span><s dir="ltr" style="unicode-bidi:isolate">' + p.was + '</s><span> ' + esc(PRICING.cur) + '</span>';
+    var pr = pricing();
+    return '<span>' + esc(pr.instead) + ' </span><s dir="ltr" style="unicode-bidi:isolate">' + p.was + '</s><span> ' + esc(pr.cur) + '</span>';
   }
 
   var WA_BUBBLE = '<div dir="rtl" style="position:absolute;z-index:2;left:calc(3% + 10px);bottom:calc(7% + 12px);transform:scale(1.09);transform-origin:left bottom;width:165px;min-height:76px;box-sizing:border-box;background:#fff;border:1px solid rgba(15,15,15,.08);border-radius:14px;box-shadow:0 2px 4px rgba(15,15,15,.04),0 12px 28px rgba(15,15,15,.10);padding:11px 12px;display:flex;gap:9px;align-items:flex-start;text-align:start">' +
@@ -485,6 +514,7 @@
     $$('[data-i18n]', root).forEach(function (el) { el.textContent = t[el.getAttribute('data-i18n')]; });
     $$('[data-i18n-alt]', root).forEach(function (el) { el.setAttribute('alt', t[el.getAttribute('data-i18n-alt')]); });
     $$('[data-i18n-aria]', root).forEach(function (el) { el.setAttribute('aria-label', t[el.getAttribute('data-i18n-aria')]); });
+    $$('[data-pr]', root).forEach(function (el) { el.textContent = pricing()[el.getAttribute('data-pr')]; });
     $$('[data-list]', root).forEach(function (el) {
       var draw = R[el.getAttribute('data-list')];
       if (draw) el.innerHTML = draw(t, d);
@@ -546,7 +576,7 @@
     box.style.transform = 'translateY(' + (S.flowVis ? '0px' : '8px') + ')';
   }
   function applyBilling() {
-    var yearly = S.billing === 'y', pr = PRICING;
+    var yearly = S.billing === 'y', pr = pricing();
     $$('[data-billing]').forEach(function (b) {
       var on = (b.getAttribute('data-billing') === 'y') === yearly, k = billingLook(on);
       b.style.background = k.bg; b.style.color = k.fg; b.style.boxShadow = k.sh;
