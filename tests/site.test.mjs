@@ -26,13 +26,14 @@ const CSS = read('assets/site.css');
 const LOGIN = 'https://app.abaadapp.om/login';
 const REGISTER = 'https://app.abaadapp.om/register';
 
-/** الصفحة كما يفتحها المتصفّح، وsite.js يعمل فيها */
-async function page() {
+/** الصفحة كما يفتحها المتصفّح، وsite.js يعمل فيها — تُغلق مع الاختبار ولو سقط، وإلّا بقيت مؤقّتاتها تعمل */
+async function page(t) {
   const vc = new VirtualConsole(); // فتحُ mailto «تنقّلٌ» لا ينفّذه jsdom — لا يعني الاختبار
   const dom = new JSDOM(HTML, { runScripts: 'outside-only', url: 'https://abaadapp.om/', virtualConsole: vc });
   if (dom.window.document.readyState !== 'complete') {
     await new Promise((r) => dom.window.addEventListener('load', r));
   }
+  t.after(() => dom.window.close());
   dom.window.eval(JS);
   return dom.window;
 }
@@ -65,14 +66,13 @@ function assertCtas(doc, lang) {
 
 /* ═══════════ ١ · الدخول والتسجيل إلى النظام ═══════════ */
 
-test('login and get started go to the system on app.abaadapp.om, in both languages', async () => {
+test('login and get started go to the system on app.abaadapp.om, in both languages', async (t) => {
   assertCtas(new JSDOM(HTML).window.document, 'static');
-  const w = await page();
+  const w = await page(t);
   assertCtas(w.document, 'ar');
   click(w, '[data-action="lang"]');
   assertCtas(w.document, 'en');
   assert.match(JS, /var APP = 'https:\/\/app\.abaadapp\.om';/);
-  w.close();
 });
 
 /* ═══════════ ٢ · index.html = رسمُ site.js ═══════════ */
@@ -134,8 +134,8 @@ test('the three pages Meta reads stay, and the footer links to them', () => {
 
 /* ═══════════ ٥ · ما يتحرّك ═══════════ */
 
-test('the language switch turns the whole page and back', async () => {
-  const w = await page(), d = w.document;
+test('the language switch turns the whole page and back', async (t) => {
+  const w = await page(t), d = w.document;
   const h1 = () => d.querySelector('h1').textContent;
   assert.equal(h1(), 'كل أعمالك. في مكان واحد.');
   click(w, '[data-action="lang"]');
@@ -147,21 +147,19 @@ test('the language switch turns the whole page and back', async () => {
   click(w, '[data-action="lang"]');
   assert.equal(d.documentElement.dir, 'rtl');
   assert.equal(h1(), 'كل أعمالك. في مكان واحد.');
-  w.close();
 });
 
-test('the mobile menu opens and a link closes it', async () => {
-  const w = await page(), d = w.document;
+test('the mobile menu opens and a link closes it', async (t) => {
+  const w = await page(t), d = w.document;
   assert.ok(d.querySelector('[data-menu]').hidden);
   click(w, '[data-action="menu"]');
   assert.equal(d.querySelector('[data-menu]').hidden, false);
   click(w, '[data-menu] [data-close-menu]');
   assert.ok(d.querySelector('[data-menu]').hidden);
-  w.close();
 });
 
-test('yearly billing shows the yearly price and what it replaces', async () => {
-  const w = await page(), d = w.document;
+test('yearly billing shows the yearly price and what it replaces', async (t) => {
+  const w = await page(t), d = w.document;
   const basic = () => d.querySelector('[data-plan="0"]');
   assert.equal(basic().querySelector('[data-price]').textContent, '9.900');
   click(w, '[data-billing="y"]');
@@ -172,11 +170,10 @@ test('yearly billing shows the yearly price and what it replaces', async () => {
   click(w, '[data-billing="m"]');
   assert.equal(basic().querySelector('[data-price]').textContent, '9.900');
   assert.equal(basic().querySelector('[data-was]').textContent, '');
-  w.close();
 });
 
-test('a capability card opens its own panel', async () => {
-  const w = await page(), d = w.document;
+test('a capability card opens its own panel', async (t) => {
+  const w = await page(t), d = w.document;
   click(w, '[data-cap="4"]');
   await wait(250);
   const panel = d.querySelector('[data-cap-panel]');
@@ -184,11 +181,10 @@ test('a capability card opens its own panel', async () => {
   assert.equal(panel.getAttribute('data-g'), 'detail-xwide');
   assert.equal(d.querySelector('[data-cap="4"]').getAttribute('aria-expanded'), 'true');
   assert.equal(d.querySelector('[data-cap="0"]').getAttribute('aria-expanded'), 'false');
-  w.close();
 });
 
-test('the contact form refuses empty fields and then opens a ready email — never a fake "sent"', async () => {
-  const w = await page(), d = w.document;
+test('the contact form refuses empty fields and then opens a ready email — never a fake "sent"', async (t) => {
+  const w = await page(t), d = w.document;
   const form = d.querySelector('[data-contact-form]');
   form.dispatchEvent(new w.Event('submit', { bubbles: true, cancelable: true }));
   const shown = [...d.querySelectorAll('[data-err]')].filter((e) => !e.hidden).map((e) => e.dataset.err);
@@ -211,5 +207,4 @@ test('the contact form refuses empty fields and then opens a ready email — nev
   click(w, '[data-action="reset-form"]');
   assert.equal(form.hidden, false);
   assert.equal(form.elements.name.value, '');
-  w.close();
 });
