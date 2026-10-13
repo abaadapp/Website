@@ -29,6 +29,7 @@
   var T = {
     ar: {
       langSwitch: 'English', langAria: 'التبديل إلى الإنجليزية', login: 'تسجيل الدخول', startNow: 'ابدأ الآن',
+      brand: 'أبعاد', navAria: 'أقسام الموقع', menuAria: 'القائمة',
       navHome: 'الرئيسية', navPlatform: 'المنصة', navSolutions: 'الحلول', navContact: 'تواصل معنا', navPricing: 'الأسعار',
       priceTitle: 'باقات واضحة تناسب نشاطك.', priceSub: 'اختر الباقة التي تناسب حجم نشاطك، وابدأ بما تحتاجه اليوم.',
       billMonthly: 'شهري', billYearly: 'سنوي',
@@ -36,6 +37,8 @@
       heroSub: 'أبعاد منصة متكاملة تجمع المبيعات، الإدارة، التجارة الإلكترونية، العملاء، المدفوعات، المالية والأتمتة — لتشغّل أعمالك من مكان واحد وتنمو بوضوح أكبر.',
       heroCta: 'ابدأ مع أبعاد', heroCta2: 'استكشف المنصة',
       slotHero: 'لوحة تحكم أبعاد ونقطة البيع والمتجر الإلكتروني وواتساب',
+      altPos: 'نقطة البيع في أبعاد', altCheckout: 'إتمام الدفع', altProduct: 'بطاقة منتج', altCosts: 'التكاليف والخسائر في أبعاد',
+      altWa: 'محادثة واتساب من أبعاد', altStore: 'متجر إلكتروني من أبعاد على اللابتوب والجوال',
       aboutBadge: 'منصة أبعاد', aboutTitle: 'كل أعمالك في نظام واحد.',
       aboutSub: 'أدر المبيعات والطلبات والمخزون والعملاء والمالية من منصة واحدة، بدل التنقل بين أنظمة متعددة.',
       platBadge: 'كل ما تحتاجه', platTitle: 'منصة واحدة. لكل عملياتك.',
@@ -45,6 +48,7 @@
       slotDash: 'لوحة تحكم أبعاد',
       connTitle: 'القوة ليست في الأدوات فقط. بل في ترابطها.',
       connSub: 'كل عملية داخل أبعاد تتصل ببقية المنصة، لتقلل العمل اليدوي وتحافظ على بيانات أعمالك محدثة في مكان واحد.',
+      waBadge: 'واتساب + الأتمتة', autoLabel: 'الأتمتة',
       waTitle: 'اجعل أعمالك تتواصل تلقائيًا.',
       waSub: 'اربط واتساب بعملياتك في أبعاد، وشغّل الرسائل والإجراءات تلقائيًا بناءً على ما يحدث في أعمالك.',
       waKey: 'واتساب ليس منفصلًا عن أعمالك. إنه متصل بالعميل والطلب والعمليات داخل نظامك.',
@@ -77,6 +81,7 @@
     },
     en: {
       langSwitch: 'العربية', langAria: 'Switch to Arabic', login: 'Log in', startNow: 'Get started',
+      brand: 'Abaad', navAria: 'Site navigation', menuAria: 'Menu',
       navHome: 'Home', navPlatform: 'Platform', navSolutions: 'Solutions', navContact: 'Contact us', navPricing: 'Pricing',
       priceTitle: 'Clear plans that fit your business.', priceSub: 'Pick the right plan, then add the devices or services you need.',
       billMonthly: 'Monthly', billYearly: 'Yearly',
@@ -84,6 +89,8 @@
       heroSub: 'Abaad is an integrated platform that brings together sales, management, e-commerce, customers, payments, finance and automation — so you run your business from one place and grow with more clarity.',
       heroCta: 'Start with Abaad', heroCta2: 'Explore the platform',
       slotHero: 'The Abaad dashboard, point of sale, online store and WhatsApp',
+      altPos: 'Abaad point of sale', altCheckout: 'Checkout', altProduct: 'Product card', altCosts: 'Abaad costs and losses',
+      altWa: 'WhatsApp conversation', altStore: 'Online store',
       aboutBadge: 'The Abaad platform', aboutTitle: 'One system instead of many.',
       aboutSub: 'From running your day-to-day to selling, talking to customers and tracking your numbers, Abaad brings your business operations into one connected system.',
       platBadge: 'Everything you need', platTitle: 'One platform. For every operation.',
@@ -93,6 +100,7 @@
       slotDash: 'The Abaad dashboard',
       connTitle: 'The power is not just in the tools. It is in how they connect.',
       connSub: 'Every operation in Abaad connects to the rest of the platform, reducing manual work and keeping your business data up to date in one place.',
+      waBadge: 'WhatsApp + Automation', autoLabel: 'Automation',
       waTitle: 'Let your business communicate automatically.',
       waSub: 'Connect WhatsApp to your operations in Abaad, and run messages and actions automatically based on what happens in your business.',
       waKey: 'WhatsApp is not separate from your business. It is connected to the customer, the order and the operations inside your system.',
@@ -349,13 +357,13 @@
         '</div>';
       if (i === 0) {
         html += '<div style="position:relative;aspect-ratio:805/700;margin:0 auto;width:100%">' +
-          '<div style="position:absolute;inset:0;overflow:hidden"><img src="' + IMG + 'pos.webp" alt="نقطة البيع في أبعاد" style="position:absolute;left:-12.42%;top:0;width:127.45%;max-width:none;height:auto;display:block"></div>' +
-          '<img src="' + IMG + 'pos-checkout.webp" alt="إتمام الدفع" style="position:absolute;left:71.39%;top:1.03%;width:27.93%;height:auto;display:block;border-radius:6.8% / 8.1%;box-shadow:0 2px 4px rgba(15,15,15,.05),0 14px 32px rgba(15,15,15,.12)">' +
-          '<img src="' + IMG + 'pos-product.webp" alt="بطاقة منتج" style="position:absolute;left:2.36%;top:52.5%;width:23.73%;height:auto;display:block;border-radius:8.6% / 5.8%;box-shadow:0 2px 4px rgba(15,15,15,.05),0 14px 32px rgba(15,15,15,.12)">' +
+          '<div style="position:absolute;inset:0;overflow:hidden"><img src="' + IMG + 'pos.webp" alt="' + esc(t.altPos) + '" style="position:absolute;left:-12.42%;top:0;width:127.45%;max-width:none;height:auto;display:block"></div>' +
+          '<img src="' + IMG + 'pos-checkout.webp" alt="' + esc(t.altCheckout) + '" style="position:absolute;left:71.39%;top:1.03%;width:27.93%;height:auto;display:block;border-radius:6.8% / 8.1%;box-shadow:0 2px 4px rgba(15,15,15,.05),0 14px 32px rgba(15,15,15,.12)">' +
+          '<img src="' + IMG + 'pos-product.webp" alt="' + esc(t.altProduct) + '" style="position:absolute;left:2.36%;top:52.5%;width:23.73%;height:auto;display:block;border-radius:8.6% / 5.8%;box-shadow:0 2px 4px rgba(15,15,15,.05),0 14px 32px rgba(15,15,15,.12)">' +
           '</div>';
       } else if (i === 4) {
         html += '<div style="border-radius:18px;overflow:hidden;background:#f7f8f9;border:1px solid rgba(15,15,15,.06);box-shadow:0 1px 3px rgba(15,15,15,.04),0 16px 40px rgba(15,15,15,.07)">' +
-          '<img src="' + IMG + 'costs.webp" alt="التكاليف والخسائر في أبعاد" width="1735" height="877" style="display:block;width:100%;height:auto;object-fit:contain"></div>';
+          '<img src="' + IMG + 'costs.webp" alt="' + esc(t.altCosts) + '" width="1735" height="877" style="display:block;width:100%;height:auto;object-fit:contain"></div>';
       } else {
         var scale = i === 2 ? 1.08 : i === 3 ? 1.13 : 1;
         var shiftX = i === 1 || i === 2 ? '8px' : '0px';
@@ -500,7 +508,7 @@
     return '<span>' + esc(pr.instead) + ' </span><s dir="ltr" style="unicode-bidi:isolate">' + p.was + '</s><span> ' + esc(pr.cur) + '</span>';
   }
 
-  var WA_BUBBLE = '<div dir="rtl" style="position:absolute;z-index:2;left:calc(3% + 10px);bottom:calc(7% + 12px);transform:scale(1.09);transform-origin:left bottom;width:165px;min-height:76px;box-sizing:border-box;background:#fff;border:1px solid rgba(15,15,15,.08);border-radius:14px;box-shadow:0 2px 4px rgba(15,15,15,.04),0 12px 28px rgba(15,15,15,.10);padding:11px 12px;display:flex;gap:9px;align-items:flex-start;text-align:start">' +
+  var WA_BUBBLE = '<div dir="rtl" lang="ar" style="position:absolute;z-index:2;left:calc(3% + 10px);bottom:calc(7% + 12px);transform:scale(1.09);transform-origin:left bottom;width:165px;min-height:76px;box-sizing:border-box;background:#fff;border:1px solid rgba(15,15,15,.08);border-radius:14px;box-shadow:0 2px 4px rgba(15,15,15,.04),0 12px 28px rgba(15,15,15,.10);padding:11px 12px;display:flex;gap:9px;align-items:flex-start;text-align:start">' +
     '<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" style="flex:none;display:block"><circle cx="12" cy="12" r="12" fill="#25D366"></circle><path fill="#fff" d="M16.6 13.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.7.9-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4c.1-.1.2-.3.2-.4.1-.1 0-.3 0-.4l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 3.9 3.5 1.4.6 1.9.6 2.6.5.4-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1 0-.1-.2-.1-.4-.2zM12 4.5c-4.1 0-7.5 3.4-7.5 7.5 0 1.4.4 2.7 1.1 3.9L4.5 19.5l3.7-1c1.1.6 2.4 1 3.8 1 4.1 0 7.5-3.4 7.5-7.5S16.1 4.5 12 4.5zm0 13.7c-1.3 0-2.5-.4-3.5-1l-.3-.2-2.2.6.6-2.1-.2-.3c-.7-1-1.1-2.3-1.1-3.6 0-3.4 2.8-6.2 6.2-6.2s6.2 2.8 6.2 6.2-2.6 6.6-5.7 6.6z"></path></svg>' +
     '<div style="min-width:0;display:flex;flex-direction:column;gap:2px">' +
     '<span style="font-size:10.5px;font-weight:600;color:#1f9d55;line-height:1.3" dir="ltr">WhatsApp</span>' +

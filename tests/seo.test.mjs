@@ -13,6 +13,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import { JSDOM } from 'jsdom';
+import { arabicLeft, DRAWINGS } from './arabic.mjs';
 
 const root = new URL('../', import.meta.url);
 const read = (p) => readFileSync(new URL(p, root), 'utf8');
@@ -28,21 +29,12 @@ const content = (d, sel) => d.querySelector(sel)?.getAttribute('content');
 const ARABIC = /[؀-ۿ]/;
 const LATIN = /[A-Za-z]/;
 
-/*
- * ما يبقى عربيًّا في /en/ عن قصد: رسومُ الواجهة التوضيحية (محادثة واتساب بلغتها
- * lang="ar"، والملخّص المالي)، ورابطُ «العربية». ونصّان لم تُترجَم لهما إنجليزيةٌ
- * بعد — ينتظران نصًّا معتمدًا، ولا يُضاف إليهما شيء.
- */
-const ILLUSTRATIONS = '[lang="ar"], [data-fin-img], [data-lang-link]';
-const UNTRANSLATED = ['واتساب + الأتمتة', 'الأتمتة'];
-
-function visibleText(d, skip) {
+function visibleText(d) {
   const out = [];
   const walk = d.createTreeWalker(d.querySelector('[data-site]'), 4);
   for (let n; (n = walk.nextNode());) {
     const text = n.textContent.trim();
-    if (!text || n.parentElement.closest('script, style, [hidden]' + (skip ? ', ' + skip : ''))) continue;
-    out.push(text);
+    if (text && !n.parentElement.closest('script, style, [hidden]')) out.push(text);
   }
   return out;
 }
@@ -69,13 +61,35 @@ test('/en/ is a complete English page without JavaScript', () => {
   assert.equal(d.querySelector('[data-site]').getAttribute('lang'), 'en');
   assert.equal(d.querySelector('[data-site]').getAttribute('dir'), 'ltr');
   assert.equal(d.querySelector('h1').textContent, 'Your whole business. In one place.');
-  const arabic = visibleText(d, ILLUSTRATIONS).filter((t) => ARABIC.test(t));
-  assert.deepEqual(arabic, UNTRANSLATED, 'نصٌّ عربيّ في /en/ خارج الرسوم التوضيحية');
+  // لا عربية ظاهرة ولا في alt / aria-label، إلّا رسمَي الواجهة داخل الصور ورابطَ «العربية»
+  assert.deepEqual(arabicLeft(d), [], 'عربيّ في /en/');
+  assert.equal(d.querySelectorAll(DRAWINGS).length, 2, 'رسمٌ عربيّ جديد في /en/ — هل هو رسمٌ حقًّا؟');
   for (const h of d.querySelectorAll('[data-site] h1, [data-site] h2, [data-site] h3, nav a, [data-plan] li')) {
-    if (h.closest(ILLUSTRATIONS)) continue;
     assert.doesNotMatch(h.textContent, ARABIC, `عربيّ في /en/: ${h.textContent.trim().slice(0, 40)}`);
   }
   assert.ok(visibleText(d).join(' ').length > 3000, 'الإنجليزية ناقصة');
+});
+
+test('the labels, image texts and landmarks of /en/ are the approved English, and / keeps its Arabic', () => {
+  const en = doc(PAGES.en.file), ar = doc(PAGES.ar.file);
+  const read = (d) => ({
+    badge: d.querySelector('[data-i18n="waBadge"]').textContent,
+    label: d.querySelector('[data-i18n="autoLabel"]').textContent,
+    wa: d.querySelector('img[src$="whatsapp-phone.webp"]').alt,
+    store: d.querySelector('img[src$="store.webp"]').alt,
+    pos: [...d.querySelectorAll('[data-cap-panel] img')].map((i) => i.alt),
+    nav: d.querySelector('nav[data-list="nav"]').getAttribute('aria-label'),
+    menu: d.querySelector('[data-action="menu"]').getAttribute('aria-label'),
+    brand: [d.querySelector('header a[href="#home"]').getAttribute('aria-label'), ...[...d.querySelectorAll('img[src$="logo.svg"]')].map((i) => i.alt)],
+  });
+  assert.deepEqual(read(en), {
+    badge: 'WhatsApp + Automation', label: 'Automation', wa: 'WhatsApp conversation', store: 'Online store',
+    pos: ['Abaad point of sale', 'Checkout', 'Product card'], nav: 'Site navigation', menu: 'Menu', brand: ['Abaad', 'Abaad', 'Abaad'],
+  });
+  assert.deepEqual(read(ar), {
+    badge: 'واتساب + الأتمتة', label: 'الأتمتة', wa: 'محادثة واتساب من أبعاد', store: 'متجر إلكتروني من أبعاد على اللابتوب والجوال',
+    pos: ['نقطة البيع في أبعاد', 'إتمام الدفع', 'بطاقة منتج'], nav: 'أقسام الموقع', menu: 'القائمة', brand: ['أبعاد', 'أبعاد', 'أبعاد'],
+  });
 });
 
 /* ═══════════ ٢ · canonical وhreflang ═══════════ */
