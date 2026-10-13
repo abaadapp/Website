@@ -1,328 +1,328 @@
-<!DOCTYPE html>
-<html>
-<head>
+<!DOCTYPE html><html lang="ar" dir="rtl"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>أبعاد — نظام بيع وإدارة متكامل</title>
+<title>أبعاد — كل أعمالك في مكان واحد</title>
+<meta name="description" content="أبعاد منصة متكاملة تجمع المبيعات ونقاط البيع والمخزون والمتجر الإلكتروني والعملاء والمدفوعات والمالية وواتساب — لتشغّل أعمالك من مكان واحد.">
+<link rel="canonical" href="https://abaadapp.om/">
+<meta name="theme-color" content="#fbfbfb">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="أبعاد">
+<meta property="og:locale" content="ar_OM">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:url" content="https://abaadapp.om/">
+<meta property="og:title" content="أبعاد — كل أعمالك في مكان واحد">
+<meta property="og:description" content="منصة متكاملة تجمع المبيعات ونقاط البيع والمتجر الإلكتروني والعملاء والمدفوعات والمالية وواتساب في مكان واحد.">
+<meta property="og:image" content="https://abaadapp.om/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="أبعاد — كل أعمالك في مكان واحد">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&amp;display=swap" rel="stylesheet">
-<script src="./image-slot.js"></script>
-<style>
-:root{
-  --ink:#0f0f0f; --ink2:#3d3d3d; --muted:#6f6f70;
-  --bg:#fbfbfb; --bg2:#f2f3f4; --card:#ffffff; --line:#e7e8ea;
-  --peach:#f6ded0; --peach-ink:#a8552a;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:'Almarai',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-h1,h2,h3,.dsp{font-family:'Almarai',system-ui,sans-serif}
-a{color:var(--ink);text-decoration:none}
-a:hover{color:var(--peach-ink)}
-button{font-family:inherit}
-:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:8px}
-input,select,textarea{font-family:inherit}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
-[data-d="desk"]{display:none}
-@media (min-width:960px){
-  [data-d="desk"]{display:flex!important}
-  [data-d="burger"]{display:none!important}
-  [data-g="split"]{grid-template-columns:1fr 1fr!important}
-  [data-g="split-r"]{grid-template-columns:1.05fr 1fr!important}
-  [data-g="feat4"]{grid-template-columns:repeat(2,1fr)!important}
-  [data-g="contact"]{grid-template-columns:1.15fr .85fr!important}
-  [data-hero="text"]{padding-inline:56px 8px!important}
-}
-#abaad-hero::part(frame){background:transparent}
-</style>
-</helmet>
-
-<div dir="{{ dir }}" lang="{{ lang }}" style="background:var(--bg);min-height:100vh">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&amp;display=swap">
+<link rel="stylesheet" href="/assets/site.css?v=a9509ccf68">
+<script src="/assets/site.js?v=f96e9e3bf5" defer=""></script>
+</head>
+<body>
+<div data-site="" dir="rtl" lang="ar" style="background:var(--bg);min-height:100vh">
 
 <header style="position:sticky;top:0;z-index:60;background:rgba(251,251,251,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)">
   <div style="position:relative;max-width:1240px;margin:0 auto;padding:0 24px;height:76px;display:flex;align-items:center;gap:24px">
-    <a href="#home" aria-label="أبعاد — الرئيسية" style="position:relative;display:flex;align-items:center">
-      <img src="uploads/Artboard%202.svg" alt="أبعاد" style="height:36px;width:auto;display:block">
-    </a>
-
-    <nav aria-label="أقسام الموقع" style="position:absolute;inset-inline:0;justify-content:center;align-items:center;gap:4px;pointer-events:none" data-d="desk">
-      <sc-for list="{{ sections }}" as="s" hint-placeholder-count="3">
-        <a href="{{ s.href }}" style="padding:10px 16px;border-radius:999px;font-size:15.5px;font-weight:600;color:var(--ink2);pointer-events:auto" style-hover="background:var(--bg2);color:var(--ink)">{{ s.label }}</a>
-      </sc-for>
-    </nav>
-
+    <a href="#home" aria-label="أبعاد" style="display:flex;align-items:center"><img src="/assets/img/logo.svg" alt="أبعاد" width="102" height="36" style="height:36px;width:auto;display:block"></a>
+    <nav aria-label="أقسام الموقع" data-list="nav" style="position:absolute;inset-inline:0;justify-content:center;align-items:center;gap:4px;pointer-events:none" data-d="desk"><a href="#home" class="hv-pill" style="padding:10px 16px;border-radius:999px;font-size:15.5px;font-weight:600;color:var(--ink2);pointer-events:auto">الرئيسية</a><a href="#platform" class="hv-pill" style="padding:10px 16px;border-radius:999px;font-size:15.5px;font-weight:600;color:var(--ink2);pointer-events:auto">المنصة</a><a href="#solutions" class="hv-pill" style="padding:10px 16px;border-radius:999px;font-size:15.5px;font-weight:600;color:var(--ink2);pointer-events:auto">الحلول</a><a href="#pricing" class="hv-pill" style="padding:10px 16px;border-radius:999px;font-size:15.5px;font-weight:600;color:var(--ink2);pointer-events:auto">الأسعار</a><a href="#contact" class="hv-pill" style="padding:10px 16px;border-radius:999px;font-size:15.5px;font-weight:600;color:var(--ink2);pointer-events:auto">تواصل معنا</a></nav>
     <div style="flex:1"></div>
-
-    <div style="align-items:center;gap:12px;position:relative" data-d="desk">
-      <button onClick="{{ toggleLang }}" aria-label="{{ t.langAria }}" style="background:none;border:0;padding:10px 14px;border-radius:999px;font-size:15px;font-weight:600;color:var(--ink2);cursor:pointer" style-hover="background:var(--bg2);color:var(--ink)">{{ t.langSwitch }}</button>
-      <a href="https://app.abaadapp.om" style="background:var(--ink);color:#fff;border-radius:999px;padding:13px 24px;font-size:15px;font-weight:700">{{ t.login }}</a>
+    <div style="align-items:center;gap:6px;position:relative" data-d="desk">
+      <button type="button" data-action="lang" data-i18n="langSwitch" data-i18n-aria="langAria" aria-label="التبديل إلى الإنجليزية" class="hv-pill" style="background:none;border:0;padding:10px 14px;border-radius:999px;font-size:15px;font-weight:600;color:var(--ink2);cursor:pointer">English</button>
+      <a href="https://app.abaadapp.om/login" data-i18n="login" class="hv-pill" style="padding:10px 14px;border-radius:999px;font-size:15px;font-weight:600;color:var(--ink2)">تسجيل الدخول</a>
+      <a href="https://app.abaadapp.om/register" data-i18n="startNow" style="margin-inline-start:6px;background:var(--ink);color:#fff;border-radius:999px;padding:13px 24px;font-size:15px;font-weight:700">ابدأ الآن</a>
     </div>
-
-    <button onClick="{{ toggleMenu }}" aria-label="فتح القائمة" style="width:44px;height:44px;flex:none;display:grid;place-items:center;border:1px solid var(--line);background:var(--card);border-radius:14px;cursor:pointer;color:var(--ink)" data-d="burger">
-      <span style="display:flex;flex-direction:column;gap:4px">
-        <span style="width:17px;height:2px;background:currentColor;border-radius:2px"></span>
-        <span style="width:17px;height:2px;background:currentColor;border-radius:2px"></span>
-        <span style="width:17px;height:2px;background:currentColor;border-radius:2px"></span>
-      </span>
+    <button type="button" data-action="menu" aria-label="القائمة" aria-expanded="false" style="width:44px;height:44px;flex:none;display:grid;place-items:center;border:1px solid var(--line);background:var(--card);border-radius:14px;cursor:pointer;color:var(--ink)" data-d="burger">
+      <span style="display:flex;flex-direction:column;gap:4px"><span style="width:17px;height:2px;background:currentColor;border-radius:2px"></span><span style="width:17px;height:2px;background:currentColor;border-radius:2px"></span><span style="width:17px;height:2px;background:currentColor;border-radius:2px"></span></span>
     </button>
   </div>
-  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-    <div style="border-top:1px solid var(--line);background:var(--card);padding:12px 24px 22px">
-      <div style="display:flex;flex-direction:column;gap:4px">
-        <sc-for list="{{ sections }}" as="s" hint-placeholder-count="3">
-          <a href="{{ s.href }}" onClick="{{ closeMenu }}" style="padding:15px 12px;border-bottom:1px solid var(--bg2);font-size:17px;font-weight:700">{{ s.label }}</a>
-        </sc-for>
-        <button onClick="{{ toggleLang }}" style="margin-top:14px;background:none;border:1px solid var(--line);border-radius:999px;padding:15px;font-size:16px;font-weight:700;color:var(--ink);cursor:pointer">{{ t.langSwitch }}</button>
-        <a href="https://app.abaadapp.om" onClick="{{ closeMenu }}" style="margin-top:10px;background:var(--ink);color:#fff;border-radius:999px;padding:16px;text-align:center;font-size:16px;font-weight:700">{{ t.login }}</a>
-      </div>
-    </div>
-  </sc-if>
+  <div data-menu="" hidden="" style="border-top:1px solid var(--line);background:var(--card);padding:12px 24px 22px;display:flex;flex-direction:column;gap:4px">
+    <div data-list="navMobile" style="display:contents"><a href="#home" data-close-menu="" style="padding:15px 12px;border-bottom:1px solid var(--bg2);font-size:17px;font-weight:700">الرئيسية</a><a href="#platform" data-close-menu="" style="padding:15px 12px;border-bottom:1px solid var(--bg2);font-size:17px;font-weight:700">المنصة</a><a href="#solutions" data-close-menu="" style="padding:15px 12px;border-bottom:1px solid var(--bg2);font-size:17px;font-weight:700">الحلول</a><a href="#pricing" data-close-menu="" style="padding:15px 12px;border-bottom:1px solid var(--bg2);font-size:17px;font-weight:700">الأسعار</a><a href="#contact" data-close-menu="" style="padding:15px 12px;border-bottom:1px solid var(--bg2);font-size:17px;font-weight:700">تواصل معنا</a></div>
+    <a href="https://app.abaadapp.om/login" data-close-menu="" data-i18n="login" style="padding:15px 12px;font-size:17px;font-weight:700">تسجيل الدخول</a>
+    <button type="button" data-action="lang" data-i18n="langSwitch" style="margin-top:8px;background:none;border:1px solid var(--line);border-radius:999px;padding:15px;font-size:16px;font-weight:700;color:var(--ink);cursor:pointer">English</button>
+    <a href="https://app.abaadapp.om/register" data-close-menu="" data-i18n="startNow" style="margin-top:10px;background:var(--ink);color:#fff;border-radius:999px;padding:16px;text-align:center;font-size:16px;font-weight:700">ابدأ الآن</a>
+  </div>
 </header>
 
 <main>
 
-<!-- HERO -->
 <section id="home" style="scroll-margin-top:90px">
-  <div style="max-width:1240px;margin:0 auto;padding:32px 24px 0">
-    <div style="display:grid;grid-template-columns:1fr;gap:0;border-radius:20px;overflow:hidden;background:linear-gradient(210deg,#f4f6fa 0%,var(--card) 65%)" data-g="split">
-      <div style="display:flex;flex-direction:column;justify-content:center;padding:56px 32px" data-hero="text">
-        <h1 class="dsp" style="margin:0;font-size:clamp(36px,4.6vw,58px);line-height:1.2;font-weight:800;letter-spacing:-.02em;text-wrap:balance">{{ t.h1a }}<br>{{ t.h1b }}</h1>
-        <p style="margin:24px 0 0;font-size:18px;line-height:1.9;color:var(--ink2);max-width:460px;text-wrap:pretty">{{ t.heroSub }}</p>
-        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:36px">
-          <a href="#contact" style="background:var(--ink);color:#fff;border-radius:999px;padding:17px 32px;font-size:16.5px;font-weight:700">{{ t.start }}</a>
-          <a href="#features" style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:600;color:var(--ink)">
-            <span style="width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--card);display:grid;place-items:center"><span style="width:0;height:0;border-block:5px solid transparent;border-inline-end:8px solid var(--ink)"></span></span>
-            {{ t.learnFeatures }}
-          </a>
-        </div>
-      </div>
-      <div style="position:relative;min-height:440px;aspect-ratio:4/3">
-        <image-slot id="abaad-hero" shape="rect" fit="contain" src="uploads/hero-ipad.png" placeholder="{{ t.slotHero }}"></image-slot>
-      </div>
+  <div style="max-width:1240px;margin:0 auto;padding:88px 24px 0;text-align:center">
+    <h1 data-i18n="heroTitle" style="margin:0 auto;max-width:860px;font-size:clamp(40px,6.4vw,80px);line-height:1.15;font-weight:700;letter-spacing:-.02em;text-wrap:balance">كل أعمالك. في مكان واحد.</h1>
+    <p data-i18n="heroSub" style="margin:26px auto 0;max-width:680px;font-size:clamp(17px,1.6vw,19.5px);line-height:1.9;color:var(--ink2);text-wrap:pretty">أبعاد منصة متكاملة تجمع المبيعات، الإدارة، التجارة الإلكترونية، العملاء، المدفوعات، المالية والأتمتة — لتشغّل أعمالك من مكان واحد وتنمو بوضوح أكبر.</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:36px">
+      <a href="https://app.abaadapp.om/register" data-i18n="heroCta" style="background:var(--ink);color:#fff;border-radius:999px;padding:17px 32px;font-size:16.5px;font-weight:700">ابدأ مع أبعاد</a>
+      <a href="#platform" data-i18n="heroCta2" class="hv-bg2" style="background:var(--card);border:1px solid var(--line);border-radius:999px;padding:16px 30px;font-size:16.5px;font-weight:700;color:var(--ink)">استكشف المنصة</a>
     </div>
+    <div style="margin:64px auto 0;max-width:1100px">
+      <img src="/assets/img/hero.webp" data-i18n-alt="slotHero" alt="لوحة تحكم أبعاد ونقطة البيع والمتجر الإلكتروني وواتساب" width="2230" height="1700" fetchpriority="high" style="display:block;width:100%;height:auto;background:transparent">
+    </div>
+    <div data-list="trust" style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:28px"><span style="display:inline-flex;align-items:center;gap:8px;background:var(--bg2);border-radius:999px;padding:10px 16px;font-size:14.5px;font-weight:600;color:var(--ink2)"><span style="width:6px;height:6px;border-radius:2px;background:var(--peach-ink)"></span>سحابي</span><span style="display:inline-flex;align-items:center;gap:8px;background:var(--bg2);border-radius:999px;padding:10px 16px;font-size:14.5px;font-weight:600;color:var(--ink2)"><span style="width:6px;height:6px;border-radius:2px;background:var(--peach-ink)"></span>آمن</span><span style="display:inline-flex;align-items:center;gap:8px;background:var(--bg2);border-radius:999px;padding:10px 16px;font-size:14.5px;font-weight:600;color:var(--ink2)"><span style="width:6px;height:6px;border-radius:2px;background:var(--peach-ink)"></span>متعدد الأجهزة</span><span style="display:inline-flex;align-items:center;gap:8px;background:var(--bg2);border-radius:999px;padding:10px 16px;font-size:14.5px;font-weight:600;color:var(--ink2)"><span style="width:6px;height:6px;border-radius:2px;background:var(--peach-ink)"></span>متعدد اللغات</span><span style="display:inline-flex;align-items:center;gap:8px;background:var(--bg2);border-radius:999px;padding:10px 16px;font-size:14.5px;font-weight:600;color:var(--ink2)"><span style="width:6px;height:6px;border-radius:2px;background:var(--peach-ink)"></span>تحديثات مستمرة</span></div>
+  </div>
+</section>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:16px">
-      <sc-for list="{{ segments }}" as="sg" hint-placeholder-count="3">
-        <div style="padding:26px 28px;background:var(--card)">
-          <div style="display:flex;align-items:center;gap:9px">
-            <span class="dsp" style="font-size:18.5px;font-weight:800">{{ sg.title }}</span>
-            <sc-if value="{{ sg.tag }}" hint-placeholder-val="{{ false }}">
-              <span style="background:#e3f2e8;color:#1f6b3f;font-size:11.5px;font-weight:700;border-radius:6px;padding:3px 8px">{{ sg.tag }}</span>
-            </sc-if>
-          </div>
-          <div style="font-size:15px;color:var(--muted);margin-top:5px">{{ sg.sub }}</div>
-        </div>
-      </sc-for>
+<section id="about" style="scroll-margin-top:90px">
+  <div style="max-width:1240px;margin:0 auto;padding:128px 24px 0">
+    <div style="max-width:720px">
+      <span data-i18n="aboutBadge" style="display:inline-block;background:var(--peach);color:var(--peach-ink);border-radius:6px;padding:7px 13px;font-size:14px;font-weight:700">منصة أبعاد</span>
+      <h2 data-i18n="aboutTitle" style="margin:20px 0 0;font-size:clamp(32px,4.4vw,54px);line-height:1.25;font-weight:700;letter-spacing:-.02em;text-wrap:balance">كل أعمالك في نظام واحد.</h2>
+      <p data-i18n="aboutSub" style="margin:18px 0 0;font-size:17.5px;line-height:1.9;color:var(--ink2);text-wrap:pretty">أدر المبيعات والطلبات والمخزون والعملاء والمالية من منصة واحدة، بدل التنقل بين أنظمة متعددة.</p>
+    </div>
+    <div data-list="pillars" style="display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden;margin-top:48px" data-g="pillars"><div style="background:var(--card);padding:34px 28px 38px;display:flex;flex-direction:column;gap:14px"><span style="font-size:13px;font-weight:600;color:var(--muted)">01</span><span style="font-size:clamp(34px,3.6vw,46px);font-weight:700;letter-spacing:-.02em">أدر</span><span style="font-size:15.5px;line-height:1.8;color:var(--muted)">لوحة تحكم واحدة لإدارة نشاطك وفروعك وعملياتك.</span></div><div style="background:var(--card);padding:34px 28px 38px;display:flex;flex-direction:column;gap:14px"><span style="font-size:13px;font-weight:600;color:var(--muted)">02</span><span style="font-size:clamp(34px,3.6vw,46px);font-weight:700;letter-spacing:-.02em">بِع</span><span style="font-size:15.5px;line-height:1.8;color:var(--muted)">نقاط البيع والمتجر الإلكتروني والطلبات والمدفوعات في تجربة واحدة.</span></div><div style="background:var(--card);padding:34px 28px 38px;display:flex;flex-direction:column;gap:14px"><span style="font-size:13px;font-weight:600;color:var(--muted)">03</span><span style="font-size:clamp(34px,3.6vw,46px);font-weight:700;letter-spacing:-.02em">تواصل</span><span style="font-size:15.5px;line-height:1.8;color:var(--muted)">العملاء وواتساب والإشعارات والتواصل من نفس النظام.</span></div><div style="background:var(--card);padding:34px 28px 38px;display:flex;flex-direction:column;gap:14px"><span style="font-size:13px;font-weight:600;color:var(--muted)">04</span><span style="font-size:clamp(34px,3.6vw,46px);font-weight:700;letter-spacing:-.02em">حلّل</span><span style="font-size:15.5px;line-height:1.8;color:var(--muted)">تقارير وتحليلات وبيانات تساعدك على اتخاذ قرارات أفضل وتنمية أعمالك.</span></div></div>
+  </div>
+</section>
+
+<section id="platform" style="scroll-margin-top:90px">
+  <div style="max-width:1240px;margin:0 auto;padding:128px 24px 0">
+    <div style="text-align:center">
+      <span data-i18n="platBadge" style="display:inline-block;background:var(--peach);color:var(--peach-ink);border-radius:6px;padding:7px 13px;font-size:14px;font-weight:700">كل ما تحتاجه</span>
+      <h2 data-i18n="platTitle" style="margin:20px 0 0;font-size:clamp(32px,4.4vw,54px);font-weight:700;letter-spacing:-.02em;text-wrap:balance">منصة واحدة. لكل عملياتك.</h2>
+      <p data-i18n="platSub" style="margin:16px auto 0;max-width:560px;font-size:17.5px;line-height:1.9;color:var(--ink2)">كل ما تحتاجه لإدارة أعمالك، من البيع والمخزون إلى العملاء والمالية، في منصة واحدة مترابطة.</p>
+    </div>
+    <div data-list="caps" data-cap-hover="" style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:48px" data-g="cards"><button type="button" data-cap="0" aria-expanded="true" class="hv-border-ink" style="text-align:start;cursor:pointer;background:var(--ink);color:#fff;border:1px solid var(--ink);border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:12px;transition:background .25s,color .25s,border-color .25s"><span style="display:flex;align-items:center;justify-content:space-between;width:100%"><span data-cap-icon="" style="width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.12);display:grid;place-items:center;font-size:13px;font-weight:700;color:#fff">01</span><span data-cap-mark="" style="font-size:20px;font-weight:600;opacity:.55">−</span></span><span style="font-size:20px;font-weight:700">المبيعات ونقاط البيع</span><span style="font-size:15px;line-height:1.75;opacity:.78">أدر المبيعات والطلبات والفواتير والمدفوعات من تجربة بيع سريعة ومتكاملة.</span></button><button type="button" data-cap="1" aria-expanded="false" class="hv-border-ink" style="text-align:start;cursor:pointer;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:12px;transition:background .25s,color .25s,border-color .25s"><span style="display:flex;align-items:center;justify-content:space-between;width:100%"><span data-cap-icon="" style="width:42px;height:42px;border-radius:12px;background:var(--bg2);display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--ink)">02</span><span data-cap-mark="" style="font-size:20px;font-weight:600;opacity:.55">+</span></span><span style="font-size:20px;font-weight:700">التجارة والمخزون</span><span style="font-size:15px;line-height:1.75;opacity:.78">أدر المنتجات والمخزون والمشتريات والموردين، واربطها مباشرة بعمليات البيع.</span></button><button type="button" data-cap="2" aria-expanded="false" class="hv-border-ink" style="text-align:start;cursor:pointer;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:12px;transition:background .25s,color .25s,border-color .25s"><span style="display:flex;align-items:center;justify-content:space-between;width:100%"><span data-cap-icon="" style="width:42px;height:42px;border-radius:12px;background:var(--bg2);display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--ink)">03</span><span data-cap-mark="" style="font-size:20px;font-weight:600;opacity:.55">+</span></span><span style="font-size:20px;font-weight:700">التجارة الإلكترونية</span><span style="font-size:15px;line-height:1.75;opacity:.78">أنشئ وأدر موقعك ومتجرك الإلكتروني واربط الطلبات والمنتجات والعملاء ببقية أعمالك.</span></button><button type="button" data-cap="3" aria-expanded="false" class="hv-border-ink" style="text-align:start;cursor:pointer;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:12px;transition:background .25s,color .25s,border-color .25s"><span style="display:flex;align-items:center;justify-content:space-between;width:100%"><span data-cap-icon="" style="width:42px;height:42px;border-radius:12px;background:var(--bg2);display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--ink)">04</span><span data-cap-mark="" style="font-size:20px;font-weight:600;opacity:.55">+</span></span><span style="font-size:20px;font-weight:700">العملاء والتواصل</span><span style="font-size:15px;line-height:1.75;opacity:.78">اجمع بيانات عملائك وتاريخ تعاملاتهم وتواصل معهم من نفس منظومة العمل.</span></button><button type="button" data-cap="4" aria-expanded="false" class="hv-border-ink" style="text-align:start;cursor:pointer;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:12px;transition:background .25s,color .25s,border-color .25s"><span style="display:flex;align-items:center;justify-content:space-between;width:100%"><span data-cap-icon="" style="width:42px;height:42px;border-radius:12px;background:var(--bg2);display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--ink)">05</span><span data-cap-mark="" style="font-size:20px;font-weight:600;opacity:.55">+</span></span><span style="font-size:20px;font-weight:700">المالية والتقارير</span><span style="font-size:15px;line-height:1.75;opacity:.78">تابع الحركة المالية والمدفوعات والمصروفات والمستحقات والتقارير من مكان واحد.</span></button></div>
+    <div data-cap-panel="" data-list="capPanel" data-cap-hover="" data-g="detail-wide" style="margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(22px,3vw,40px);display:grid;grid-template-columns:1fr;gap:32px;align-items:center;opacity:1;transform:translateY(0px);transition:opacity .38s ease,transform .38s ease"><div><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:14px;font-weight:600;color:var(--muted)">01 / 05</span></div><h3 style="margin:12px 0 0;font-size:clamp(26px,3vw,36px);font-weight:700;letter-spacing:-.015em">المبيعات ونقاط البيع</h3><p style="margin:14px 0 0;font-size:17px;line-height:1.9;color:var(--ink2);max-width:440px">بع بسهولة، وأدر الطلبات والفواتير والمدفوعات من تجربة واحدة سريعة ومتكاملة.</p><div style="display:flex;grid-template-columns:repeat(2,minmax(0,1fr));max-width:none;flex-wrap:wrap;gap:8px;margin-top:22px"><span style="background:var(--bg2);border-radius:8px;padding:9px 14px;font-size:14.5px;font-weight:600;color:var(--ink2);text-align:center;white-space:nowrap">POS</span><span style="background:var(--bg2);border-radius:8px;padding:9px 14px;font-size:14.5px;font-weight:600;color:var(--ink2);text-align:center;white-space:nowrap">الطلبات</span><span style="background:var(--bg2);border-radius:8px;padding:9px 14px;font-size:14.5px;font-weight:600;color:var(--ink2);text-align:center;white-space:nowrap">الفواتير</span><span style="background:var(--bg2);border-radius:8px;padding:9px 14px;font-size:14.5px;font-weight:600;color:var(--ink2);text-align:center;white-space:nowrap">المدفوعات</span></div></div><div style="position:relative;aspect-ratio:805/700;margin:0 auto;width:100%"><div style="position:absolute;inset:0;overflow:hidden"><img src="/assets/img/pos.webp" alt="نقطة البيع في أبعاد" style="position:absolute;left:-12.42%;top:0;width:127.45%;max-width:none;height:auto;display:block"></div><img src="/assets/img/pos-checkout.webp" alt="إتمام الدفع" style="position:absolute;left:71.39%;top:1.03%;width:27.93%;height:auto;display:block;border-radius:6.8% / 8.1%;box-shadow:0 2px 4px rgba(15,15,15,.05),0 14px 32px rgba(15,15,15,.12)"><img src="/assets/img/pos-product.webp" alt="بطاقة منتج" style="position:absolute;left:2.36%;top:52.5%;width:23.73%;height:auto;display:block;border-radius:8.6% / 5.8%;box-shadow:0 2px 4px rgba(15,15,15,.05),0 14px 32px rgba(15,15,15,.12)"></div></div>
+  </div>
+</section>
+
+<section id="dashboard" style="scroll-margin-top:90px">
+  <div style="max-width:1240px;margin:0 auto;padding:128px 24px 0">
+    <div style="text-align:center">
+      <span data-i18n="dashBadge" style="display:inline-block;background:var(--peach);color:var(--peach-ink);border-radius:6px;padding:7px 13px;font-size:14px;font-weight:700">التحليلات ولوحة التحكم</span>
+      <h2 data-i18n="dashTitle" style="margin:20px 0 0;font-size:clamp(32px,4.4vw,54px);font-weight:700;letter-spacing:-.02em;text-wrap:balance">شاهد أعمالك كاملة من مكان واحد.</h2>
+      <p data-i18n="dashSub" style="margin:16px auto 0;max-width:620px;font-size:17.5px;line-height:1.9;color:var(--ink2);text-wrap:pretty">كل ما تحتاج معرفته عن أعمالك، أمامك بوضوح. مبيعاتك، أرباحك، طلباتك ومخزونك في لوحة واحدة تساعدك تقرر أسرع.</p>
+    </div>
+    <div style="position:relative;margin-top:48px;padding:0;border:0;background:none;border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(15,15,15,.08)">
+      <img src="/assets/img/dashboard.webp" data-i18n-alt="slotDash" alt="لوحة تحكم أبعاد" width="2400" height="1500" loading="lazy" style="display:block;width:100%;height:auto;aspect-ratio:1600/1000;object-fit:contain;border-radius:24px">
+    </div>
+    <div data-list="kpis" style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:14px;position:relative;padding:0 16px"><span style="display:inline-flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:12px 18px;font-size:15px;font-weight:700;box-shadow:0 6px 18px rgba(15,15,15,.06)"><span data-kpi-dot="" style="width:8px;height:8px;border-radius:50%;background:var(--peach-ink);transition:background .35s"></span>المبيعات</span><span style="display:inline-flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:12px 18px;font-size:15px;font-weight:700;box-shadow:0 6px 18px rgba(15,15,15,.06)"><span data-kpi-dot="" style="width:8px;height:8px;border-radius:50%;background:#c9c9cb;transition:background .35s"></span>الطلبات</span><span style="display:inline-flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:12px 18px;font-size:15px;font-weight:700;box-shadow:0 6px 18px rgba(15,15,15,.06)"><span data-kpi-dot="" style="width:8px;height:8px;border-radius:50%;background:#c9c9cb;transition:background .35s"></span>المخزون</span><span style="display:inline-flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:12px 18px;font-size:15px;font-weight:700;box-shadow:0 6px 18px rgba(15,15,15,.06)"><span data-kpi-dot="" style="width:8px;height:8px;border-radius:50%;background:#c9c9cb;transition:background .35s"></span>العملاء</span><span style="display:inline-flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:12px 18px;font-size:15px;font-weight:700;box-shadow:0 6px 18px rgba(15,15,15,.06)"><span data-kpi-dot="" style="width:8px;height:8px;border-radius:50%;background:#c9c9cb;transition:background .35s"></span>المالية</span><span style="display:inline-flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:12px 18px;font-size:15px;font-weight:700;box-shadow:0 6px 18px rgba(15,15,15,.06)"><span data-kpi-dot="" style="width:8px;height:8px;border-radius:50%;background:#c9c9cb;transition:background .35s"></span>الأداء</span></div>
+  </div>
+</section>
+
+<section id="connected" style="scroll-margin-top:90px">
+  <div style="max-width:1240px;margin:0 auto;padding:128px 24px 0">
+    <div data-flow-section="" style="background:var(--ink);color:#fff;border-radius:28px;padding:clamp(40px,6vw,88px) clamp(22px,5vw,72px);text-align:center">
+      <h2 data-i18n="connTitle" style="margin:0 auto;max-width:820px;font-size:clamp(32px,4.6vw,56px);line-height:1.3;font-weight:700;letter-spacing:-.02em;text-wrap:balance">القوة ليست في الأدوات فقط. بل في ترابطها.</h2>
+      <p data-i18n="connSub" style="margin:20px auto 0;max-width:600px;font-size:17.5px;line-height:1.9;color:#cfcfcf;text-wrap:pretty">كل عملية داخل أبعاد تتصل ببقية المنصة، لتقلل العمل اليدوي وتحافظ على بيانات أعمالك محدثة في مكان واحد.</p>
+      <div role="tablist" style="position:relative;display:inline-flex;flex-wrap:wrap;justify-content:center;gap:4px;margin-top:40px;background:#1f1f1f;border-radius:999px;padding:5px">
+        <span data-flow-ind="" aria-hidden="true" style="position:absolute;z-index:0;border-radius:999px;background:#fff;left:0px;top:0px;width:0px;height:0px;opacity:0;transition:left .45s cubic-bezier(.4,0,.2,1),top .45s cubic-bezier(.4,0,.2,1),width .45s cubic-bezier(.4,0,.2,1),opacity .2s"></span>
+        <div data-list="flowTabs" style="display:contents"><button type="button" role="tab" aria-selected="true" data-flow="0" style="position:relative;z-index:1;border:0;border-radius:999px;padding:11px 22px;font-size:15px;font-weight:700;cursor:pointer;background:#fff;color:var(--ink);transition:background .25s,color .45s">المبيعات</button><button type="button" role="tab" aria-selected="false" data-flow="1" style="position:relative;z-index:1;border:0;border-radius:999px;padding:11px 22px;font-size:15px;font-weight:700;cursor:pointer;background:transparent;color:#cfcfcf;transition:background .25s,color .45s">التجارة الإلكترونية</button><button type="button" role="tab" aria-selected="false" data-flow="2" style="position:relative;z-index:1;border:0;border-radius:999px;padding:11px 22px;font-size:15px;font-weight:700;cursor:pointer;background:transparent;color:#cfcfcf;transition:background .25s,color .45s">الحجوزات</button></div>
+      </div>
+      <div data-list="flowSteps" style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px;margin-top:40px;min-height:56px;opacity:1;transform:translateY(0px);transition:opacity .38s ease,transform .38s ease"><span style="display:flex;align-items:center;gap:10px"><span data-step="" style="border-radius:999px;padding:13px 22px;font-size:16px;font-weight:700;background:#fff;color:var(--ink);border:1px solid #fff;transition:background .35s,color .35s,border-color .35s">بيع</span><span aria-hidden="true" style="font-size:18px;color:#8a8a8a">←</span></span><span style="display:flex;align-items:center;gap:10px"><span data-step="" style="border-radius:999px;padding:13px 22px;font-size:16px;font-weight:700;background:transparent;color:#d0d0d0;border:1px solid #3a3a3a;transition:background .35s,color .35s,border-color .35s">المخزون</span><span aria-hidden="true" style="font-size:18px;color:#8a8a8a">←</span></span><span style="display:flex;align-items:center;gap:10px"><span data-step="" style="border-radius:999px;padding:13px 22px;font-size:16px;font-weight:700;background:transparent;color:#d0d0d0;border:1px solid #3a3a3a;transition:background .35s,color .35s,border-color .35s">العميل</span><span aria-hidden="true" style="font-size:18px;color:#8a8a8a">←</span></span><span style="display:flex;align-items:center;gap:10px"><span data-step="" style="border-radius:999px;padding:13px 22px;font-size:16px;font-weight:700;background:transparent;color:#d0d0d0;border:1px solid #3a3a3a;transition:background .35s,color .35s,border-color .35s">المدفوعات</span><span aria-hidden="true" style="font-size:18px;color:#8a8a8a">←</span></span><span style="display:flex;align-items:center;gap:10px"><span data-step="" style="border-radius:999px;padding:13px 22px;font-size:16px;font-weight:700;background:transparent;color:#d0d0d0;border:1px solid #3a3a3a;transition:background .35s,color .35s,border-color .35s">المالية</span><span aria-hidden="true" style="font-size:18px;color:#8a8a8a">←</span></span><span style="display:flex;align-items:center;gap:10px"><span data-step="" style="border-radius:999px;padding:13px 22px;font-size:16px;font-weight:700;background:transparent;color:#d0d0d0;border:1px solid #3a3a3a;transition:background .35s,color .35s,border-color .35s">التقارير</span></span></div>
     </div>
   </div>
 </section>
 
-<!-- FEATURES -->
-<section id="features" style="scroll-margin-top:90px">
-  <div style="max-width:1240px;margin:0 auto;padding:104px 24px 40px">
-    <div style="display:flex;align-items:center;gap:14px">
-      <span style="width:7px;height:7px;border-radius:2px;background:var(--peach-ink)"></span>
-      <span style="font-size:14px;font-weight:700;letter-spacing:.04em;color:var(--muted)">{{ t.navFeatures }}</span>
-      <span style="flex:1;height:1px;background:var(--line)"></span>
+<section id="automation" style="scroll-margin-top:90px">
+  <div style="max-width:1240px;margin:0 auto;padding:128px 24px 0">
+    <div style="max-width:720px">
+      <span style="display:inline-flex;align-items:center;gap:8px;background:#e3f2e8;color:var(--wa);border-radius:6px;padding:7px 13px;font-size:14px;font-weight:700"><span style="width:7px;height:7px;border-radius:50%;background:var(--wa)"></span>واتساب + الأتمتة</span>
+      <h2 data-i18n="waTitle" style="margin:22px 0 0;font-size:clamp(32px,4.4vw,54px);line-height:1.25;font-weight:700;letter-spacing:-.02em;text-wrap:balance">اجعل أعمالك تتواصل تلقائيًا.</h2>
+      <p data-i18n="waSub" style="margin:18px 0 0;font-size:17.5px;line-height:1.9;color:var(--ink2);max-width:560px">اربط واتساب بعملياتك في أبعاد، وشغّل الرسائل والإجراءات تلقائيًا بناءً على ما يحدث في أعمالك.</p>
     </div>
-  </div>
-  <div style="max-width:1240px;margin:0 auto;padding:0 24px">
-    <div style="display:grid;grid-template-columns:1fr;gap:56px;align-items:center" data-g="split-r">
-      <div style="position:relative;min-height:380px">
-        <image-slot id="abaad-pos" shape="rounded" radius="18" placeholder="{{ t.slotPos }}"></image-slot>
+    <div style="display:grid;grid-template-columns:1fr;gap:12px;margin-top:48px;align-items:stretch" data-g="split">
+      <div style="align-self:center;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,2.6vw,28px);display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:14px;font-weight:600;color:var(--muted);padding:2px 4px 8px">الأتمتة</div>
+        <div data-list="rules" style="display:contents"><div data-rule="" style="text-align:start;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;border:1px solid var(--wa);background:#f1f8f3;border-radius:14px;padding:18px;transition:background .25s,border-color .25s"><span style="font-size:16px;font-weight:700;color:var(--ink)">عند إنشاء طلب جديد</span><span aria-hidden="true" data-rule-arrow="" style="width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--wa);color:#fff;font-size:14px;transition:background .25s">←</span><span style="font-size:16px;font-weight:700;color:var(--ink)">تشغيل إجراء آلي</span></div><div data-rule="" style="text-align:start;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:18px;transition:background .25s,border-color .25s"><span style="font-size:16px;font-weight:700;color:var(--ink)">عند تحديث حالة الطلب</span><span aria-hidden="true" data-rule-arrow="" style="width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:#c9c9cb;color:#fff;font-size:14px;transition:background .25s">←</span><span style="font-size:16px;font-weight:700;color:var(--ink)">إشعار العميل</span></div><div data-rule="" style="text-align:start;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:18px;transition:background .25s,border-color .25s"><span style="font-size:16px;font-weight:700;color:var(--ink)">عند اكتمال الطلب</span><span aria-hidden="true" data-rule-arrow="" style="width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:#c9c9cb;color:#fff;font-size:14px;transition:background .25s">←</span><span style="font-size:16px;font-weight:700;color:var(--ink)">إرسال تحديث للعميل</span></div></div>
       </div>
-      <div>
-        <span style="display:inline-block;background:var(--peach);color:var(--peach-ink);border-radius:6px;padding:7px 13px;font-size:14px;font-weight:700">{{ t.navFeatures }}</span>
-        <h2 class="dsp" style="margin:22px 0 0;font-size:clamp(32px,4.2vw,52px);font-weight:800;letter-spacing:-.02em">{{ t.featTitle }}</h2>
-        <p style="margin:18px 0 0;font-size:17px;line-height:1.9;color:var(--ink2);max-width:480px">{{ t.featSub }}</p>
-        <div style="display:grid;grid-template-columns:1fr;gap:38px 40px;margin-top:42px" data-g="feat4">
-          <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="4">
-            <div>
-              <span style="width:44px;height:44px;border-radius:12px;background:var(--bg2);display:grid;place-items:center">
-                <span style="width:15px;height:15px;border:2.5px solid var(--ink);border-radius:4px"></span>
-              </span>
-              <h3 class="dsp" style="margin:16px 0 0;font-size:19px;font-weight:800">{{ p.title }}</h3>
-              <p style="margin:8px 0 0;font-size:15.5px;line-height:1.8;color:var(--muted)">{{ p.desc }}</p>
+      <div style="position:relative;min-height:520px;border-radius:22px;overflow:hidden;background:#e9efe9;display:flex;align-items:center;justify-content:center;padding:32px 24px">
+        <span style="position:absolute;z-index:1;top:22%;inset-inline-start:8%;display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--ink2);opacity:.9;box-shadow:0 6px 18px rgba(15,15,15,.06)"><span style="width:6px;height:6px;border-radius:50%;background:var(--wa)"></span><span data-i18n="waChip1">طلب جديد</span></span>
+        <span style="position:absolute;z-index:1;bottom:24%;inset-inline-end:calc(8% + 12px);display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--ink2);opacity:.9;box-shadow:0 6px 18px rgba(15,15,15,.06)"><span style="width:6px;height:6px;border-radius:50%;background:var(--ink)"></span><span data-i18n="waChip2">تم تحديث الحالة</span></span>
+        <div style="position:absolute;top:5.9%;left:50%;height:111.3%;aspect-ratio:1/1;transform:translateX(-41.9%)">
+          <img src="/assets/img/whatsapp-phone.webp" alt="محادثة واتساب من أبعاد" width="800" height="800" loading="lazy" style="display:block;width:100%;height:100%;object-fit:contain">
+          <div dir="rtl" lang="ar" style="position:absolute;left:24.2%;top:12.3%;width:35.1%;height:65.7%;background:#efeae2;border-radius:0 0 13.6% 13.6% / 0 0 7.2% 7.2%;overflow:hidden;container-type:inline-size;font-family:'IBM Plex Sans Arabic',sans-serif">
+            <div style="display:flex;flex-direction:column;gap:5.2cqw;padding:6.5cqw 4cqw">
+              <span style="align-self:center;background:rgba(255,255,255,.85);border-radius:2.4cqw;padding:1.4cqw 4.2cqw;font-size:4.2cqw;font-weight:600;color:#6f6f70">اليوم</span>
+              <div style="align-self:flex-start;max-width:92%;background:#fff;border-radius:3.6cqw;border-start-start-radius:1.2cqw;padding:3.6cqw 4.2cqw 2.4cqw">
+                <div style="display:flex;align-items:center;gap:1.6cqw;font-size:5.7cqw;font-weight:700;line-height:1.5;color:#0f0f0f;white-space:nowrap"><span>تم استلام طلبك بنجاح</span><svg viewBox="0 0 20 20" style="flex:none;display:block;width:5.4cqw;height:5.4cqw" aria-label="✅"><rect x="1" y="1" width="18" height="18" rx="4.5" fill="#2fb344"></rect><path d="M5.6 10.4l2.9 2.9 5.9-6.3" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+                <div style="font-size:5cqw;line-height:1.55;color:#3d3d3d;margin-top:.6cqw">رقم الطلب: #1048</div>
+                <div style="font-size:3.8cqw;color:#6f6f70;margin-top:1.2cqw;text-align:end" dir="ltr">10:12</div>
+              </div>
+              <div style="align-self:flex-start;max-width:92%;background:#fff;border-radius:3.6cqw;border-start-start-radius:1.2cqw;padding:3.6cqw 4.2cqw 2.4cqw">
+                <div style="display:flex;align-items:center;gap:1.6cqw;font-size:5.7cqw;font-weight:700;line-height:1.5;color:#0f0f0f;white-space:nowrap"><span>تم تحديث حالة طلبك.</span></div>
+                <div style="font-size:5cqw;line-height:1.55;color:#3d3d3d;margin-top:.6cqw">طلبك الآن قيد التجهيز.</div>
+                <div style="font-size:3.8cqw;color:#6f6f70;margin-top:1.2cqw;text-align:end" dir="ltr">10:40</div>
+              </div>
+              <div style="align-self:flex-start;max-width:92%;background:#fff;border-radius:3.6cqw;border-start-start-radius:1.2cqw;padding:3.6cqw 4.2cqw 2.4cqw">
+                <div style="display:flex;align-items:center;gap:1.6cqw;font-size:5.7cqw;font-weight:700;line-height:1.5;color:#0f0f0f;white-space:nowrap"><span>اكتمل الطلب</span><svg viewBox="0 0 20 20" style="flex:none;display:block;width:5.4cqw;height:5.4cqw" aria-label="✅"><rect x="1" y="1" width="18" height="18" rx="4.5" fill="#2fb344"></rect><path d="M5.6 10.4l2.9 2.9 5.9-6.3" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+                <div style="font-size:5cqw;line-height:1.55;color:#3d3d3d;margin-top:.6cqw">يمكنك متابعة تفاصيل الطلب من خلال النظام.</div>
+                <div style="font-size:3.8cqw;color:#6f6f70;margin-top:1.2cqw;text-align:end" dir="ltr">11:05</div>
+              </div>
             </div>
-          </sc-for>
+          </div>
         </div>
       </div>
     </div>
+    <p data-i18n="waKey" style="margin:36px auto 0;max-width:760px;text-align:center;font-size:clamp(20px,2.2vw,26px);line-height:1.7;font-weight:600;text-wrap:balance">واتساب ليس منفصلًا عن أعمالك. إنه متصل بالعميل والطلب والعمليات داخل نظامك.</p>
   </div>
-
-  <!-- payments block -->
-  <div style="max-width:1240px;margin:0 auto;padding:104px 24px 0">
-    <div style="display:grid;grid-template-columns:1fr;gap:56px;align-items:center" data-g="split">
-      <div>
-        <span style="display:inline-block;background:var(--peach);color:var(--peach-ink);border-radius:6px;padding:7px 13px;font-size:14px;font-weight:700">{{ t.payBadge }}</span>
-        <h2 class="dsp" style="margin:22px 0 0;font-size:clamp(30px,3.8vw,46px);font-weight:800;letter-spacing:-.02em">{{ t.payTitle }}</h2>
-        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:26px">
-          <sc-for list="{{ payTags }}" as="tg" hint-placeholder-count="4">
-            <span style="background:var(--bg2);color:var(--ink2);border-radius:8px;padding:10px 16px;font-size:14.5px;font-weight:600">{{ tg }}</span>
-          </sc-for>
-        </div>
-        <p style="margin:24px 0 0;font-size:17px;line-height:1.9;color:var(--ink2);max-width:470px">{{ t.payBody }}</p>
-        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:26px">
-          <sc-for list="{{ payLogos }}" as="lg" hint-placeholder-count="5">
-            <span style="border:1px dashed var(--line);background:var(--card);border-radius:10px;padding:12px 18px;font-size:12.5px;color:var(--muted);font-family:ui-monospace,monospace">{{ lg }}</span>
-          </sc-for>
-        </div>
-        <a href="#contact" style="display:inline-block;margin-top:32px;background:var(--ink);color:#fff;border-radius:12px;padding:16px 28px;font-size:16px;font-weight:700">{{ t.payCta }}</a>
-      </div>
-      <div style="position:relative;min-height:360px">
-        <image-slot id="abaad-pay" shape="rounded" radius="18" placeholder="{{ t.slotPay }}"></image-slot>
-      </div>
-    </div>
-  </div>
-
-  <!-- e-invoice block -->
-  <div style="max-width:1240px;margin:0 auto;padding:104px 24px 0">
-    <div style="display:grid;grid-template-columns:1fr;gap:56px;align-items:center" data-g="split">
-      <div style="position:relative;min-height:340px">
-        <image-slot id="abaad-invoice" shape="rounded" radius="18" placeholder="{{ t.slotInvoice }}"></image-slot>
-      </div>
-      <div>
-        <span style="display:inline-block;background:var(--peach);color:var(--peach-ink);border-radius:6px;padding:7px 13px;font-size:14px;font-weight:700">{{ t.invBadge }}</span>
-        <h2 class="dsp" style="margin:22px 0 0;font-size:clamp(30px,3.8vw,46px);font-weight:800;letter-spacing:-.02em">{{ t.invTitle }}</h2>
-        <p style="margin:22px 0 0;font-size:17px;line-height:1.95;color:var(--ink2);max-width:480px">{{ t.invBody }}</p>
-        <a href="#contact" style="display:inline-block;margin-top:30px;background:var(--ink);color:#fff;border-radius:12px;padding:16px 28px;font-size:16px;font-weight:700">{{ t.start }}</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- cloud + capability tabs -->
-  <div style="max-width:1240px;margin:0 auto;padding:104px 24px 0">
-    <div role="tablist" aria-label="{{ t.capsAria }}" style="display:flex;flex-wrap:wrap;gap:6px;background:var(--bg2);border-radius:999px;padding:7px">
-      <sc-for list="{{ capTabs }}" as="tab" hint-placeholder-count="5">
-        <button role="tab" aria-selected="{{ tab.active }}" onClick="{{ tab.go }}" style="display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:12px 20px;font-size:14.5px;font-weight:700;cursor:pointer;background:{{ tab.bg }};color:var(--ink);box-shadow:{{ tab.shadow }}">
-          <span style="width:13px;height:13px;border-radius:4px;background:{{ tab.dot }}"></span>{{ tab.name }}
-        </button>
-      </sc-for>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr;gap:56px;align-items:center;margin-top:44px" data-g="split">
-      <div style="position:relative;min-height:380px">
-        <image-slot id="abaad-cloud" shape="rounded" radius="6" placeholder="{{ t.slotCloud }}"></image-slot>
-      </div>
-      <div>
-        <h2 class="dsp" style="margin:0;font-size:clamp(28px,3.4vw,42px);font-weight:800;letter-spacing:-.02em">{{ cap.title }}</h2>
-        <p style="margin:20px 0 0;font-size:17.5px;line-height:2;color:var(--ink2);max-width:500px">{{ cap.body }}</p>
-      </div>
-    </div>
-    <div style="margin-top:80px">
-      <h2 class="dsp" style="margin:0;text-align:center;font-size:clamp(28px,3.6vw,42px);font-weight:800;letter-spacing:-.02em">{{ t.solutionsTitle }}</h2>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:36px">
-      <sc-for list="{{ modules }}" as="m" hint-placeholder-count="3">
-        <div style="background:var(--card);padding:38px 30px;text-align:center;display:flex;flex-direction:column;align-items:center">
-          <span style="width:52px;height:52px;border-radius:14px;background:var(--ink);display:grid;place-items:center">
-            <span style="width:17px;height:17px;border:2.5px solid #fff;border-radius:4px"></span>
-          </span>
-          <h3 class="dsp" style="margin:20px 0 0;font-size:20px;font-weight:800">{{ m.title }}</h3>
-          <p style="margin:8px 0 0;font-size:15.5px;color:var(--muted)">{{ m.sub }}</p>
-          <a href="#contact" style="display:inline-block;margin-top:16px;font-size:15px;font-weight:700;color:var(--ink)">{{ t.knowMore }}</a>
-        </div>
-      </sc-for>
-    </div>
-  </div>
-
-  <!-- sectors -->
-  <sc-if value="{{ showSectors }}" hint-placeholder-val="{{ true }}">
-  <div style="max-width:1240px;margin:0 auto;padding:104px 24px 0">
-    <h2 class="dsp" style="margin:0;text-align:center;font-size:clamp(30px,4vw,46px);font-weight:800;letter-spacing:-.02em">{{ t.sectorsTitle }}</h2>
-    <p style="margin:16px auto 0;max-width:520px;text-align:center;font-size:17px;line-height:1.85;color:var(--muted)">{{ t.sectorsSub }}</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:44px">
-      <sc-for list="{{ sectors }}" as="sc" hint-placeholder-count="8">
-        <a href="#contact" style="position:relative;display:block;aspect-ratio:3/2;border-radius:4px;overflow:hidden;background:var(--bg2)">
-          <image-slot id="{{ sc.id }}" shape="rect" placeholder="{{ sc.name }}"></image-slot>
-          <span style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.42),rgba(0,0,0,.12) 60%);pointer-events:none"></span>
-          <span class="dsp" style="position:absolute;top:16px;inset-inline-start:18px;color:#fff;font-size:18px;font-weight:800;pointer-events:none">{{ sc.name }} ›</span>
-        </a>
-      </sc-for>
-    </div>
-  </div>
-  </sc-if>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" style="scroll-margin-top:90px;margin-top:112px;background:var(--bg2);border-top:1px solid var(--line)">
-  <div style="max-width:1240px;margin:0 auto;padding:96px 24px">
-    <div style="max-width:620px">
-      <span style="display:inline-block;background:var(--peach);color:var(--peach-ink);border-radius:6px;padding:7px 13px;font-size:14px;font-weight:700">{{ t.contactBadge }}</span>
-      <h2 class="dsp" style="margin:22px 0 0;font-size:clamp(30px,4vw,48px);font-weight:800;letter-spacing:-.02em">{{ t.contactTitle }}</h2>
-      <p style="margin:18px 0 0;font-size:17.5px;line-height:1.9;color:var(--ink2)">{{ t.contactSub }}</p>
+<section id="store" style="scroll-margin-top:90px">
+  <div style="max-width:1240px;margin:0 auto;padding:128px 24px 0">
+    <div style="display:grid;grid-template-columns:1fr;gap:56px;align-items:center" data-g="split-v">
+      <div>
+        <span data-i18n="storeBadge" style="display:inline-block;background:var(--peach);color:var(--peach-ink);border-radius:6px;padding:7px 13px;font-size:14px;font-weight:700">التجارة الإلكترونية</span>
+        <h2 data-i18n="storeTitle" style="margin:22px 0 0;font-size:clamp(30px,4vw,48px);line-height:1.3;font-weight:700;letter-spacing:-.02em;text-wrap:balance">متجرك الإلكتروني متصل بأعمالك من البداية.</h2>
+        <p data-i18n="storeSub" style="margin:18px 0 0;font-size:17.5px;line-height:1.9;color:var(--ink2);max-width:480px">أنشئ متجرك مع أبعاد، وأدر المنتجات والطلبات والعملاء والمدفوعات من نفس النظام — بدون فصل متجرك عن عملياتك.</p>
+        <div data-list="storeFlow" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:30px"><span style="display:flex;align-items:center;gap:8px"><span style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 15px;font-size:15px;font-weight:700">المتجر</span><span aria-hidden="true" style="color:var(--muted);font-size:15px">↔</span></span><span style="display:flex;align-items:center;gap:8px"><span style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 15px;font-size:15px;font-weight:700">المنتجات</span><span aria-hidden="true" style="color:var(--muted);font-size:15px">↔</span></span><span style="display:flex;align-items:center;gap:8px"><span style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 15px;font-size:15px;font-weight:700">المخزون</span><span aria-hidden="true" style="color:var(--muted);font-size:15px">↔</span></span><span style="display:flex;align-items:center;gap:8px"><span style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 15px;font-size:15px;font-weight:700">الطلبات</span><span aria-hidden="true" style="color:var(--muted);font-size:15px">↔</span></span><span style="display:flex;align-items:center;gap:8px"><span style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 15px;font-size:15px;font-weight:700">العملاء</span></span></div>
+        <p data-i18n="storeKey" style="margin:28px 0 0;font-size:19px;font-weight:700">متجر واحد. بيانات موحّدة. إدارة أسهل.</p>
+        <div style="margin-top:28px;max-width:480px;border:1px dashed #c9c9cb;border-radius:18px;padding:22px 22px 20px;background:transparent">
+          <span style="display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 11px;font-size:12.5px;font-weight:700;color:var(--ink2)"><span aria-hidden="true" style="font-size:13px;line-height:1">+</span><span data-i18n="addonBadge">خدمة إضافية</span></span>
+          <h3 data-i18n="addonTitle" style="margin:14px 0 0;font-size:18px;font-weight:700;line-height:1.5">خصّص متجرك بما يناسب علامتك</h3>
+          <p data-i18n="addonSub" style="margin:8px 0 0;font-size:15px;line-height:1.85;color:var(--ink2);text-wrap:pretty">نصمم ونخصص واجهة متجرك لتناسب هوية علامتك ومتطلباتك، كخدمة إضافية مدفوعة.</p>
+          <a href="#contact" class="hv-invert" style="display:inline-flex;align-items:center;gap:8px;margin-top:16px;border:1px solid var(--ink);color:var(--ink);background:transparent;border-radius:10px;padding:10px 16px;font-size:14.5px;font-weight:700;text-decoration:none;transition:background .2s,color .2s"><span data-i18n="addonCta">اطلب تخصيص متجرك</span><span aria-hidden="true" data-arrow="">←</span></a>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;min-width:0;overflow-x:clip;overflow-clip-margin:0">
+        <img src="/assets/img/store.webp" alt="متجر إلكتروني من أبعاد على اللابتوب والجوال" width="1120" height="700" loading="lazy" style="display:block;width:100%;max-width:100%;height:auto;aspect-ratio:1120/700;object-fit:contain;transform:translateY(-21px) scale(1.09);transform-origin:center center;filter:drop-shadow(0 14px 24px rgba(15,15,15,.08))">
+      </div>
     </div>
+  </div>
+</section>
 
-    <div style="display:grid;grid-template-columns:1fr;gap:24px;margin-top:44px;align-items:start" data-g="contact">
-      <div style="background:var(--card);border:1px solid var(--line);border-radius:20px;padding:34px">
-        <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
-          <div style="text-align:center;padding:34px 0">
-            <span style="width:56px;height:56px;margin:0 auto;border-radius:18px;background:var(--peach);display:grid;place-items:center"><span style="width:17px;height:17px;border-radius:5px;background:var(--peach-ink)"></span></span>
-            <h3 class="dsp" style="margin:22px 0 0;font-size:23px;font-weight:800">{{ t.sentTitle }}</h3>
-            <p style="margin:12px 0 0;font-size:16px;line-height:1.85;color:var(--muted)">{{ t.sentBody }}</p>
-            <button onClick="{{ resetForm }}" style="margin-top:24px;background:none;border:1px solid var(--line);border-radius:12px;padding:14px 24px;font-size:15px;font-weight:700;color:var(--ink);cursor:pointer">{{ t.sendAnother }}</button>
-          </div>
-        </sc-if>
-        <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
-          <form onSubmit="{{ submit }}" noValidate="{{ true }}">
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px">
-              <label style="display:flex;flex-direction:column;gap:8px;font-size:14.5px;font-weight:700">{{ t.fName }}
-                <input name="name" type="text" placeholder="{{ t.phName }}" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400">
-                <sc-if value="{{ errName }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#c0392b;font-weight:600">{{ errName }}</span></sc-if>
-              </label>
-              <label style="display:flex;flex-direction:column;gap:8px;font-size:14.5px;font-weight:700">{{ t.fCompany }}
-                <input name="company" type="text" placeholder="{{ t.phCompany }}" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400">
-                <sc-if value="{{ errCompany }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#c0392b;font-weight:600">{{ errCompany }}</span></sc-if>
-              </label>
-              <label style="display:flex;flex-direction:column;gap:8px;font-size:14.5px;font-weight:700">{{ t.fPhone }}
-                <input name="phone" type="tel" dir="ltr" placeholder="+968 XXXX XXXX" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400;text-align:start">
-                <sc-if value="{{ errPhone }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#c0392b;font-weight:600">{{ errPhone }}</span></sc-if>
-              </label>
-              <label style="display:flex;flex-direction:column;gap:8px;font-size:14.5px;font-weight:700">{{ t.fEmail }}
-                <input name="email" type="email" dir="ltr" placeholder="name@business.com" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400;text-align:start">
-                <sc-if value="{{ errEmail }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#c0392b;font-weight:600">{{ errEmail }}</span></sc-if>
-              </label>
-              <label style="display:flex;flex-direction:column;gap:8px;font-size:14.5px;font-weight:700">{{ t.fSector }}
-                <select name="sector" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400">
-                  <option value="">{{ t.chooseSector }}</option>
-                  <sc-for list="{{ sectorNames }}" as="o" hint-placeholder-count="6"><option value="{{ o }}">{{ o }}</option></sc-for>
-                </select>
-                <sc-if value="{{ errSector }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#c0392b;font-weight:600">{{ errSector }}</span></sc-if>
-              </label>
-              <label style="display:flex;flex-direction:column;gap:8px;font-size:14.5px;font-weight:700">{{ t.fBranches }}
-                <select name="branches" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400">
-                  <sc-for list="{{ branchOptions }}" as="o" hint-placeholder-count="4"><option value="{{ o }}">{{ o }}</option></sc-for>
-                </select>
-              </label>
+<section id="finance" style="scroll-margin-top:90px">
+  <div style="max-width:1240px;margin:0 auto;padding:128px 24px 0">
+    <div style="background:var(--bg2);border-radius:28px;padding:clamp(28px,5vw,64px)">
+      <div style="display:grid;grid-template-columns:1fr;gap:48px;align-items:center" data-g="split-fin">
+        <div>
+          <span data-i18n="finBadge" style="display:inline-block;background:var(--peach);color:var(--peach-ink);border-radius:6px;padding:7px 13px;font-size:14px;font-weight:700">المالية</span>
+          <h2 data-i18n="finTitle" style="margin:22px 0 0;font-size:clamp(28px,3.2vw,40px);line-height:1.3;font-weight:700;letter-spacing:-.02em;white-space:pre-line">اعرف أين تذهب
+أموالك.</h2>
+          <p data-i18n="finSub" style="margin:16px 0 0;font-size:16.5px;line-height:1.9;color:var(--ink2);max-width:460px;text-wrap:pretty">شاهد أين تدخل أموالك وأين تذهب، وتابع المبيعات والمشتريات والمدفوعات والمصروفات والمستحقات والتقارير من مكان واحد.</p>
+          <div data-list="finItems" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:24px;max-width:420px"><span style="display:flex;align-items:center;gap:10px;background:var(--card);border-radius:10px;padding:12px 14px;font-size:15px;font-weight:600"><span style="width:6px;height:6px;border-radius:2px;background:var(--peach-ink)"></span>المبيعات</span><span style="display:flex;align-items:center;gap:10px;background:var(--card);border-radius:10px;padding:12px 14px;font-size:15px;font-weight:600"><span style="width:6px;height:6px;border-radius:2px;background:var(--peach-ink)"></span>المشتريات</span><span style="display:flex;align-items:center;gap:10px;background:var(--card);border-radius:10px;padding:12px 14px;font-size:15px;font-weight:600"><span style="width:6px;height:6px;border-radius:2px;background:var(--peach-ink)"></span>المصروفات</span><span style="display:flex;align-items:center;gap:10px;background:var(--card);border-radius:10px;padding:12px 14px;font-size:15px;font-weight:600"><span style="width:6px;height:6px;border-radius:2px;background:var(--peach-ink)"></span>المدفوعات</span><span style="display:flex;align-items:center;gap:10px;background:var(--card);border-radius:10px;padding:12px 14px;font-size:15px;font-weight:600"><span style="width:6px;height:6px;border-radius:2px;background:var(--peach-ink)"></span>المستحقات</span><span style="display:flex;align-items:center;gap:10px;background:var(--card);border-radius:10px;padding:12px 14px;font-size:15px;font-weight:600"><span style="width:6px;height:6px;border-radius:2px;background:var(--peach-ink)"></span>التقارير المالية</span></div>
+        </div>
+        <div data-fin-img="" style="position:relative;order:-1;display:flex;align-items:center;justify-content:center;min-width:0">
+          <div dir="rtl" role="img" data-i18n-aria="slotFin" aria-label="الملخّص المالي في أبعاد" style="width:100%;border-radius:24px;background:#f7f8f9;border:1px solid rgba(15,15,15,.06);box-shadow:0 1px 3px rgba(15,15,15,.04),0 16px 40px rgba(15,15,15,.07);padding:clamp(14px,2vw,22px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(10px,1.4vw,14px);text-align:start">
+            <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:2px;padding:2px 4px 4px">
+              <span style="font-size:clamp(16px,1.6vw,19px);font-weight:700;color:var(--ink)">الملخّص المالي</span>
+              <span style="font-size:12.5px;color:#8a8a8e">أين المال الآن، وماذا جرى في المدة، وماذا على المتجر</span>
             </div>
-            <label style="display:flex;flex-direction:column;gap:8px;font-size:14.5px;font-weight:700;margin-top:18px">{{ t.fMessage }}
-              <textarea name="message" rows="4" placeholder="{{ t.phMessage }}" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400;resize:vertical"></textarea>
-              <sc-if value="{{ errMessage }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#c0392b;font-weight:600">{{ errMessage }}</span></sc-if>
-            </label>
-            <sc-if value="{{ formError }}" hint-placeholder-val="{{ false }}">
-              <div style="margin-top:18px;border:1px solid #c0392b;background:rgba(192,57,43,.06);border-radius:12px;padding:14px 16px;font-size:14.5px;line-height:1.7">{{ formError }}</div>
-            </sc-if>
-            <button type="submit" style="margin-top:24px;width:100%;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:17px;font-size:16.5px;font-weight:700;cursor:pointer">{{ submitLabel }}</button>
-          </form>
-        </sc-if>
-      </div>
-
-      <div style="display:flex;flex-direction:column;gap:14px">
-        <sc-for list="{{ contactCards }}" as="c" hint-placeholder-count="3">
-          <div style="background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px">
-            <h3 class="dsp" style="margin:0;font-size:17.5px;font-weight:800">{{ c.title }}</h3>
-            <p style="margin:8px 0 0;font-size:15px;line-height:1.8;color:var(--muted)">{{ c.body }}</p>
-            <div style="margin-top:12px;font-size:15px;font-weight:700;font-family:ui-monospace,monospace">{{ c.value }}</div>
+            <div style="background:#fff;border:1px solid #ececee;border-radius:16px;padding:clamp(14px,1.8vw,20px);display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+              <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
+                <span style="font-size:13px;color:#8a8a8e">الصندوق (نقدًا)</span>
+                <span dir="ltr" style="font-size:clamp(20px,2.3vw,28px);font-weight:700;color:var(--ink);letter-spacing:-.01em;text-align:end;white-space:nowrap">32,204.550 <span style="font-size:.62em;font-weight:600">ر.ع</span></span>
+              </div>
+              <span style="flex:none;width:36px;height:36px;border-radius:10px;background:#e8f7ee;display:grid;place-items:center"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#1f9d55" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="12" cy="12" r="2.5"></circle><path d="M6 12h.01M18 12h.01"></path></svg></span>
+            </div>
+            <div style="background:#fff;border:1px solid #ececee;border-radius:16px;padding:clamp(14px,1.8vw,20px);display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+              <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
+                <span style="font-size:13px;color:#8a8a8e">البنك</span>
+                <span dir="ltr" style="font-size:clamp(20px,2.3vw,28px);font-weight:700;color:var(--ink);letter-spacing:-.01em;text-align:end;white-space:nowrap">29,953.325 <span style="font-size:.62em;font-weight:600">ر.ع</span></span>
+              </div>
+              <span style="flex:none;width:36px;height:36px;border-radius:10px;background:#e9f0fd;display:grid;place-items:center"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#2f6fe0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"></path><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"></path></svg></span>
+            </div>
+            <div style="background:#fff;border:1px solid #ececee;border-radius:16px;padding:clamp(14px,1.8vw,20px);display:flex;flex-direction:column;gap:6px">
+              <span style="font-size:13px;color:#8a8a8e">عليك الآن</span>
+              <span dir="ltr" style="font-size:clamp(20px,2.3vw,28px);font-weight:700;color:#c2510c;letter-spacing:-.01em;text-align:end;white-space:nowrap">58.300 <span style="font-size:.62em;font-weight:600">ر.ع</span></span>
+              <div style="display:flex;flex-direction:column;gap:7px;margin-top:8px;font-size:13px">
+                <span style="display:flex;justify-content:space-between;gap:8px"><span style="color:#5d5d62">فواتير الموردين</span><b dir="ltr" style="color:var(--ink)">58.300 ر.ع</b></span>
+                <span style="display:flex;justify-content:space-between;gap:8px"><span style="color:#5d5d62">مصروفات غير مدفوعة</span><b dir="ltr" style="color:var(--ink)">0.000 ر.ع</b></span>
+                <span style="display:flex;justify-content:space-between;gap:8px;padding-top:8px;border-top:1px solid #ececee"><span style="color:#5d5d62">المتأخر (1)</span><b dir="ltr" style="color:#d12c2c">58.300 ر.ع</b></span>
+              </div>
+            </div>
+            <div style="background:#fff;border:1px solid #ececee;border-radius:16px;padding:clamp(14px,1.8vw,20px);display:flex;flex-direction:column;gap:6px">
+              <span style="font-size:13px;color:#8a8a8e">لك الآن</span>
+              <span dir="ltr" style="font-size:clamp(20px,2.3vw,28px);font-weight:700;color:var(--ink);letter-spacing:-.01em;text-align:end;white-space:nowrap">31.500 <span style="font-size:.62em;font-weight:600">ر.ع</span></span>
+              <div style="display:flex;flex-direction:column;gap:7px;margin-top:8px;font-size:13px">
+                <span style="display:flex;justify-content:space-between;gap:8px"><span style="color:#5d5d62">فواتير العملاء</span><b dir="ltr" style="color:var(--ink)">31.500 ر.ع</b></span>
+                <span style="display:flex;justify-content:space-between;gap:8px"><span style="color:#5d5d62">مبيعات آجلة لم تُفوتر</span><b dir="ltr" style="color:var(--ink)">0.000 ر.ع</b></span>
+                <span style="display:flex;justify-content:space-between;gap:8px;padding-top:8px;border-top:1px solid #ececee"><span style="color:#5d5d62">المتأخر</span><b dir="ltr" style="color:var(--ink)">0.000 ر.ع</b></span>
+              </div>
+            </div>
           </div>
-        </sc-for>
-        <div style="border:1px dashed var(--line);border-radius:18px;padding:20px;font-size:12.5px;line-height:1.85;color:var(--muted);font-family:ui-monospace,monospace">{{ t.placeholderNote }}</div>
+        </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" style="scroll-margin-top:90px">
+  <div style="max-width:1240px;margin:0 auto;padding:128px 24px 0">
+    <div style="text-align:center">
+      <span data-i18n="navPricing" style="display:inline-block;background:var(--peach);color:var(--peach-ink);border-radius:6px;padding:7px 13px;font-size:14px;font-weight:700">الأسعار</span>
+      <h2 data-i18n="priceTitle" style="margin:20px auto 0;max-width:760px;font-size:clamp(30px,4.2vw,50px);line-height:1.3;font-weight:700;letter-spacing:-.02em;text-wrap:balance">باقات واضحة تناسب نشاطك.</h2>
+      <p data-i18n="priceSub" style="margin:16px auto 0;max-width:560px;font-size:17.5px;line-height:1.9;color:var(--ink2);text-wrap:pretty">اختر الباقة التي تناسب حجم نشاطك، وابدأ بما تحتاجه اليوم.</p>
+      <div role="tablist" style="display:inline-flex;gap:4px;margin-top:32px;background:var(--bg2);border-radius:999px;padding:5px">
+        <button type="button" role="tab" aria-selected="true" data-billing="m" data-i18n="billMonthly" style="border:0;cursor:pointer;border-radius:999px;padding:11px 24px;font-size:15px;font-weight:700;background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(15,15,15,.08);transition:background .25s,color .25s">شهري</button>
+        <button type="button" role="tab" aria-selected="false" data-billing="y" data-i18n="billYearly" style="border:0;cursor:pointer;border-radius:999px;padding:11px 24px;font-size:15px;font-weight:700;background:transparent;color:var(--muted);box-shadow:none;transition:background .25s,color .25s">سنوي</button>
+      </div>
+      <div style="display:flex;justify-content:center;margin-top:12px"><span data-save="" style="display:inline-block;background:var(--peach);color:var(--peach-ink);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:700;opacity:0;transition:opacity .25s">وفّر قيمة شهرين</span></div>
+    </div>
+    <div data-list="plans" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px;max-width:1180px;margin:36px auto 0;align-items:stretch"><div data-plan="0" style="position:relative;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px 26px 26px;display:flex;flex-direction:column;box-shadow:none"><h3 style="margin:0;font-size:22px;font-weight:700">الأساسية</h3><p style="margin:6px 0 0;font-size:14.5px;font-weight:700;color:var(--peach-ink)">إدارة متجرك اليومية</p><p style="margin:10px 0 0;font-size:15px;line-height:1.8;color:var(--ink2);text-wrap:pretty;min-height:54px">كل ما تحتاجه لتشغيل وإدارة متجرك يوميًا.</p><div style="display:flex;align-items:baseline;gap:8px;margin-top:20px;white-space:nowrap"><span data-price="" style="font-size:clamp(38px,4vw,46px);font-weight:700;letter-spacing:-.02em;line-height:1" dir="ltr">9.900</span><span data-period="" style="font-size:15px;font-weight:600;color:var(--ink2)">ر.ع / شهريًا</span></div><div data-was="" style="min-height:22px;margin-top:8px;font-size:13.5px;color:var(--muted)"></div><div style="margin-top:18px;background:var(--bg2);border-radius:14px;padding:14px 16px"><div style="font-size:12.5px;font-weight:700;color:var(--muted)">حدود الاستخدام</div><ul style="list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px"><li style="font-size:15px;font-weight:600">فرع واحد</li><li style="font-size:15px;font-weight:600">حتى 3 موظفين نشطين</li><li style="font-size:15px;font-weight:600">حتى 100 منتج</li></ul></div><div style="margin-top:20px;font-size:13.5px;font-weight:700;color:var(--ink)">التشغيل</div><ul style="list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:9px"><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>نقطة البيع والمبيعات والطلبات</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>إدارة المنتجات</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>إدارة المخزون</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>العملاء</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>الموردون والمشتريات</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>فواتير العملاء</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>المالية والمصروفات</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>الرواتب والموظفون</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>لوحة التجهيز</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>لوحة التحكم والملخصات</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>التقارير الأساسية</span></li></ul><div style="margin-top:18px;padding-top:16px;border-top:1px dashed var(--line)"><div style="font-size:13px;font-weight:700;color:var(--muted)">غير مشمول في هذه الباقة</div><ul style="list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px"><li style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)"><span style="width:9px;height:1.5px;background:#c9c9cb;flex:none"></span>واتساب</li><li style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)"><span style="width:9px;height:1.5px;background:#c9c9cb;flex:none"></span>الموقع الإلكتروني</li><li style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)"><span style="width:9px;height:1.5px;background:#c9c9cb;flex:none"></span>أدوات التسويق</li><li style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)"><span style="width:9px;height:1.5px;background:#c9c9cb;flex:none"></span>برنامج الولاء</li><li style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)"><span style="width:9px;height:1.5px;background:#c9c9cb;flex:none"></span>التقارير المتقدمة</li><li style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)"><span style="width:9px;height:1.5px;background:#c9c9cb;flex:none"></span>الصلاحيات المخصصة</li></ul></div><div style="flex:1"></div><a href="https://app.abaadapp.om/register" style="margin-top:26px;text-align:center;border-radius:999px;padding:15px 24px;font-size:15.5px;font-weight:700;background:transparent;color:var(--ink);border:1px solid var(--ink)">ابدأ الآن</a></div><div data-plan="1" style="position:relative;background:var(--card);border:1.5px solid var(--ink);border-radius:22px;padding:30px 26px 26px;display:flex;flex-direction:column;box-shadow:0 2px 6px rgba(15,15,15,.04),0 18px 44px rgba(15,15,15,.08)"><span style="position:absolute;top:26px;inset-inline-end:24px;background:var(--peach);color:var(--peach-ink);border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:700">الأكثر طلبًا</span><h3 style="margin:0;font-size:22px;font-weight:700">الاحترافية</h3><p style="margin:6px 0 0;font-size:14.5px;font-weight:700;color:var(--peach-ink)">إدارة + نمو</p><p style="margin:10px 0 0;font-size:15px;line-height:1.8;color:var(--ink2);text-wrap:pretty;min-height:54px">شغّل متجرك وطوّر مبيعاتك بحضور رقمي وأدوات نمو متكاملة.</p><div style="display:flex;align-items:baseline;gap:8px;margin-top:20px;white-space:nowrap"><span data-price="" style="font-size:clamp(38px,4vw,46px);font-weight:700;letter-spacing:-.02em;line-height:1" dir="ltr">29.900</span><span data-period="" style="font-size:15px;font-weight:600;color:var(--ink2)">ر.ع / شهريًا</span></div><div data-was="" style="min-height:22px;margin-top:8px;font-size:13.5px;color:var(--muted)"></div><div style="margin-top:18px;background:var(--bg2);border-radius:14px;padding:14px 16px"><div style="font-size:12.5px;font-weight:700;color:var(--muted)">حدود الاستخدام</div><ul style="list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px"><li style="font-size:15px;font-weight:600">حتى 3 فروع</li><li style="font-size:15px;font-weight:600">حتى 15 موظفًا نشطًا</li><li style="font-size:15px;font-weight:600">حتى 5,000 منتج</li></ul></div><div style="margin-top:20px;font-size:13.5px;font-weight:700;color:var(--ink)">المميزات</div><ul style="list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:9px"><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>كل مميزات الأساسية</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>الموقع الإلكتروني</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>نشر المتجر والبيع عبر الموقع</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>تصميم وصفحات الموقع</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>ربط نطاق المتجر</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>إعدادات SEO والظهور</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>تقييمات العملاء</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>الكوبونات والعروض</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>برنامج الولاء والنقاط</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>التقارير المتقدمة</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>تحليل الهالك</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>تصدير التقارير</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>الصلاحيات المخصصة للموظفين</span></li></ul><div style="margin-top:18px;font-size:13.5px;font-weight:700;color:var(--ink)">واتساب</div><ul style="list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:9px"><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--wa)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>إشعارات واتساب عبر رقم أبعاد</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--wa)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>100 رسالة واتساب مجانية شهريًا</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--wa)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>إمكانية شراء رصيد رسائل إضافي</span></li></ul><div style="margin-top:18px;border:1px dashed #c9c9cb;border-radius:14px;padding:14px 16px"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:13px;font-weight:700;color:var(--ink)">تخصيصات اختيارية</span><span style="background:var(--bg2);border-radius:999px;padding:2px 9px;font-size:11.5px;font-weight:700;color:var(--muted)">إضافة اختيارية</span></div><ul style="list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:10px"><li style="display:flex;align-items:flex-start;gap:10px"><span aria-hidden="true" style="flex:none;font-size:14px;line-height:1.5;font-weight:700;color:var(--muted)">+</span><div><div style="font-size:14.5px;font-weight:600;line-height:1.5">استخدم رقم واتساب متجرك</div><div style="margin-top:2px;font-size:13.5px;line-height:1.7;color:var(--muted)">اربط رقم واتساب أعمالك الخاص بدل رقم أبعاد — متاح كإضافة اختيارية.</div></div></li><li style="display:flex;align-items:flex-start;gap:10px"><span aria-hidden="true" style="flex:none;font-size:14px;line-height:1.5;font-weight:700;color:var(--muted)">+</span><div><div style="font-size:14.5px;font-weight:600;line-height:1.5">خصص موقعك الإلكتروني</div><div style="margin-top:2px;font-size:13.5px;line-height:1.7;color:var(--muted)">تخصيص احترافي للموقع بما يناسب هوية نشاطك — خدمة إضافية.</div></div></li></ul><a href="#contact" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:13.5px;font-weight:700;color:var(--ink)">تواصل معنا للتفعيل<span aria-hidden="true">←</span></a></div><div style="flex:1"></div><a href="https://app.abaadapp.om/register" style="margin-top:26px;text-align:center;border-radius:999px;padding:15px 24px;font-size:15.5px;font-weight:700;background:var(--ink);color:#fff;border:1px solid var(--ink)">ابدأ الآن</a></div><div data-plan="2" style="position:relative;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px 26px 26px;display:flex;flex-direction:column;box-shadow:none"><h3 style="margin:0;font-size:22px;font-weight:700">المؤسسات</h3><p style="margin:6px 0 0;font-size:14.5px;font-weight:700;color:var(--peach-ink)">تشغيل عدة فروع</p><p style="margin:10px 0 0;font-size:15px;line-height:1.8;color:var(--ink2);text-wrap:pretty;min-height:54px">للشركات والمتاجر التي تدير فرقًا أكبر وعدة فروع من نظام واحد.</p><div style="display:flex;align-items:baseline;gap:8px;margin-top:20px;white-space:nowrap"><span data-price="" style="font-size:clamp(38px,4vw,46px);font-weight:700;letter-spacing:-.02em;line-height:1" dir="ltr">69.900</span><span data-period="" style="font-size:15px;font-weight:600;color:var(--ink2)">ر.ع / شهريًا</span></div><div data-was="" style="min-height:22px;margin-top:8px;font-size:13.5px;color:var(--muted)"></div><div style="margin-top:18px;background:var(--bg2);border-radius:14px;padding:14px 16px"><div style="font-size:12.5px;font-weight:700;color:var(--muted)">حدود الاستخدام</div><ul style="list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px"><li style="font-size:15px;font-weight:600">حتى 25 فرعًا</li><li style="font-size:15px;font-weight:600">حتى 100 موظف نشط</li><li style="font-size:15px;font-weight:600">حتى 100,000 منتج</li></ul></div><div style="margin-top:20px;font-size:13.5px;font-weight:700;color:var(--ink)">المميزات</div><ul style="list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:9px"><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>كل مميزات الاحترافية</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>تشغيل عدة فروع من نظام واحد</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>إدارة فرق أكبر</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>الموقع الإلكتروني</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>أدوات التسويق</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>برنامج الولاء</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>التقارير المتقدمة</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>تحليل الهالك</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>تصدير التقارير</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>الصلاحيات المخصصة</span></li></ul><div style="margin-top:18px;font-size:13.5px;font-weight:700;color:var(--ink)">واتساب</div><ul style="list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:9px"><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--wa)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>واتساب أبعاد</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--wa)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>100 رسالة واتساب مجانية شهريًا</span></li><li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--wa)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>إمكانية شراء رصيد إضافي</span></li></ul><div style="margin-top:18px;border:1px dashed #c9c9cb;border-radius:14px;padding:14px 16px"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:13px;font-weight:700;color:var(--ink)">تخصيصات اختيارية</span><span style="background:var(--bg2);border-radius:999px;padding:2px 9px;font-size:11.5px;font-weight:700;color:var(--muted)">إضافة اختيارية</span></div><ul style="list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:10px"><li style="display:flex;align-items:flex-start;gap:10px"><span aria-hidden="true" style="flex:none;font-size:14px;line-height:1.5;font-weight:700;color:var(--muted)">+</span><div><div style="font-size:14.5px;font-weight:600;line-height:1.5">رقم واتساب الشركة الخاص</div></div></li><li style="display:flex;align-items:flex-start;gap:10px"><span aria-hidden="true" style="flex:none;font-size:14px;line-height:1.5;font-weight:700;color:var(--muted)">+</span><div><div style="font-size:14.5px;font-weight:600;line-height:1.5">تخصيص الموقع ليتناسب مع الهوية والفروع</div></div></li></ul><a href="#contact" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:13.5px;font-weight:700;color:var(--ink)">تواصل معنا للتفعيل<span aria-hidden="true">←</span></a></div><div style="flex:1"></div><a href="https://app.abaadapp.om/register" style="margin-top:26px;text-align:center;border-radius:999px;padding:15px 24px;font-size:15.5px;font-weight:700;background:transparent;color:var(--ink);border:1px solid var(--ink)">ابدأ الآن</a></div></div>
+    <div style="margin:22px auto 0;text-align:center;font-size:14px;color:var(--muted);line-height:1.9">
+      <p style="margin:0">في الباقات التي تشمل واتساب: 100 رسالة مجانية شهريًا عبر رقم أبعاد.</p>
+      <p style="margin:0">500 رسالة إضافية — 7.500 ر.ع</p>
+    </div>
+  </div>
+</section>
+
+<section id="solutions" style="scroll-margin-top:90px">
+  <div style="max-width:1240px;margin:0 auto;padding:128px 24px 0">
+    <div style="text-align:center">
+      <span data-i18n="navSolutions" style="display:inline-block;background:var(--peach);color:var(--peach-ink);border-radius:6px;padding:7px 13px;font-size:14px;font-weight:700">الحلول</span>
+      <h2 data-i18n="typesTitle" style="margin:20px auto 0;max-width:760px;font-size:clamp(30px,4.2vw,50px);line-height:1.3;font-weight:700;letter-spacing:-.02em;text-wrap:balance">أبعاد يتكيف مع طريقة عملك.</h2>
+    </div>
+    <div data-list="types" style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:48px" data-g="types"><div style="background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden"><div style="position:relative;aspect-ratio:4/3;background:var(--bg2)"><img src="/assets/img/solution-retail.webp" alt="التجزئة" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></div><div style="padding:22px 22px 26px"><h3 style="margin:0;font-size:20px;font-weight:700">التجزئة</h3><p style="margin:8px 0 0;font-size:15px;line-height:1.75;color:var(--muted)">نقاط البيع، المنتجات، المخزون، العملاء والمشتريات.</p></div></div><div style="background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden"><div style="position:relative;aspect-ratio:4/3;background:var(--bg2)"><img src="/assets/img/solution-ecommerce.webp" alt="التجارة الإلكترونية" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></div><div style="padding:22px 22px 26px"><h3 style="margin:0;font-size:20px;font-weight:700">التجارة الإلكترونية</h3><p style="margin:8px 0 0;font-size:15px;line-height:1.75;color:var(--muted)">الموقع، المنتجات، الطلبات، المدفوعات والعملاء.</p></div></div><div style="background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden"><div style="position:relative;aspect-ratio:4/3;background:var(--bg2)"><img src="/assets/img/solution-services.webp" alt="الخدمات والحجوزات" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></div><div style="padding:22px 22px 26px"><h3 style="margin:0;font-size:20px;font-weight:700">الخدمات والحجوزات</h3><p style="margin:8px 0 0;font-size:15px;line-height:1.75;color:var(--muted)">الخدمات، المواعيد، الحجوزات والتواصل مع العملاء.</p></div></div><div style="background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden"><div style="position:relative;aspect-ratio:4/3;background:var(--bg2)"><img src="/assets/img/solution-subscriptions.webp" alt="الاشتراكات" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></div><div style="padding:22px 22px 26px"><h3 style="margin:0;font-size:20px;font-weight:700">الاشتراكات</h3><p style="margin:8px 0 0;font-size:15px;line-height:1.75;color:var(--muted)">إدارة العملاء والخدمات والعمليات والمدفوعات المتكررة.</p></div></div></div>
+  </div>
+</section>
+
+<section id="contact" style="scroll-margin-top:90px;margin-top:128px;background:var(--bg2);border-top:1px solid var(--line)">
+  <div style="max-width:1240px;margin:0 auto;padding:96px 24px;display:grid;grid-template-columns:1fr;gap:40px;align-items:start" data-g="contact">
+    <div>
+      <h2 data-i18n="ctaTitle" style="margin:0;font-size:clamp(32px,4.2vw,50px);line-height:1.3;font-weight:700;letter-spacing:-.02em;text-wrap:balance">كل ما تحتاجه لإدارة أعمالك، أصبح أقرب.</h2>
+      <p data-i18n="ctaSub" style="margin:20px 0 0;font-size:17.5px;line-height:1.9;color:var(--ink2);max-width:440px">ابدأ مع أبعاد واجمع عملياتك ومبيعاتك وعملاءك وماليتك في منصة واحدة.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:30px">
+        <a href="https://app.abaadapp.om/register" data-i18n="startNow" style="background:var(--ink);color:#fff;border-radius:999px;padding:16px 28px;font-size:16px;font-weight:700">ابدأ الآن</a>
+        <a href="#contact-info" data-i18n="navContact" style="background:var(--card);border:1px solid var(--line);border-radius:999px;padding:15px 26px;font-size:16px;font-weight:700;color:var(--ink)">تواصل معنا</a>
+      </div>
+      <div id="contact-info" data-list="contactInfo" style="display:flex;flex-direction:column;gap:10px;margin-top:40px;font-size:15px;color:var(--ink2)"><div style="display:flex;gap:10px"><span style="font-weight:700;min-width:90px">البريد</span><span dir="ltr" style="color:var(--muted);unicode-bidi:isolate"><a href="mailto:abaadappom@gmail.com" style="color:inherit">abaadappom@gmail.com</a></span></div><div style="display:flex;gap:10px"><span style="font-weight:700;min-width:90px">الهاتف</span><span dir="ltr" style="color:var(--muted);unicode-bidi:isolate"><a href="tel:+96871141624" style="color:inherit">+968 71141624</a></span></div></div>
+    </div>
+    <div id="contact-form" style="background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(22px,3vw,36px);scroll-margin-top:100px">
+      <div data-sent="" hidden="" style="text-align:center;padding:40px 0">
+        <span style="width:56px;height:56px;margin:0 auto;border-radius:18px;background:var(--peach);display:grid;place-items:center"><span style="width:17px;height:17px;border-radius:5px;background:var(--peach-ink)"></span></span>
+        <h3 data-i18n="sentTitle" style="margin:22px 0 0;font-size:23px;font-weight:700">أكمل إرسال طلبك من بريدك</h3>
+        <p data-i18n="sentBody" style="margin:12px 0 0;font-size:16px;line-height:1.85;color:var(--muted)">فتحنا رسالتك جاهزةً في تطبيق البريد — اضغط «إرسال» هناك ليصلنا طلبك.</p>
+        <p style="margin:14px 0 0;font-size:14.5px;line-height:1.9;color:var(--muted)">
+          <a data-mail-again="" data-i18n="mailAgain" href="mailto:abaadappom@gmail.com" style="font-weight:700;text-decoration:underline">افتح الرسالة مرة أخرى</a><br>
+          <span data-i18n="mailOr">أو راسلنا مباشرة على</span> <a data-mail="" href="mailto:abaadappom@gmail.com" dir="ltr" style="font-weight:700;unicode-bidi:isolate">abaadappom@gmail.com</a>
+        </p>
+        <button type="button" data-action="reset-form" data-i18n="sendAnother" style="margin-top:24px;background:none;border:1px solid var(--line);border-radius:12px;padding:14px 24px;font-size:15px;font-weight:700;color:var(--ink);cursor:pointer">إرسال طلب آخر</button>
+      </div>
+      <form data-contact-form="" novalidate="">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px">
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:14.5px;font-weight:600"><span data-i18n="fName">الاسم</span>
+            <input name="name" type="text" autocomplete="name" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400">
+            <span data-err="name" hidden="" style="font-size:13px;color:#c0392b;font-weight:600"></span>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:14.5px;font-weight:600"><span data-i18n="fCompany">اسم النشاط</span>
+            <input name="company" type="text" autocomplete="organization" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400">
+            <span data-err="company" hidden="" style="font-size:13px;color:#c0392b;font-weight:600"></span>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:14.5px;font-weight:600"><span data-i18n="fPhone">رقم الهاتف</span>
+            <input name="phone" type="tel" dir="ltr" autocomplete="tel" placeholder="+968 XXXX XXXX" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400;text-align:start">
+            <span data-err="phone" hidden="" style="font-size:13px;color:#c0392b;font-weight:600"></span>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:14.5px;font-weight:600"><span data-i18n="fEmail">البريد الإلكتروني</span>
+            <input name="email" type="email" dir="ltr" autocomplete="email" placeholder="name@business.com" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400;text-align:start">
+            <span data-err="email" hidden="" style="font-size:13px;color:#c0392b;font-weight:600"></span>
+          </label>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:8px;font-size:14.5px;font-weight:600;margin-top:18px"><span data-i18n="fType">نوع النشاط</span>
+          <select name="type" data-list="typeOptions" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400"><option value="">اختر نوع النشاط...</option><option value="التجزئة">التجزئة</option><option value="التجارة الإلكترونية">التجارة الإلكترونية</option><option value="الخدمات والحجوزات">الخدمات والحجوزات</option><option value="الاشتراكات">الاشتراكات</option><option value="أخرى">أخرى</option></select>
+          <span data-err="type" hidden="" style="font-size:13px;color:#c0392b;font-weight:600"></span>
+        </label>
+        <label style="display:flex;flex-direction:column;gap:8px;font-size:14.5px;font-weight:600;margin-top:18px"><span data-i18n="fMessage">الرسالة</span>
+          <textarea name="message" rows="4" style="border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px;font-size:15.5px;color:var(--ink);font-weight:400;resize:vertical"></textarea>
+          <span data-err="message" hidden="" style="font-size:13px;color:#c0392b;font-weight:600"></span>
+        </label>
+        <button type="submit" data-i18n="submit" style="margin-top:24px;width:100%;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:17px;font-size:16.5px;font-weight:700;cursor:pointer">أرسل</button>
+      </form>
     </div>
   </div>
 </section>
@@ -330,251 +330,19 @@ input,select,textarea{font-family:inherit}
 </main>
 
 <footer style="background:var(--ink);color:#f4f4f4">
-  <div style="max-width:1240px;margin:0 auto;padding:56px 24px;display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between">
-    <img src="uploads/Artboard%202.svg" alt="أبعاد" style="height:34px;width:auto;display:block;filter:brightness(0) invert(1)">
-    <nav style="display:flex;flex-wrap:wrap;gap:22px">
-      <sc-for list="{{ sections }}" as="s" hint-placeholder-count="3">
-        <a href="{{ s.href }}" style="color:#d9d9d9;font-size:15px;font-weight:600" style-hover="color:#fff">{{ s.label }}</a>
-      </sc-for>
-    </nav>
-    <span style="font-size:13.5px;color:#9a9a9a">© {{ year }} {{ t.copyright }}</span>
+  <div style="max-width:1240px;margin:0 auto;padding:56px 24px 32px;display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start;justify-content:space-between">
+    <img src="/assets/img/logo.svg" alt="أبعاد" width="96" height="34" loading="lazy" style="height:34px;width:auto;display:block;filter:brightness(0) invert(1)">
+    <nav data-list="footNav" style="display:flex;flex-wrap:wrap;gap:22px"><a href="#platform" class="hv-white" style="color:#d9d9d9;font-size:15px;font-weight:600">المنصة</a><a href="#solutions" class="hv-white" style="color:#d9d9d9;font-size:15px;font-weight:600">الحلول</a><a href="#contact" class="hv-white" style="color:#d9d9d9;font-size:15px;font-weight:600">تواصل معنا</a><a href="https://app.abaadapp.om/login" class="hv-white" style="color:#d9d9d9;font-size:15px;font-weight:600">تسجيل الدخول</a></nav>
+    <div data-list="footContact" style="display:flex;flex-direction:column;gap:6px;font-size:14px;color:#bdbdbd"><span dir="ltr" style="unicode-bidi:isolate;text-align:start"><a href="mailto:abaadappom@gmail.com" style="color:inherit">abaadappom@gmail.com</a></span><span dir="ltr" style="unicode-bidi:isolate;text-align:start"><a href="tel:+96871141624" style="color:inherit">+968 71141624</a></span></div>
+  </div>
+  <div style="max-width:1240px;margin:0 auto;padding:20px 24px 40px;border-top:1px solid #2a2a2a;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;font-size:13.5px;color:#9a9a9a">
+    <div style="display:flex;gap:18px">
+      <a href="/privacy/" data-i18n="privacy" class="hv-white" style="color:#9a9a9a">سياسة الخصوصية</a>
+      <a href="/terms/" data-i18n="terms" class="hv-white" style="color:#9a9a9a">الشروط</a>
+    </div>
+    <span>© <span data-year="">2026</span> Abaad</span>
   </div>
 </footer>
 </div>
-
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#f6ded0&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#f6ded0&quot;,&quot;#e6ecf5&quot;,&quot;#e5efe6&quot;,&quot;#f0e6f5&quot;],&quot;section&quot;:&quot;الهوية&quot;},&quot;showSectors&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;الأقسام&quot;}}">
-const T = {
-  ar: {
-    login: 'تسجيل الدخول', langSwitch: 'English', langAria: 'التبديل إلى الإنجليزية',
-    navHome: 'الرئيسية', navFeatures: 'المميزات', navContact: 'تواصل معنا',
-    start: 'ابدأ الآن', learnFeatures: 'استكشف المميزات', knowMore: 'أعرف أكثر ›',
-    h1a: 'منصة ذكية', h1b: 'لإدارة أعمالك التجارية',
-    heroSub: 'أبعاد هو نظام سحابي متكامل يساعدك على إدارة المبيعات، المخزون، العملاء، الفواتير، والمدفوعات من منصة واحدة، لتدير أعمالك بكفاءة أكبر وتنمو بثقة.',
-    slotHero: 'صورة الجهاز أو المتجر — اسحب صورة هنا', slotPos: 'صورة نقطة البيع',
-    slotPay: 'صورة شاشة الدفع / الفاتورة', slotInvoice: 'صورة الفاتورة الإلكترونية', slotCloud: 'صورة من داخل المتجر',
-    featBadge: 'كل ما يحتاجه نشاطك التجاري', featTitle: 'كل ما يحتاجه نشاطك التجاري',
-    featSub: 'صُمم أبعاد ليمنحك تجربة تشغيل أكثر سرعة ومرونة، مع أدوات تساعدك على إدارة أعمالك اليومية بكفاءة واتخاذ قرارات أفضل.',
-    payBadge: 'حلول المدفوعات', payTitle: 'تجربة دفع أسرع وأكثر مرونة',
-    payBody: 'استقبل المدفوعات بسهولة عبر مختلف وسائل الدفع، مع متابعة جميع العمليات والتقارير المالية من داخل النظام.',
-    payCta: 'حلول المدفوعات من أبعاد',
-    invBadge: 'الفوترة الإلكترونية', invTitle: 'التزام أسهل بالمتطلبات النظامية',
-    invBody: 'أنشئ فواتير إلكترونية مطابقة للأنظمة، مع تقارير تساعدك على متابعة أعمالك بدقة.',
-    capsAria: 'قدرات النظام',
-    solutionsTitle: 'كل ما يحتاجه نشاطك في منصة واحدة',
-    sectorsTitle: 'حلول تناسب مختلف الأنشطة التجارية',
-    sectorsSub: 'اختر نشاطك وسنعرض لك كيف يعمل أبعاد على تفاصيل عملك اليومي.',
-    contactBadge: 'تواصل معنا',
-    contactTitle: 'ابدأ رحلتك مع أبعاد',
-    contactSub: 'أخبرنا عن نشاطك التجاري، وسيقوم فريقنا بمساعدتك في اختيار الحل المناسب لاحتياجاتك.',
-    sentTitle: 'تم إرسال طلبك', sentBody: 'شكراً لك، سيتواصل معك فريق أبعاد خلال يوم عمل واحد.', sendAnother: 'إرسال طلب آخر',
-    fName: 'الاسم الكامل', fCompany: 'اسم النشاط التجاري', fPhone: 'رقم الجوال', fEmail: 'البريد الإلكتروني',
-    fSector: 'القطاع', fBranches: 'عدد الفروع', fMessage: 'رسالتك', chooseSector: 'اختر القطاع...',
-    phName: 'مثال: سالم الحارثي', phCompany: 'مثال: مقهى الأفق', phMessage: 'اكتب لنا عن نشاطك وما تحتاج تنظيمه...',
-    submit: 'أرسل الطلب', sending: 'جارٍ الإرسال...',
-    placeholderNote: 'بيانات التواصل placeholders — تُستبدل بالأرقام والبريد الحقيقي قبل الإطلاق.',
-    copyright: 'أبعاد. جميع الحقوق محفوظة.',
-    errName: 'الرجاء إدخال الاسم الكامل.', errCompany: 'الرجاء إدخال اسم النشاط التجاري.',
-    errPhone: 'الرجاء إدخال رقم جوال صحيح.', errEmail: 'الرجاء إدخال بريد إلكتروني صحيح.',
-    errSector: 'الرجاء اختيار القطاع.', errMessage: 'الرجاء كتابة رسالة من ١٠ أحرف على الأقل.',
-    formError: 'تعذّر الإرسال — راجع الحقول المعلّمة.'
-  },
-  en: {
-    login: 'Log in', langSwitch: 'العربية', langAria: 'Switch to Arabic',
-    navHome: 'Home', navFeatures: 'Features', navContact: 'Contact',
-    start: 'Get started', learnFeatures: 'Explore the features', knowMore: 'Learn more ›',
-    h1a: 'A smart platform', h1b: 'to run your business',
-    heroSub: 'Abaad is a complete cloud system that helps you manage sales, inventory, customers, invoices and payments from one platform — so you operate more efficiently and grow with confidence.',
-    slotHero: 'Device or store photo — drop an image here', slotPos: 'Point of sale photo',
-    slotPay: 'Payment / invoice screen', slotInvoice: 'E-invoice photo', slotCloud: 'Inside the store',
-    featBadge: 'Everything your business needs', featTitle: 'Everything your business needs',
-    featSub: 'Abaad is built to give you a faster, more flexible operation, with tools that help you run daily work efficiently and decide better.',
-    payBadge: 'Payment solutions', payTitle: 'A faster, more flexible payment experience',
-    payBody: 'Accept payments easily across every method, and follow all transactions and financial reports from inside the system.',
-    payCta: 'Payment solutions by Abaad',
-    invBadge: 'E-invoicing', invTitle: 'Easier compliance with regulatory requirements',
-    invBody: 'Create e-invoices that comply with regulations, with reports that help you track your business precisely.',
-    capsAria: 'System capabilities',
-    solutionsTitle: 'Everything your business needs in one platform',
-    sectorsTitle: 'Solutions for every kind of business',
-    sectorsSub: 'Pick your activity and we will show you how Abaad fits your daily operations.',
-    contactBadge: 'Contact us',
-    contactTitle: 'Start your journey with Abaad',
-    contactSub: 'Tell us about your business and our team will help you choose the right solution for your needs.',
-    sentTitle: 'Your request was sent', sentBody: 'Thank you — the Abaad team will contact you within one business day.', sendAnother: 'Send another request',
-    fName: 'Full name', fCompany: 'Business name', fPhone: 'Mobile number', fEmail: 'Email address',
-    fSector: 'Sector', fBranches: 'Number of branches', fMessage: 'Your message', chooseSector: 'Select a sector...',
-    phName: 'e.g. Salim Al Harthy', phCompany: 'e.g. Horizon Café', phMessage: 'Tell us about your business and what you need to organize...',
-    submit: 'Send request', sending: 'Sending...',
-    placeholderNote: 'Contact details are placeholders — replace with real numbers and email before launch.',
-    copyright: 'Abaad. All rights reserved.',
-    errName: 'Please enter your full name.', errCompany: 'Please enter your business name.',
-    errPhone: 'Please enter a valid mobile number.', errEmail: 'Please enter a valid email address.',
-    errSector: 'Please select a sector.', errMessage: 'Please write a message of at least 10 characters.',
-    formError: 'Could not send — please review the highlighted fields.'
-  }
-};
-
-const CAPS = {
-  ar: [
-    { name: 'نظام سحابي آمن', title: 'نظام سحابي آمن', body: 'بياناتك محفوظة بأعلى معايير الأمان، ومتاحة لك في أي وقت ومن أي جهاز دون أجهزة أو صيانة معقدة.' },
-    { name: 'العمل بدون اتصال', title: 'العمل بدون اتصال', body: 'استمر في البيع حتى عند انقطاع الإنترنت، مع مزامنة البيانات تلقائياً عند عودة الاتصال.' },
-    { name: 'تقارير وتحليلات', title: 'تقارير وتحليلات', body: 'تابع أداء نشاطك من خلال تقارير ولوحات معلومات دقيقة توضح لك ما يحدث فعلاً في مبيعاتك ومخزونك.' },
-    { name: 'تحديثات مستمرة', title: 'تحديثات مستمرة', body: 'نطور أبعاد باستمرار لنقدم مزايا جديدة وتحسينات مستمرة تصلك دون توقف في العمل.' },
-    { name: 'متعدد اللغات', title: 'متعدد اللغات', body: 'واجهة مرنة تدعم أكثر من لغة لتناسب مختلف المستخدمين وفرق العمل.' }
-  ],
-  en: [
-    { name: 'Secure cloud', title: 'A secure cloud system', body: 'Your data is protected to the highest security standards and available any time, from any device — with no hardware or complex maintenance.' },
-    { name: 'Offline mode', title: 'Works without a connection', body: 'Keep selling even when the internet drops, with data syncing automatically once you are back online.' },
-    { name: 'Reports & analytics', title: 'Reports and analytics', body: 'Track performance through precise reports and dashboards that show what is really happening in your sales and inventory.' },
-    { name: 'Continuous updates', title: 'Continuous updates', body: 'We keep developing Abaad to deliver new capabilities and improvements that reach you with no downtime.' },
-    { name: 'Multilingual', title: 'Multilingual', body: 'A flexible interface supporting more than one language to suit different users and teams.' }
-  ]
-};
-
-const DATA = {
-  ar: {
-    sections: [['الرئيسية', '#home'], ['المميزات', '#features'], ['تواصل معنا', '#contact']],
-    segments: [
-      { title: 'تجارة التجزئة', sub: 'إدارة المبيعات والمخزون والفروع بكل سهولة.', tag: '' },
-      { title: 'الهدايا والورود', sub: 'تنظيم الطلبات، المنتجات، والعملاء في مكان واحد.', tag: '' },
-      { title: 'المدفوعات', sub: 'حلول دفع إلكترونية متكاملة وآمنة.', tag: '' }
-    ],
-    pillars: [
-      { title: 'إدارة متكاملة للأعمال', desc: 'تابع المبيعات، المخزون، العملاء، والموردين من لوحة تحكم واحدة.' },
-      { title: 'نظام سحابي', desc: 'يمكنك الوصول إلى بياناتك وإدارة نشاطك من أي مكان وعلى أي جهاز.' },
-      { title: 'الفوترة الإلكترونية', desc: 'إصدار فواتير متوافقة مع الأنظمة بكل سهولة.' },
-      { title: 'يعمل على مختلف الأجهزة', desc: 'سواء كنت تستخدم جهاز كمبيوتر، جهازاً لوحياً أو نقطة بيع، يعمل أبعاد بسلاسة.' },
-      { title: 'حلول دفع متكاملة', desc: 'استقبل مختلف وسائل الدفع عبر تكاملات موثوقة مع مزودي خدمات الدفع.' }
-    ],
-    payTags: ['الدفع اللاتلامسي (NFC)', 'الدفع عبر QR', 'أجهزة نقاط البيع (Pinpad)', 'المحافظ الرقمية'],
-    payLogos: ['شعار مزود ١', 'شعار مزود ٢', 'شعار مزود ٣', 'شعار مزود ٤', 'شعار مزود ٥'],
-    modules: [
-      { title: 'نقاط البيع', sub: 'إدارة عمليات البيع بسرعة وسهولة.' },
-      { title: 'إدارة المخزون', sub: 'متابعة المنتجات والكميات والمستودعات بدقة.' },
-      { title: 'إدارة العملاء', sub: 'الاحتفاط ببيانات العملاء وسجل تعاملاتهم.' },
-      { title: 'التقارير', sub: 'تقارير مالية وتشغيلية تساعدك على اتخاذ قرارات أفضل.' }
-    ],
-    sectorNames: ['محلات الهدايا', 'محلات الورود', 'محلات التجزئة', 'متاجر الملابس', 'متاجر الإلكترونيات', 'المكتبات', 'القرطاسية', 'العطور ومستحضرات التجميل', 'الإكسسوارات', 'متاجر الألعاب', 'محلات الحلويات', 'الأسر المنتجة'],
-    branchOptions: ['فرع واحد', '٢–٥ فروع', '٦–٢٠ فرعاً', 'أكثر من ٢٠ فرعاً'],
-    contactCards: [
-      { title: 'المبيعات', body: 'لعرض النظام أو طلب عرض سعر يناسب نشاطك.', value: '[بريد المبيعات]' },
-      { title: 'الدعم الفني', body: 'للعملاء الحاليين — استفسارات التشغيل والمشكلات التقنية.', value: '[رقم الدعم]' },
-      { title: 'ساعات العمل', body: 'فريقنا متاح للرد على استفساراتك.', value: '[أوقات العمل]' }
-    ]
-  },
-  en: {
-    sections: [['Home', '#home'], ['Features', '#features'], ['Contact', '#contact']],
-    segments: [
-      { title: 'Retail', sub: 'Manage sales, inventory and branches with ease.', tag: '' },
-      { title: 'Gifts & flowers', sub: 'Organize orders, products and customers in one place.', tag: '' },
-      { title: 'Payments', sub: 'Complete, secure electronic payment solutions.', tag: '' }
-    ],
-    pillars: [
-      { title: 'Complete business management', desc: 'Track sales, inventory, customers and suppliers from one dashboard.' },
-      { title: 'Cloud system', desc: 'Reach your data and run your business from anywhere, on any device.' },
-      { title: 'E-invoicing', desc: 'Issue invoices that comply with regulations, easily.' },
-      { title: 'Works on every device', desc: 'Whether you use a computer, a tablet or a point of sale, Abaad runs smoothly.' },
-      { title: 'Integrated payment solutions', desc: 'Accept every payment method through trusted integrations with payment providers.' }
-    ],
-    payTags: ['Contactless (NFC)', 'QR payments', 'Point of sale devices (Pinpad)', 'Digital wallets'],
-    payLogos: ['Provider logo 1', 'Provider logo 2', 'Provider logo 3', 'Provider logo 4', 'Provider logo 5'],
-    modules: [
-      { title: 'Point of sale', sub: 'Run sales operations quickly and easily.' },
-      { title: 'Inventory', sub: 'Track products, quantities and warehouses precisely.' },
-      { title: 'Customers', sub: 'Keep customer records and their transaction history.' },
-      { title: 'Reports', sub: 'Financial and operational reports that help you decide better.' }
-    ],
-    sectorNames: ['Gift shops', 'Flower shops', 'Retail stores', 'Clothing stores', 'Electronics stores', 'Bookshops', 'Stationery', 'Perfume & beauty', 'Accessories', 'Toy stores', 'Sweet shops', 'Home businesses'],
-    branchOptions: ['One branch', '2–5 branches', '6–20 branches', 'More than 20 branches'],
-    contactCards: [
-      { title: 'Sales', body: 'For a system walkthrough or a quote that fits your business.', value: '[sales email]' },
-      { title: 'Technical support', body: 'For existing customers — operations questions and technical issues.', value: '[support number]' },
-      { title: 'Working hours', body: 'Our team is available to answer your questions.', value: '[working hours]' }
-    ]
-  }
-};
-
-class Component extends DCLogic {
-  state = { lang: 'ar', menuOpen: false, cap: 0, sent: false, sending: false, errors: {}, formError: '' };
-
-  componentDidMount() { this.applyAccent(); }
-  componentDidUpdate(prev) { if (prev.accentColor !== this.props.accentColor) this.applyAccent(); }
-  applyAccent() {
-    const c = this.props.accentColor;
-    if (c) document.documentElement.style.setProperty('--peach', c);
-  }
-
-  renderVals() {
-    const s = this.state;
-    const ar = s.lang === 'ar';
-    const t = ar ? T.ar : T.en;
-    const d = ar ? DATA.ar : DATA.en;
-    const caps = ar ? CAPS.ar : CAPS.en;
-    const sectorNames = d.sectorNames;
-
-    return {
-      t, lang: s.lang, dir: ar ? 'rtl' : 'ltr',
-      toggleLang: () => {
-        const l = ar ? 'en' : 'ar';
-        document.documentElement.setAttribute('lang', l);
-        document.documentElement.setAttribute('dir', l === 'ar' ? 'rtl' : 'ltr');
-        this.setState({ lang: l, menuOpen: false, errors: {}, formError: '' });
-      },
-      sections: d.sections.map(([label, href]) => ({ label, href })),
-      menuOpen: s.menuOpen,
-      toggleMenu: () => this.setState({ menuOpen: !s.menuOpen }),
-      closeMenu: () => this.setState({ menuOpen: false }),
-
-      segments: d.segments,
-      pillars: d.pillars,
-      payTags: d.payTags,
-      payLogos: d.payLogos,
-
-      capTabs: caps.map((c, i) => ({
-        name: c.name, active: s.cap === i, go: () => this.setState({ cap: i }),
-        bg: s.cap === i ? '#ffffff' : 'transparent',
-        shadow: s.cap === i ? '0 1px 3px rgba(0,0,0,.08)' : 'none',
-        dot: s.cap === i ? 'var(--peach-ink)' : 'var(--muted)'
-      })),
-      cap: caps[s.cap] || caps[0],
-
-      modules: d.modules,
-      showSectors: this.props.showSectors !== false,
-      sectors: sectorNames.map((name, i) => ({ name, id: 'abaad-sector-' + (i + 1) })),
-      sectorNames,
-      branchOptions: d.branchOptions,
-      contactCards: d.contactCards,
-
-      sent: s.sent, notSent: !s.sent,
-      submitLabel: s.sending ? t.sending : t.submit,
-      errName: s.errors.name, errCompany: s.errors.company, errPhone: s.errors.phone,
-      errEmail: s.errors.email, errSector: s.errors.sector, errMessage: s.errors.message,
-      formError: s.formError,
-      resetForm: () => this.setState({ sent: false, errors: {}, formError: '' }),
-      submit: (e) => {
-        e.preventDefault();
-        const f = e.target;
-        const v = (n) => (f.elements[n] ? String(f.elements[n].value || '').trim() : '');
-        const errors = {};
-        if (v('name').length < 3) errors.name = t.errName;
-        if (v('company').length < 2) errors.company = t.errCompany;
-        if (v('phone').replace(/[^\d]/g, '').length < 8) errors.phone = t.errPhone;
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v('email'))) errors.email = t.errEmail;
-        if (!v('sector')) errors.sector = t.errSector;
-        if (v('message').length < 10) errors.message = t.errMessage;
-        if (Object.keys(errors).length) {
-          this.setState({ errors, formError: t.formError });
-          return;
-        }
-        this.setState({ errors: {}, formError: '', sending: true });
-        setTimeout(() => this.setState({ sending: false, sent: true }), 900);
-      },
-      year: new Date().getFullYear()
-    };
-  }
-}
-
-</script>
 </body>
 </html>
