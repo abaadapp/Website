@@ -26,6 +26,20 @@ button,input,select,textarea{font-family:inherit}
   [data-g="contact"]{grid-template-columns:.8fr 1.2fr!important}
 }
 
+/* الجوّال — أُضيفت بعد فحص Safari/WebKit */
+/* بطاقاتُ «الملخّص المالي» عمودٌ واحد تحت 520px: المبالغ (nowrap) كانت تخرج من بطاقتها وتُحدث فيضًا أفقيًّا.
+   وعلى 320px لا يتّسع المبلغُ وأيقونتُه سطرًا واحدًا، فتنزل «ر.ع» تحته كما في البطاقات السفلى */
+@media (max-width:519px){
+  [data-fin-img] > [role="img"]{grid-template-columns:minmax(0,1fr)!important}
+  [data-fin-img] > [role="img"] [dir="ltr"]{white-space:normal!important}
+}
+@media (max-width:959px){
+  /* القائمة داخل رأسٍ ملتصق: إن طالت عن الشاشة تتمرّر هي، وإلّا بقي آخرُ أزرارها خارج الشاشة */
+  [data-menu]{max-height:calc(100vh - 77px);max-height:calc(100dvh - 77px);overflow-y:auto;overscroll-behavior:contain}
+  /* أقلّ من 16px يجعل Safari على iOS يكبّر الصفحة عند التركيز */
+  [data-contact-form] input,[data-contact-form] select,[data-contact-form] textarea{font-size:16px!important}
+}
+
 /* حالاتُ المرور — كانت `style-hover` في التصميم */
 .hv-pill:hover{background:var(--bg2)!important;color:var(--ink)!important}
 .hv-bg2:hover{background:var(--bg2)!important}

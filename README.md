@@ -42,10 +42,12 @@ var LINKS = { login: APP + '/login', register: APP + '/register' };
 ## التعديل
 
 ```bash
-npm install          # مرّةً واحدة — jsdom للأداتين أدناه
+npm install          # مرّةً واحدة — jsdom وplaywright للأدوات أدناه
+npx playwright install webkit chromium   # مرّةً واحدة — لاختبار التخطيط
 # عدّل assets/site.js أو assets/site.css
 npm run prerender    # يرسم العربية في index.html ويحدّث بصمة الملفّين (?v=)
 npm test             # الروابط، الملفّات، الرأس، وما يتحرّك في الصفحة
+npm run test:layout  # WebKit (Safari) وChromium بأحجام الجوّال واللوحيّ وسطح المكتب
 ```
 
 `npm test` يسقط إن نسيت `prerender`: nginx يخزّن ‎`site.js`‎ و‎`site.css`‎ ثلاثين يومًا،
