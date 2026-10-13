@@ -1,0 +1,13 @@
+{
+  "name": "abaad-website",
+  "private": true,
+  "description": "الموقع التعريفي لأبعاد على abaadapp.om — ملفّات ثابتة، وهذه أدوات التطوير وحدها",
+  "type": "module",
+  "scripts": {
+    "prerender": "node tools/prerender.mjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "^30.0.1"
+  }
+}
