@@ -9,15 +9,27 @@
 
 | الملف | الوصف |
 |---|---|
-| `index.html` | الصفحة الرئيسية — النسخة العربية مرسومةً فيها |
-| `assets/site.js` | النصوص بالعربية والإنجليزية، وكل ما يتحرّك: اللغة، القائمة، القدرات، الأسعار، النموذج |
+| `index.html` | الصفحة العربية على `/` — وهي القالب: البنيةُ تُعدَّل فيها |
+| `en/index.html` | الصفحة الإنجليزية على `/en/` — **تُولَّد** من `index.html` بـ `npm run prerender`، لا تُعدَّل يدويًّا |
+| `assets/site.js` | النصوص بالعربية والإنجليزية، وكل ما يتحرّك: القائمة، القدرات، الأسعار، النموذج |
 | `assets/site.css` | الألوان والقواعد المتجاوبة وحالات المرور |
 | `assets/img/` | الصور (WebP) والشعار ‎`logo.svg`‎ وصورة المشاركة ‎`og.png`‎ |
-| `favicon.ico`، `favicon.svg`، `apple-touch-icon.png`، `robots.txt` | الأيقونات وملفّ الزواحف |
+| `favicon.ico`، `favicon.svg`، `apple-touch-icon.png` | الأيقونات (و`apple-touch-icon.png` هو الشعار في JSON-LD) |
+| `robots.txt`، `sitemap.xml` | الزواحف وخريطة الصفحات الخمس |
 | `privacy/`، `terms/`، `data-deletion/` | الصفحات التي يقرؤها مراجعُ ميتا وGoogle — **لا تُنقل ولا تُحذف** |
 | `uploads/Artboard 2.svg` | الشعار القديم، باقٍ لمن يشير إليه من الخارج |
 | `deploy/nginx-abaadapp.om.conf` | كتلتا nginx للموقع و‎www‎ |
 | `package.json`، `tools/`، `tests/` | أدوات التطوير وحدها — لا يحتاجها الخادم |
+
+## اللغتان والبحث
+
+- **عنوانان:** العربية على `https://abaadapp.om/` والإنجليزية على `https://abaadapp.om/en/`،
+  كلٌّ منهما HTML كامل بلغته قبل أي JavaScript. «English» و«العربية» رابطان عاديّان بينهما.
+- **الرأس:** العنوان والوصف وcanonical وhreflang (ar-OM، en-OM، x-default إلى العربية)
+  وOpen Graph وJSON-LD (Organization وWebSite) — كلّها من `SEO` أعلى `tools/prerender.mjs`،
+  يكتبها `npm run prerender` في الصفحتين. لا تعدّلها في HTML مباشرة.
+- **الصفحات القانونية** عربيةٌ وحدها، وcanonical كلٍّ منها بعنوانها النهائيّ (`/privacy/` بالشرطة الأخيرة).
+- **`sitemap.xml`** يُعدَّل يدويًّا إن أُضيفت صفحة؛ والاختبار يتأكّد أن كل رابطٍ فيه هو canonical صفحته.
 
 الخط **IBM Plex Sans Arabic** من Google Fonts.
 
@@ -44,9 +56,9 @@ var LINKS = { login: APP + '/login', register: APP + '/register' };
 ```bash
 npm install          # مرّةً واحدة — jsdom وplaywright للأدوات أدناه
 npx playwright install webkit chromium   # مرّةً واحدة — لاختبار التخطيط
-# عدّل assets/site.js أو assets/site.css
-npm run prerender    # يرسم العربية في index.html ويحدّث بصمة الملفّين (?v=)
-npm test             # الروابط، الملفّات، الرأس، وما يتحرّك في الصفحة
+# عدّل assets/site.js أو assets/site.css أو SEO في tools/prerender.mjs
+npm run prerender    # يرسم index.html وen/index.html ويحدّث بصمة الملفّين (?v=)
+npm test             # الروابط، الملفّات، SEO، وما يتحرّك في الصفحة
 npm run test:layout  # WebKit (Safari) وChromium بأحجام الجوّال واللوحيّ وسطح المكتب
 ```
 

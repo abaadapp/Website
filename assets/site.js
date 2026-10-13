@@ -1,13 +1,14 @@
 /*
  * أبعاد — الموقع التعريفي على abaadapp.om
  *
- * صفحةٌ ثابتة: index.html يحمل النسخة العربية جاهزةً، وهذا الملفّ يشغّل ما يتحرّك
- * فيها — تبديل اللغة، قائمة الجوال، بطاقات القدرات، تبويبات الترابط، الأتمتة،
+ * صفحتان ثابتتان: index.html بالعربية على / وen/index.html بالإنجليزية على /en/،
+ * كلٌّ منهما جاهزةٌ بلغتها لمن لا يشغّل JavaScript ولمحرّكات البحث. وهذا الملفّ
+ * يشغّل ما يتحرّك فيهما — قائمة الجوال، بطاقات القدرات، تبويبات الترابط، الأتمتة،
  * الأسعار الشهرية/السنوية، ونموذج التواصل. النصوص والتوقيتات منقولةٌ من التصميم
- * كما هي.
+ * كما هي. وتبديل اللغة رابطٌ عاديّ بين الصفحتين.
  *
- * والقوائم تُرسم من البيانات أدناه عند التحميل وعند تبديل اللغة؛ ما في index.html
- * منها هو رسمُها العربيّ نفسُه لمن لا يشغّل JavaScript.
+ * والقوائم تُرسم من البيانات أدناه بلغة الصفحة؛ ورسمُها نفسُه هو ما في الصفحتين
+ * (npm run prerender).
  */
 (function () {
   'use strict';
@@ -20,6 +21,8 @@
    */
   var APP = 'https://app.abaadapp.om';
   var LINKS = { login: APP + '/login', register: APP + '/register' };
+  // صفحتا اللغتين على الموقع نفسه
+  var PAGES = { ar: '/', en: '/en/' };
   var MAIL = 'abaadappom@gmail.com';
   var IMG = '/assets/img/';
 
@@ -523,6 +526,10 @@
     if (panel) panel.setAttribute('data-g', capGrid());
     $$('[data-arrow]', root).forEach(function (el) { el.textContent = arrow(); });
     $$('[data-mail]', root).forEach(function (el) { el.textContent = MAIL; el.setAttribute('href', 'mailto:' + MAIL); });
+    var other = S.lang === 'ar' ? 'en' : 'ar';
+    $$('[data-lang-link]', root).forEach(function (a) {
+      a.setAttribute('href', PAGES[other]); a.setAttribute('hreflang', other); a.setAttribute('lang', other);
+    });
   }
   function capGrid() { return S.cap === 0 ? 'detail-wide' : S.cap === 4 ? 'detail-xwide' : 'detail'; }
 
@@ -638,21 +645,8 @@
     flowFadeT = setTimeout(function () { S.flowVis = true; S.flowTick = 0; applyFlowVis(); applySteps(); }, 200);
   }
 
-  /* ═══════════ اللغة والقائمة ═══════════ */
+  /* ═══════════ القائمة ═══════════ */
 
-  function setLang(l) {
-    S.lang = l;
-    var dir = l === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.setAttribute('lang', l);
-    document.documentElement.setAttribute('dir', dir);
-    var page = $('[data-site]');
-    page.setAttribute('lang', l); page.setAttribute('dir', dir);
-    setMenu(false);
-    clearErrors();
-    renderAll(document);
-    applyBilling(); applyCapVis(); applyFlowVis();
-    measureInd();
-  }
   function setMenu(open) {
     S.menuOpen = open;
     $('[data-menu]').hidden = !open;
@@ -701,6 +695,7 @@
 
   function init() {
     if (!$('[data-site]')) return;
+    S.lang = $('[data-site]').getAttribute('lang') === 'en' ? 'en' : 'ar';
     var year = $('[data-year]'); if (year) year.textContent = String(new Date().getFullYear());
     renderAll(document);
     applyBilling();
@@ -713,8 +708,7 @@
       if (el.hasAttribute('data-billing')) { S.billing = el.getAttribute('data-billing'); applyBilling(); return; }
       if (el.hasAttribute('data-close-menu')) { setMenu(false); return; }
       var action = el.getAttribute('data-action');
-      if (action === 'lang') setLang(S.lang === 'ar' ? 'en' : 'ar');
-      else if (action === 'menu') setMenu(!S.menuOpen);
+      if (action === 'menu') setMenu(!S.menuOpen);
       else if (action === 'reset-form') setSent(false);
     });
     $('[data-contact-form]').addEventListener('submit', submit);
@@ -745,8 +739,8 @@
   }
 
   if (window.__ABAAD_PRERENDER__) {
-    // يرسم النسخة العربية في index.html — لا يشغّل شيئًا
-    window.__ABAAD_PRERENDER__.render = function (root) { renderAll(root); };
+    // يرسم الصفحة بلغتها (index.html وen/index.html) — لا يشغّل شيئًا
+    window.__ABAAD_PRERENDER__.render = function (root, lang) { S.lang = lang; renderAll(root); };
     return;
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
