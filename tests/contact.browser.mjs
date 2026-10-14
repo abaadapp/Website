@@ -57,7 +57,7 @@ async function open(engine, path, viewport) {
   const ctx = await engines[engine].newContext({ viewport, ...touch });
   const page = await ctx.newPage();
   const errors = [], sent = [], popups = [];
-  let reply = { status: 200, body: { ok: true } }, delay = 400;
+  let reply = { status: 200, body: { ok: true } }, delay = 400, gate = null;
 
   page.on('pageerror', (e) => errors.push(String(e)));
   page.on('console', (m) => {
@@ -71,6 +71,8 @@ async function open(engine, path, viewport) {
     const req = route.request();
     sent.push({ method: req.method(), body: req.postData() || '', headers: await req.allHeaders() });
     await new Promise((r) => setTimeout(r, delay));
+    // ردٌّ محبوسٌ حتّى يطلقه الاختبار — لا يسبق تحقّقًا مهما بطؤ المتصفّح
+    if (gate) await gate;
     if (reply === 'network') return route.abort('failed');
     await route.fulfill({
       status: reply.status,
@@ -85,6 +87,7 @@ async function open(engine, path, viewport) {
   return {
     page, sent, popups, startUrl,
     reply: (r, ms = 400) => { reply = r; delay = ms; },
+    hold: () => { let release; gate = new Promise((r) => { release = r; }); return () => { gate = null; release(); }; },
     close: async () => {
       await ctx.close();
       assert.deepEqual(errors, [], `${engine} /${path}: أخطاء`);
@@ -108,6 +111,7 @@ for (const engine of ['webkit', 'chromium']) {
       const { page } = s;
       const button = page.locator('[data-contact-form] [type="submit"]');
       await fill(page);
+      const release = s.hold();
       await button.click();
 
       await page.waitForFunction(() => document.querySelector('[data-contact-form] [type="submit"]').disabled);
@@ -117,6 +121,7 @@ for (const engine of ['webkit', 'chromium']) {
       await page.locator('[name="name"]').press('Enter');
       assert.equal(await page.locator('[data-sent]').isHidden(), true, '«تم» قبل أن يردّ الخادم');
 
+      release();
       await page.locator('[data-sent]').waitFor({ state: 'visible' });
       assert.equal(s.sent.length, 1, 'أُرسل الطلبُ أكثرَ من مرّة');
       assert.equal(s.sent[0].method, 'POST');
@@ -144,8 +149,10 @@ for (const engine of ['webkit', 'chromium']) {
     try {
       const { page } = s;
       await fill(page, { name: 'Sara', company: 'Rose Shop', type: 'subscriptions', message: 'We need recurring billing.' });
+      const release = s.hold();
       await page.locator('[data-contact-form] [type="submit"]').click();
       await page.waitForFunction(() => document.querySelector('[data-contact-form] [type="submit"]').textContent === 'Sending…');
+      release();
       await page.locator('[data-sent]').waitFor({ state: 'visible' });
       assert.equal(params(s.sent[0].body).locale, 'en');
       assert.equal(params(s.sent[0].body).activity_type, 'subscriptions');
