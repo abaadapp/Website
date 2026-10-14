@@ -24,6 +24,13 @@
   // صفحتا اللغتين على الموقع نفسه
   var PAGES = { ar: '/', en: '/en/' };
   var MAIL = 'abaadappom@gmail.com';
+  /*
+   * نموذجُ «تواصل معنا» يُرسَل إلى CRM أبعاد على النظام — لا إلى بريد الزائر.
+   * بابٌ عامّ بلا مفتاحٍ ولا سرّ: يحرسه الخادم (الأصل، والخنق، والفخّ، والتحقّق).
+   */
+  var CONTACT_URL = APP + '/website/contact';
+  // نوعُ النشاط يُرسَل مفتاحًا ثابتًا بترتيب `types` ثمّ «أخرى» — والتسميةُ للعرض وحده
+  var TYPE_KEYS = ['retail', 'ecommerce', 'services', 'subscriptions', 'other'];
   var IMG = '/assets/img/';
 
   var T = {
@@ -67,12 +74,14 @@
       fName: 'الاسم', fCompany: 'اسم النشاط', fPhone: 'رقم الهاتف', fEmail: 'البريد الإلكتروني', fType: 'نوع النشاط', fMessage: 'الرسالة',
       chooseType: 'اختر نوع النشاط...', other: 'أخرى',
       submit: 'أرسل',
-      // لا خادم وراء النموذج: يفتح رسالةً جاهزة في بريد الزائر، فلا يقول «تم الإرسال» قبل أن يُرسَل شيء
-      sentTitle: 'أكمل إرسال طلبك من بريدك',
-      sentBody: 'فتحنا رسالتك جاهزةً في تطبيق البريد — اضغط «إرسال» هناك ليصلنا طلبك.',
-      mailAgain: 'افتح الرسالة مرة أخرى', mailOr: 'أو راسلنا مباشرة على',
-      mailSubject: 'طلب تواصل من موقع أبعاد',
+      sending: 'جارٍ الإرسال…',
+      // «تم الاستلام» بعد أن حفظه الخادم فعلًا — لا قبل
+      sentTitle: 'تم استلام طلبك بنجاح.',
+      sentBody: 'سنتواصل معك قريبًا.',
+      mailOr: 'أو راسلنا مباشرة على',
       sendAnother: 'إرسال طلب آخر',
+      errSend: 'تعذر إرسال الطلب الآن. حاول مرة أخرى.',
+      errBusy: 'محاولات كثيرة خلال وقت قصير. انتظر قليلًا ثم حاول مرة أخرى.',
       errName: 'الرجاء إدخال الاسم.', errCompany: 'الرجاء إدخال اسم النشاط.', errPhone: 'الرجاء إدخال رقم هاتف صحيح.',
       errEmail: 'الرجاء إدخال بريد إلكتروني صحيح.', errType: 'الرجاء اختيار نوع النشاط.', errMessage: 'الرجاء كتابة رسالة قصيرة.',
       privacy: 'سياسة الخصوصية', terms: 'الشروط',
@@ -119,11 +128,13 @@
       fName: 'Name', fCompany: 'Business name', fPhone: 'Phone number', fEmail: 'Email', fType: 'Business type', fMessage: 'Message',
       chooseType: 'Select a business type...', other: 'Other',
       submit: 'Send',
-      sentTitle: 'Finish sending from your email',
-      sentBody: 'We opened your message in your email app — press Send there so it reaches us.',
-      mailAgain: 'Open the message again', mailOr: 'Or email us directly at',
-      mailSubject: 'Contact request from the Abaad website',
+      sending: 'Sending…',
+      sentTitle: 'Your request has been received.',
+      sentBody: 'We’ll contact you soon.',
+      mailOr: 'Or email us directly at',
       sendAnother: 'Send another request',
+      errSend: 'Couldn’t send your request. Please try again.',
+      errBusy: 'Too many attempts in a short time. Please wait a moment and try again.',
       errName: 'Please enter your name.', errCompany: 'Please enter your business name.', errPhone: 'Please enter a valid phone number.',
       errEmail: 'Please enter a valid email address.', errType: 'Please select a business type.', errMessage: 'Please write a short message.',
       privacy: 'Privacy policy', terms: 'Terms',
@@ -263,7 +274,7 @@
   var FLOW_COUNT = 3, FLOW_INTERVAL = 4000, FLOW_STEP_MS = 550;
   var TICK_MS = 1100;
 
-  var S = { lang: 'ar', menuOpen: false, cap: 0, capVis: true, billing: 'm', flow: 0, flowVis: true, flowTick: 0, ind: null, tick: 0, sent: false };
+  var S = { lang: 'ar', menuOpen: false, cap: 0, capVis: true, billing: 'm', flow: 0, flowVis: true, flowTick: 0, ind: null, tick: 0, sent: false, sending: false };
 
   function pad(n) { return String(n).padStart(2, '0'); }
   function esc(s) {
@@ -476,8 +487,8 @@
     },
     typeOptions: function (t, d) {
       return '<option value="">' + esc(t.chooseType) + '</option>' +
-        d.types.map(function (x) { return x.title; }).concat([t.other]).map(function (o) {
-          return '<option value="' + esc(o) + '">' + esc(o) + '</option>';
+        d.types.map(function (x) { return x.title; }).concat([t.other]).map(function (o, i) {
+          return '<option value="' + TYPE_KEYS[i] + '">' + esc(o) + '</option>';
         }).join('');
     },
     contactInfo: function (t) {
@@ -661,36 +672,81 @@
     $('[data-action="menu"]').setAttribute('aria-expanded', String(open));
   }
 
-  /* ═══════════ نموذج التواصل: يفتح رسالةً جاهزة في بريد الزائر ═══════════ */
+  /* ═══════════ نموذج التواصل: يُحفظ في CRM أبعاد ═══════════ */
 
   var FIELDS = ['name', 'company', 'phone', 'email', 'type', 'message'];
+  // اسمُ الحقل عند الخادم — والخادمُ يقبل هذه وحدها، ويفرض المصدرَ والمرحلةَ بنفسه
+  var API = { name: 'name', company: 'business_name', phone: 'phone', email: 'email', type: 'activity_type', message: 'message' };
+  var SEND_TIMEOUT_MS = 20000;
+
   function clearErrors() {
     $$('[data-err]').forEach(function (e) { e.hidden = true; e.textContent = ''; });
+    setStatus('');
   }
+  function showErrors(errors) {
+    var t = tr();
+    var msg = { name: t.errName, company: t.errCompany, phone: t.errPhone, email: t.errEmail, type: t.errType, message: t.errMessage };
+    FIELDS.forEach(function (n) {
+      if (!errors[n]) return;
+      var el = $('[data-err="' + n + '"]'); el.textContent = msg[n]; el.hidden = false;
+    });
+  }
+  function setStatus(text) {
+    var el = $('[data-form-status]');
+    if (!el) return;
+    el.textContent = text; el.hidden = !text;
+  }
+  function setSending(on) {
+    S.sending = on;
+    var b = $('[data-contact-form] [type="submit"]');
+    b.disabled = on;
+    b.setAttribute('aria-busy', String(on));
+    b.textContent = on ? tr().sending : tr().submit;
+  }
+
   function submit(e) {
     e.preventDefault();
+    if (S.sending) return; // ضغطةٌ ثانيةٌ أثناء الإرسال لا تُرسل طلبًا ثانيًا
     var f = e.target, t = tr();
     var v = function (n) { return f.elements[n] ? String(f.elements[n].value || '').trim() : ''; };
     var errors = {};
-    if (v('name').length < 2) errors.name = t.errName;
-    if (v('company').length < 2) errors.company = t.errCompany;
-    if (v('phone').replace(/[^\d]/g, '').length < 8) errors.phone = t.errPhone;
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v('email'))) errors.email = t.errEmail;
-    if (!v('type')) errors.type = t.errType;
-    if (v('message').length < 5) errors.message = t.errMessage;
+    if (v('name').length < 2) errors.name = true;
+    if (v('company').length < 2) errors.company = true;
+    if (v('phone').replace(/[^\d]/g, '').length < 8) errors.phone = true;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v('email'))) errors.email = true;
+    if (TYPE_KEYS.indexOf(v('type')) < 0) errors.type = true;
+    if (v('message').length < 5) errors.message = true;
     clearErrors();
-    var bad = FIELDS.filter(function (n) { return errors[n]; });
-    bad.forEach(function (n) { var el = $('[data-err="' + n + '"]'); el.textContent = errors[n]; el.hidden = false; });
-    if (bad.length) return;
+    if (FIELDS.some(function (n) { return errors[n]; })) { showErrors(errors); return; }
 
-    var body = [
-      t.fName + ': ' + v('name'), t.fCompany + ': ' + v('company'), t.fPhone + ': ' + v('phone'),
-      t.fEmail + ': ' + v('email'), t.fType + ': ' + v('type'), '', v('message')
-    ].join('\r\n');
-    var href = 'mailto:' + MAIL + '?subject=' + encodeURIComponent(t.mailSubject + ' — ' + v('company')) + '&body=' + encodeURIComponent(body);
-    $('[data-mail-again]').setAttribute('href', href);
-    setSent(true);
-    window.location.href = href;
+    var body = new URLSearchParams();
+    FIELDS.forEach(function (n) { body.append(API[n], v(n)); });
+    body.append('locale', S.lang);
+    body.append('contact_hp', f.elements.contact_hp ? f.elements.contact_hp.value : '');
+
+    setSending(true);
+    var ctrl = typeof AbortController === 'function' ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, SEND_TIMEOUT_MS) : null;
+    // طلبٌ «بسيط» عابرٌ للأصل: نموذجٌ مُرمَّز وAccept — فلا preflight ولا كعكات
+    fetch(CONTACT_URL, {
+      method: 'POST', body: body, mode: 'cors', credentials: 'omit',
+      headers: { Accept: 'application/json' }, signal: ctrl ? ctrl.signal : undefined
+    }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (data) { return { status: res.status, data: data || {} }; });
+    }).then(function (r) {
+      clearTimeout(timer); setSending(false);
+      if (r.status === 200 && r.data.ok === true) { f.reset(); setSent(true); return; }
+      if (r.status === 422 && r.data.errors) {
+        var back = { business_name: 'company', activity_type: 'type' }, shown = {};
+        Object.keys(r.data.errors).forEach(function (k) { shown[back[k] || k] = true; });
+        if (FIELDS.some(function (n) { return shown[n]; })) { showErrors(shown); return; }
+      }
+      // ما لم يُحفظ لا يُمسح: البياناتُ باقيةٌ في الخانات لمحاولةٍ أخرى
+      setStatus(r.status === 429 ? t.errBusy : t.errSend);
+    }, function () {
+      clearTimeout(timer); setSending(false);
+      setStatus(t.errSend);
+    });
   }
   function setSent(sent) {
     S.sent = sent;

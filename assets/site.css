@@ -46,3 +46,6 @@ button,input,select,textarea{font-family:inherit}
 .hv-border-ink:hover{border-color:var(--ink)!important}
 .hv-invert:hover{background:var(--ink)!important;color:#fff!important}
 .hv-white:hover{color:#fff!important}
+
+/* زرُّ «أرسل» أثناء الإرسال — لا يُضغط ثانيةً */
+[data-contact-form] [type="submit"][disabled]{opacity:.6;cursor:progress}

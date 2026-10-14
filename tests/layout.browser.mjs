@@ -24,6 +24,8 @@ const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png', '.ico': 'image/x-icon' };
 
 const PHONES = [[320, 568], [375, 667], [390, 664], [430, 739]];
+// خاناتُ النموذج التي يكتب فيها الزائر — دون الفخّ المخفيّ للبوتات
+const FIELDS = 'input:not([name="contact_hp"]), select, textarea';
 const LANDSCAPE = [[667, 375], [750, 342], [844, 390]];
 const TABLETS = [[810, 1080], [1080, 810]];
 const DESKTOP = [[1440, 900]];
@@ -192,8 +194,14 @@ for (const engine of ['webkit', 'chromium']) {
       const at = size.join('×');
       const form = s.page.locator('[data-contact-form]');
       await form.scrollIntoViewIfNeeded();
-      const sizes = await form.locator('input, select, textarea').evaluateAll((els) => els.map((e) => parseFloat(getComputedStyle(e).fontSize)));
+      // خاناتُ الزائر الستّ — والفخُّ المخفيّ للبوتات ليس منها: لا يُرى ولا يُركَّز عليه
+      const sizes = await form.locator(FIELDS).evaluateAll((els) => els.map((e) => parseFloat(getComputedStyle(e).fontSize)));
       assert.equal(sizes.length, 6);
+      const trap = await form.locator('[name="contact_hp"]').evaluate((e) => {
+        const b = e.parentElement.getBoundingClientRect();
+        return { tab: e.tabIndex, hidden: e.parentElement.getAttribute('aria-hidden'), area: b.width * b.height, opacity: getComputedStyle(e.parentElement).opacity };
+      });
+      assert.deepEqual(trap, { tab: -1, hidden: 'true', area: 1, opacity: '0' }, `${at}: الفخُّ ظاهرٌ أو يُبلغ بلوحة المفاتيح`);
       sizes.forEach((px) => assert.ok(px >= 16, `${at}: خانةٌ بخط ${px}px`));
       const box = () => form.evaluate((f) => { const b = f.getBoundingClientRect(); return [b.width, b.height, window.visualViewport.scale]; });
       const before = await box();
@@ -209,11 +217,11 @@ for (const engine of ['webkit', 'chromium']) {
     for (const size of [[1080, 810], ...DESKTOP]) {
       const s = await open(engine, size);
       const at = size.join('×');
-      const d = await s.page.evaluate(() => ({
+      const d = await s.page.evaluate((sel) => ({
         burger: getComputedStyle(document.querySelector('[data-action="menu"]')).display,
         menuMax: getComputedStyle(document.querySelector('[data-menu]')).maxHeight,
-        fields: [...new Set([...document.querySelectorAll('[data-contact-form] input, [data-contact-form] select, [data-contact-form] textarea')].map((e) => getComputedStyle(e).fontSize))],
-      }));
+        fields: [...new Set([...document.querySelectorAll(sel)].map((e) => getComputedStyle(e).fontSize))],
+      }), '[data-contact-form] ' + FIELDS.split(', ').join(', [data-contact-form] '));
       assert.equal(d.burger, 'none', at);
       assert.equal(d.menuMax, 'none', `${at}: حدُّ القائمة وصل إلى سطح المكتب`);
       assert.deepEqual(d.fields, ['15.5px'], `${at}: خطّ النموذج تغيّر على سطح المكتب`);
