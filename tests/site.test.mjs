@@ -197,30 +197,151 @@ test('a capability card opens its own panel', async (t) => {
   assert.equal(d.querySelector('[data-cap="0"]').getAttribute('aria-expanded'), 'false');
 });
 
-test('the contact form refuses empty fields and then opens a ready email — never a fake "sent"', async (t) => {
-  const w = await page(t), d = w.document;
-  const form = d.querySelector('[data-contact-form]');
-  form.dispatchEvent(new w.Event('submit', { bubbles: true, cancelable: true }));
-  const shown = [...d.querySelectorAll('[data-err]')].filter((e) => !e.hidden).map((e) => e.dataset.err);
-  assert.deepEqual(shown, ['name', 'company', 'phone', 'email', 'type', 'message']);
-  assert.ok(d.querySelector('[data-sent]').hidden);
+/*
+ * النموذج يُرسَل إلى CRM أبعاد على النظام — لا يفتح بريدَ الزائر.
+ * والخادمُ مُزيَّف هنا (jsdom بلا fetch): يُسجَّل ما أُرسل، ويُجاب بما يختاره الاختبار.
+ */
+const CONTACT_URL = 'https://app.abaadapp.om/website/contact';
 
-  const set = (n, v) => { form.elements[n].value = v; };
-  set('name', 'سالم الحارثي'); set('company', 'مقهى الأفق'); set('phone', '+968 9123 4567');
-  set('email', 'salem@example.com'); set('type', 'التجزئة'); set('message', 'نريد نقطة بيع لفرعين.');
-  form.dispatchEvent(new w.Event('submit', { bubbles: true, cancelable: true }));
+async function contactPage(t, lang = 'ar') {
+  const vc = new VirtualConsole();
+  const navigations = [];
+  vc.on('jsdomError', (e) => { if (/navigation/i.test(e.message)) navigations.push(e.message); });
+  const [html, url] = lang === 'en' ? [EN, 'https://abaadapp.om/en/'] : [HTML, 'https://abaadapp.om/'];
+  const dom = new JSDOM(html, { runScripts: 'outside-only', url, virtualConsole: vc });
+  if (dom.window.document.readyState !== 'complete') {
+    await new Promise((r) => dom.window.addEventListener('load', r));
+  }
+  t.after(() => dom.window.close());
+  const w = dom.window;
+  const calls = [];
+  let answer = () => ({ status: 200, body: { ok: true } });
+  w.fetch = (input, init) => {
+    calls.push({ url: String(input), init, params: new w.URLSearchParams(init.body.toString()) });
+    return new Promise((resolve, reject) => {
+      w.setTimeout(() => {
+        const a = answer();
+        if (a === 'network') return reject(new w.TypeError('Failed to fetch'));
+        resolve({ status: a.status, json: () => (a.body === undefined ? Promise.reject(new Error('no json')) : Promise.resolve(a.body)) });
+      }, 30);
+    });
+  };
+  w.eval(JS);
+  const d = w.document, form = d.querySelector('[data-contact-form]');
+  const fill = (over = {}) => {
+    const v = { name: 'سالم الحارثي', company: 'مقهى الأفق', phone: '+968 9123 4567', email: 'salem@example.com', type: 'retail', message: 'نريد نقطة بيع لفرعين.', ...over };
+    for (const [k, val] of Object.entries(v)) form.elements[k].value = val;
+  };
+  const submit = () => form.dispatchEvent(new w.Event('submit', { bubbles: true, cancelable: true }));
+  const status = () => { const s = d.querySelector('[data-form-status]'); return s.hidden ? '' : s.textContent; };
+  const errs = () => [...d.querySelectorAll('[data-err]')].filter((e) => !e.hidden).map((e) => e.dataset.err);
+  const button = () => form.querySelector('[type="submit"]');
+  return { w, d, form, calls, navigations, fill, submit, status, errs, button, answer: (fn) => { answer = fn; } };
+}
 
-  assert.equal(d.querySelector('[data-sent]').hidden, false);
-  assert.ok(form.hidden);
-  const href = d.querySelector('[data-mail-again]').getAttribute('href');
-  assert.match(href, /^mailto:abaadappom@gmail\.com\?subject=/);
-  assert.match(decodeURIComponent(href), /سالم الحارثي/);
-  assert.match(decodeURIComponent(href), /مقهى الأفق/);
-  assert.doesNotMatch(d.querySelector('[data-sent]').textContent, /تم إرسال طلبك/);
+test('the contact form refuses empty fields in the browser and sends nothing', async (t) => {
+  const c = await contactPage(t);
+  c.submit();
+  assert.deepEqual(c.errs(), ['name', 'company', 'phone', 'email', 'type', 'message']);
+  assert.equal(c.calls.length, 0);
+  assert.ok(c.d.querySelector('[data-sent]').hidden);
+});
 
-  click(w, '[data-action="reset-form"]');
-  assert.equal(form.hidden, false);
-  assert.equal(form.elements.name.value, '');
+test('the contact form posts to the CRM, once, and says "received" only after the server saved it', async (t) => {
+  const c = await contactPage(t);
+  c.fill();
+  c.submit();
+
+  // أثناء الطلب: الزرّ معطَّل ويقول «جارٍ الإرسال…»، وضغطةٌ ثانيةٌ لا تُرسل ثانيًا
+  assert.equal(c.button().disabled, true);
+  assert.equal(c.button().textContent, 'جارٍ الإرسال…');
+  c.submit();
+  assert.equal(c.calls.length, 1, 'ضغطةٌ ثانية أرسلت طلبًا ثانيًا');
+  assert.ok(c.d.querySelector('[data-sent]').hidden, '«تم» قبل أن يردّ الخادم');
+
+  const call = c.calls[0];
+  assert.equal(call.url, CONTACT_URL);
+  assert.equal(call.init.method, 'POST');
+  assert.equal(call.init.credentials, 'omit');
+  assert.deepEqual(Object.fromEntries(call.params), {
+    name: 'سالم الحارثي', business_name: 'مقهى الأفق', phone: '+968 9123 4567', email: 'salem@example.com',
+    activity_type: 'retail', message: 'نريد نقطة بيع لفرعين.', locale: 'ar', contact_hp: '',
+  });
+  for (const k of ['source', 'stage', 'status', 'assigned_to']) assert.equal(call.params.has(k), false, `أُرسل ${k}`);
+
+  await wait(60);
+  assert.equal(c.d.querySelector('[data-sent]').hidden, false);
+  assert.ok(c.form.hidden);
+  assert.match(c.d.querySelector('[data-sent]').textContent, /تم استلام طلبك بنجاح\.\s*سنتواصل معك قريبًا\./);
+  assert.equal(c.form.elements.name.value, '', 'لم تُمسح الخانات بعد الحفظ');
+  assert.equal(c.button().disabled, false);
+  assert.deepEqual(c.navigations, [], 'فُتح تطبيقُ البريد');
+  assert.equal(c.w.location.href, 'https://abaadapp.om/');
+
+  // والبريدُ اليدويّ باقٍ رابطًا اختياريًّا
+  assert.equal(c.d.querySelector('[data-sent] [data-mail]').getAttribute('href'), 'mailto:abaadappom@gmail.com');
+
+  c.d.querySelector('[data-action="reset-form"]').dispatchEvent(new c.w.MouseEvent('click', { bubbles: true }));
+  assert.equal(c.form.hidden, false);
+});
+
+test('the English form posts locale en and answers in English', async (t) => {
+  const c = await contactPage(t, 'en');
+  c.fill({ name: 'Sara', company: 'Rose Shop', type: 'ecommerce', message: 'We need an online store.' });
+  c.submit();
+  assert.equal(c.button().textContent, 'Sending…');
+  assert.equal(c.calls[0].params.get('locale'), 'en');
+  assert.equal(c.calls[0].params.get('activity_type'), 'ecommerce');
+  await wait(60);
+  assert.match(c.d.querySelector('[data-sent]').textContent, /Your request has been received\.\s*We’ll contact you soon\./);
+  assert.deepEqual(c.navigations, []);
+});
+
+test('a refused field shows beside it, and a failed send keeps everything typed for a retry', async (t) => {
+  const c = await contactPage(t);
+
+  c.answer(() => ({ status: 422, body: { ok: false, errors: { business_name: ['…'], email: ['…'] } } }));
+  c.fill();
+  c.submit();
+  await wait(60);
+  assert.deepEqual(c.errs(), ['company', 'email']);
+  assert.equal(c.form.elements.company.value, 'مقهى الأفق');
+
+  c.answer(() => ({ status: 500, body: undefined }));
+  c.submit();
+  await wait(60);
+  assert.equal(c.status(), 'تعذر إرسال الطلب الآن. حاول مرة أخرى.');
+  assert.equal(c.form.elements.message.value, 'نريد نقطة بيع لفرعين.', 'مُسحت البيانات بعد فشل');
+  assert.ok(c.d.querySelector('[data-sent]').hidden);
+  assert.equal(c.button().disabled, false);
+
+  c.answer(() => 'network');
+  c.submit();
+  await wait(60);
+  assert.equal(c.status(), 'تعذر إرسال الطلب الآن. حاول مرة أخرى.');
+
+  c.answer(() => ({ status: 429, body: { ok: false, error: 'too_many_attempts', retry_after: 40 } }));
+  c.submit();
+  await wait(60);
+  assert.equal(c.status(), 'محاولات كثيرة خلال وقت قصير. انتظر قليلًا ثم حاول مرة أخرى.');
+  assert.equal(c.form.elements.email.value, 'salem@example.com');
+
+  // وإعادةُ المحاولة تنجح
+  c.answer(() => ({ status: 200, body: { ok: true } }));
+  c.submit();
+  await wait(60);
+  assert.equal(c.d.querySelector('[data-sent]').hidden, false);
+  assert.equal(c.calls.length, 5);
+  assert.deepEqual(c.navigations, []);
+});
+
+test('the site carries no mail-app submit and no secret — the form is a public endpoint', () => {
+  assert.doesNotMatch(JS, /location\.href\s*=/, 'النموذج ما زال ينقل الصفحة');
+  assert.doesNotMatch(JS, /mailto:[^'"]*\?subject/, 'ما زال يبني رسالةً جاهزة');
+  for (const [name, src] of [['site.js', JS], ['index.html', HTML], ['en/index.html', EN]]) {
+    assert.doesNotMatch(src, /MAIL_PASSWORD|RESEND|SMTP|api[_-]?key|secret|Bearer\s|re_[A-Za-z0-9]{10,}|AKIA[0-9A-Z]{12,}/i, `${name}: سرٌّ في ملفٍّ عامّ`);
+  }
+  assert.match(JS, /var CONTACT_URL = APP \+ '\/website\/contact';/);
 });
 
 /* ═══════════ ٦ · الأسعار باللغتين، ورقمٌ واحد ═══════════ */
