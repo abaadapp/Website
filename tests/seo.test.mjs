@@ -27,7 +27,6 @@ const PAGES = {
 const doc = (file) => new JSDOM(read(file)).window.document;
 const content = (d, sel) => d.querySelector(sel)?.getAttribute('content');
 const ARABIC = /[؀-ۿ]/;
-const LATIN = /[A-Za-z]/;
 
 function visibleText(d) {
   const out = [];
@@ -116,8 +115,9 @@ test('hreflang is reciprocal on both pages, with x-default to the Arabic', () =>
 
 test('title and description read naturally in each language', () => {
   const ar = doc(PAGES.ar.file), en = doc(PAGES.en.file);
-  assert.equal(ar.title, 'أبعاد | نظام نقاط بيع وإدارة أعمال في عُمان');
-  assert.doesNotMatch(ar.title, LATIN, 'إنجليزيٌّ في العنوان العربي');
+  assert.equal(ar.title, 'أبعاد | Abaad | نظام نقاط بيع وإدارة أعمال في عُمان');
+  // الاسمُ اللاتينيّ وحده — لمن يبحث بـ Abaad — ولا إنجليزيَّ سواه في العنوان العربي
+  assert.deepEqual(ar.title.match(/[A-Za-z]+/g), ['Abaad'], 'إنجليزيٌّ في العنوان العربي');
   assert.equal(en.title, 'Abaad | POS & Business Management Platform in Oman');
   assert.doesNotMatch(en.title, ARABIC);
   for (const [d, lang] of [[ar, 'ar'], [en, 'en']]) {
@@ -127,6 +127,18 @@ test('title and description read naturally in each language', () => {
     assert.ok(desc.length >= 70 && desc.length <= 170, `${lang}: طول الوصف ${desc.length}`);
     assert.ok(lang === 'ar' ? ARABIC.test(desc) : !ARABIC.test(desc), `${lang}: لغة الوصف`);
     assert.ok(d.title.length <= 60, `${lang}: العنوان أطول من 60`);
+  }
+});
+
+test('the home page says index, follow outright — and no page says noindex', () => {
+  const ar = doc(PAGES.ar.file), en = doc(PAGES.en.file);
+  const robots = ar.querySelectorAll('meta[name="robots"]');
+  assert.equal(robots.length, 1, 'robots في الرئيسية');
+  assert.equal(robots[0].getAttribute('content'), 'index, follow');
+  // و/en/ مولَّدةٌ من العربية ولا ترثه — الفهرسةُ مسموحةٌ بلا وسم
+  assert.equal(en.querySelectorAll('meta[name="robots"]').length, 0, '/en/ ورثت robots');
+  for (const p of Object.values(PAGES)) {
+    assert.doesNotMatch(read(p.file), /noindex|nofollow/i, `${p.file}: noindex`);
   }
 });
 
@@ -161,9 +173,11 @@ test('structured data is valid JSON-LD with the Organization and the WebSite —
     const [name, alt] = lang === 'ar' ? ['أبعاد', 'Abaad'] : ['Abaad', 'أبعاد'];
     for (const n of [org, site]) {
       assert.equal(n.name, name);
-      assert.equal(n.alternateName, alt);
       assert.equal(n.url, `${SITE}/`);
     }
+    assert.equal(org.alternateName, alt);
+    // واسمُ الموقع في الصفحة الرئيسية بكلّ ما يُبحث به — منه يأخذ Google اسمَ الموقع
+    assert.deepEqual(site.alternateName, lang === 'ar' ? ['Abaad', 'Abaad App', 'abaadapp.om'] : alt);
     assert.equal(org['@id'], `${SITE}/#organization`);
     assert.equal(site['@id'], `${SITE}/#website`);
     assert.equal(site.publisher['@id'], org['@id']);

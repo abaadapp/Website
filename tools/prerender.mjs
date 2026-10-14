@@ -26,11 +26,15 @@ export const HREFLANG = { ar: 'ar-OM', en: 'en-OM' };
 /** ما يقرؤه البحث والمشاركة لكل لغة — وصفٌ لما في الصفحة فعلًا، بلا حشو */
 export const SEO = {
   ar: {
-    title: 'أبعاد | نظام نقاط بيع وإدارة أعمال في عُمان',
+    title: 'أبعاد | Abaad | نظام نقاط بيع وإدارة أعمال في عُمان',
     description: 'أبعاد منصة متكاملة لإدارة المبيعات ونقاط البيع والمخزون والعملاء والفواتير والمالية والمتجر الإلكتروني وواتساب في عُمان.',
     locale: 'ar_OM',
     name: 'أبعاد',
     alternateName: 'Abaad',
+    // أسماءُ الموقع التي يُبحث بها — Google يقرأ اسمَ الموقع من WebSite في الصفحة الرئيسية
+    siteAlternateName: ['Abaad', 'Abaad App', 'abaadapp.om'],
+    // الفهرسةُ مسموحةٌ بلا وسم؛ يُقال صراحةً على الصفحة الرئيسية وحدها
+    robots: 'index, follow',
     imageAlt: 'أبعاد — كل أعمالك في مكان واحد',
   },
   en: {
@@ -72,7 +76,7 @@ export function structuredData(lang, js) {
         '@type': 'WebSite',
         '@id': SITE + '/#website',
         name: s.name,
-        alternateName: s.alternateName,
+        alternateName: s.siteAlternateName ?? s.alternateName,
         url: SITE + '/',
         inLanguage: ['ar', 'en'],
         publisher: { '@id': SITE + '/#organization' },
@@ -104,6 +108,20 @@ function writeHead(doc, lang, js) {
 
   doc.title = s.title;
   meta('name', 'description', s.description);
+
+  // robots بعد الوصف في صفحةٍ تُعلنه — و/en/ المولَّدة من العربية لا ترثه
+  let robots = head.querySelector('meta[name="robots"]');
+  if (s.robots) {
+    if (!robots) {
+      robots = make('meta', { name: 'robots' });
+      head.querySelector('meta[name="description"]').after('\n', robots);
+    }
+    robots.setAttribute('content', s.robots);
+  } else if (robots) {
+    robots.previousSibling?.remove();
+    robots.remove();
+  }
+
   const canonical = head.querySelector('link[rel="canonical"]');
   canonical.setAttribute('href', URLS[lang]);
 
