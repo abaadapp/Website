@@ -376,6 +376,44 @@ test('the pricing section is wholly English on /en/, with the same numbers and p
   assert.equal(d.getElementById('pricing').textContent, en.getElementById('pricing').textContent, 'الشهريّ لم يعد كما كان');
 });
 
+test('the device bundles and the custom app sit under the plans in both languages, and ask through the contact form', async (t) => {
+  /*
+   * كانت في التصميم ولم تصل إلى الموقع: زائرٌ يريد آيبادًا ودرجَ نقدٍ مع النظام
+   * لم يكن يجد أنّها تُباع. وزرُّها إلى «تواصل معنا» لا إلى التسجيل — لا سعرَ
+   * ثابتًا لباقة الأجهزة يُدفع عند التسجيل.
+   */
+  const cards = (d) => [...d.querySelectorAll('#pricing [data-extra]')];
+  const read = (d) => cards(d).map((c) => ({
+    name: c.querySelector('h3').textContent,
+    price: c.querySelector('[data-extra-price]').textContent,
+    href: c.querySelector('a').getAttribute('href'),
+  }));
+  const ar = new JSDOM(HTML).window.document, en = new JSDOM(EN).window.document;
+
+  assert.deepEqual(read(ar), [
+    { name: 'تطبيق هاتف خاص مخصص', price: '880 ر.ع', href: '#contact' },
+    { name: 'باقة الأجهزة الأولى', price: 'حسب الطلب', href: '#contact' },
+    { name: 'باقة الأجهزة الثانية', price: 'حسب الطلب', href: '#contact' },
+  ]);
+  assert.deepEqual(read(en), [
+    { name: 'Your own custom mobile app', price: '880 OMR', href: '#contact' },
+    { name: 'Device Bundle 1', price: 'On request', href: '#contact' },
+    { name: 'Device Bundle 2', price: 'On request', href: '#contact' },
+  ]);
+  assert.match(cards(ar)[2].textContent, /آيباد \+ ستاند \+ طابعة حرارية \+ درج كاش/);
+  assert.match(cards(en)[2].textContent, /iPad \+ stand \+ thermal printer \+ cash drawer/);
+  assert.ok(ar.getElementById('contact'), 'لا قسم «تواصل معنا» يصل إليه الزرّ');
+
+  // تحت الباقات وملاحظةِ واتساب، داخل الأسعار
+  const note = ar.querySelector('[data-pr="waPack"]');
+  assert.ok(note.compareDocumentPosition(cards(ar)[0]) & 4, 'البطاقات فوق ملاحظة واتساب');
+
+  // والسكربت يرسمها كما في الصفحة، والسنويّ لا يمسّها
+  const w = await page(t, 'en'), d = w.document;
+  click(w, '[data-billing="y"]');
+  assert.deepEqual(read(d), read(en));
+});
+
 test('one official contact number on the site and the three legal pages', () => {
   const OFFICIAL = '71141624';
   for (const f of ['index.html', 'en/index.html', 'assets/site.js', 'privacy/index.html', 'terms/index.html', 'data-deletion/index.html']) {

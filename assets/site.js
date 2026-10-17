@@ -227,6 +227,16 @@
     addH: 'تخصيصات اختيارية', addTag: 'إضافة اختيارية', addCta: 'تواصل معنا للتفعيل',
     waNote: 'في الباقات التي تشمل واتساب: 100 رسالة مجانية شهريًا عبر رقم أبعاد.',
     waPack: '500 رسالة إضافية — 7.500 ر.ع',
+    onRequest: 'حسب الطلب',
+    /*
+     * ما يُضاف إلى الباقة — خدمةٌ وباقتا أجهزة، تحت الأسعار كما في التصميم.
+     * لا `price` = «حسب الطلب». وأسماءُ باقتَي الأجهزة مؤقّتة حتى تُعتمد.
+     */
+    extras: [
+      { tag: 'خدمة', name: 'تطبيق هاتف خاص مخصص', desc: 'تطبيق باسم نشاطك وهويتك.', price: '880', cta: 'اطلب الخدمة' },
+      { tag: 'باقة أجهزة', name: 'باقة الأجهزة الأولى', desc: 'آيباد + ستاند', cta: 'اطلب السعر' },
+      { tag: 'باقة أجهزة', name: 'باقة الأجهزة الثانية', desc: 'آيباد + ستاند + طابعة حرارية + درج كاش', cta: 'اطلب السعر' }
+    ],
     plans: [
       { name: 'الأساسية', tag: 'إدارة متجرك اليومية', desc: 'كل ما تحتاجه لتشغيل وإدارة متجرك يوميًا.', m: '9.900', y: '99', was: '118.800',
         limits: ['فرع واحد', 'حتى 3 موظفين نشطين', 'حتى 100 منتج'], incH: 'التشغيل',
@@ -250,6 +260,12 @@
     addH: 'Optional customizations', addTag: 'Optional add-on', addCta: 'Contact us to activate',
     waNote: 'On plans that include WhatsApp: 100 free messages a month through the Abaad number.',
     waPack: '500 extra messages — 7.500 OMR',
+    onRequest: 'On request',
+    extras: [
+      { tag: 'Service', name: 'Your own custom mobile app', desc: 'An app in your business name and brand.', price: '880', cta: 'Request the service' },
+      { tag: 'Device bundle', name: 'Device Bundle 1', desc: 'iPad + stand', cta: 'Request a quote' },
+      { tag: 'Device bundle', name: 'Device Bundle 2', desc: 'iPad + stand + thermal printer + cash drawer', cta: 'Request a quote' }
+    ],
     plans: [
       { name: 'Basic', tag: 'Run your store day to day', desc: 'Everything you need to run and manage your store every day.', m: '9.900', y: '99', was: '118.800',
         limits: ['1 branch', 'Up to 3 active employees', 'Up to 100 products'], incH: 'Operations',
@@ -475,6 +491,22 @@
         html += '<div style="flex:1"></div>' +
           '<a href="' + LINKS.register + '" style="margin-top:26px;text-align:center;border-radius:999px;padding:15px 24px;font-size:15.5px;font-weight:700;background:' + (on ? 'var(--ink)' : 'transparent') + ';color:' + (on ? '#fff' : 'var(--ink)') + ';border:1px solid var(--ink)">' + esc(t.startNow) + '</a></div>';
         return html;
+      }).join('');
+    },
+    // بطاقاتُ ما يُضاف تحت الأسعار — زرُّها إلى «تواصل معنا»، لا إلى التسجيل
+    extras: function () {
+      var pr = pricing(), a = arrow();
+      return pr.extras.map(function (x, i) {
+        return '<div data-extra="' + i + '" style="background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px 26px 22px;display:flex;flex-direction:column">' +
+          '<span style="align-self:flex-start;background:var(--bg2);color:var(--ink2);border-radius:8px;padding:5px 11px;font-size:13px;font-weight:700">' + esc(x.tag) + '</span>' +
+          '<h3 style="margin:18px 0 0;font-size:20px;font-weight:700;line-height:1.5">' + esc(x.name) + '</h3>' +
+          '<p style="margin:6px 0 0;font-size:15px;line-height:1.8;color:var(--ink2);text-wrap:pretty">' + esc(x.desc) + '</p>' +
+          '<div style="flex:1"></div>' +
+          '<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)">' +
+          (x.price
+            ? '<span data-extra-price style="font-size:18px;font-weight:700;white-space:nowrap">' + esc(x.price) + ' ' + esc(pr.cur) + '</span>'
+            : '<span data-extra-price style="font-size:18px;font-weight:700">' + esc(pr.onRequest) + '</span>') +
+          '<a href="#contact" style="display:inline-flex;align-items:center;gap:6px;font-size:14.5px;font-weight:700;color:var(--ink)">' + esc(x.cta) + '<span aria-hidden="true">' + a + '</span></a></div></div>';
       }).join('');
     },
     types: function (t, d) {
