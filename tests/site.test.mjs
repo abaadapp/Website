@@ -428,6 +428,38 @@ test('each plan lists only what it adds to the one before, by the same names, in
   }
 });
 
+test('the usage limits are the ones the system enforces, the owner among the users, and more than ten branches asks', () => {
+  /*
+   * الحدُّ يفرضه النظام لا الموقع (`PlanLimits` في abaad.Saas، وترحيل
+   * 2026_10_17_120000_the_plans_climb_one_ladder_of_limits). فإن تغيّر رقمٌ هنا
+   * وحده صار الموقع يبيع ما يردّه النظام — يتغيّر هناك أوّلًا ثمّ هنا.
+   */
+  const LADDER = { branches: ['1', '3', '10'], users: ['3', '15', '100'], products: ['500', '10,000', null] };
+  const OWNER = { ar: 'مع المالك', en: 'including the owner' };
+  const UNLIMITED = { ar: 'منتجات غير محدودة', en: 'Unlimited products' };
+
+  for (const [lang, html] of [['ar', HTML], ['en', EN]]) {
+    const d = new JSDOM(html).window.document;
+    [0, 1, 2].forEach((i) => {
+      const c = d.querySelector(`[data-plan="${i}"]`);
+      const [branches, users, products] = [...c.querySelectorAll('[data-limits] > li')].map((li) => li.textContent);
+      // «فرع واحد» بالعربية كلمةٌ لا رقم
+      const num = (s) => (s.match(/[\d,]+/) || [s.includes('واحد') ? '1' : ''])[0];
+
+      assert.equal(num(branches), LADDER.branches[i], `${lang} ${i}: الفروع`);
+      assert.equal(num(users), LADDER.users[i], `${lang} ${i}: المستخدمون`);
+      assert.ok(users.includes(OWNER[lang]), `${lang} ${i}: «${users}» لا تقول إنّ المالك منهم`);
+      if (LADDER.products[i] === null) assert.equal(products, UNLIMITED[lang], `${lang} ${i}: المنتجات`);
+      else assert.equal(num(products), LADDER.products[i], `${lang} ${i}: المنتجات`);
+
+      // وما فوق عشرة فروع يُسأل عنه — من المؤسسات وحدها، وإلى «تواصل معنا»
+      const more = c.querySelector('[data-more]');
+      if (i === 2) assert.equal(more?.getAttribute('href'), '#contact', `${lang}: لا رابطَ لأكثر من عشرة فروع`);
+      else assert.equal(more, null, `${lang} ${i}: رابطُ «أكثر من 10 فروع» في غير المؤسسات`);
+    });
+  }
+});
+
 test('the device bundles and the custom app sit under the plans in both languages, and ask through the contact form', async (t) => {
   /*
    * كانت في التصميم ولم تصل إلى الموقع: زائرٌ يريد آيبادًا ودرجَ نقدٍ مع النظام

@@ -243,14 +243,19 @@
      * القدراتُ السبع، وتفتحها الاحترافية كلَّها، والمؤسساتُ مثلُها بحدودٍ أعلى.
      * فالاسمُ هنا هو ما يقرؤه التاجر في رسالة «رقِّ الباقة لفتحها».
      * وبندٌ `{ t, d }` عنوانٌ وشرحُه تحته.
+     *
+     * والحدودُ هي ما يفرضه النظام (`PlanLimits`، وترحيل
+     * `2026_10_17_120000_the_plans_climb_one_ladder_of_limits`): فروع 1·3·10،
+     * ومستخدمون نشطون 3·15·100 والمالكُ منهم، ومنتجات 500·10,000·بلا حدّ.
+     * وما فوق عشرة فروع سعرٌ خاصّ (`more`).
      */
     plans: [
       { name: 'الأساسية', tag: 'إدارة متجرك اليومية', desc: 'كل ما تحتاجه لتشغيل وإدارة متجرك يوميًا.', m: '9.900', y: '99', was: '118.800',
-        limits: ['فرع واحد', 'حتى 3 موظفين نشطين', 'حتى 100 منتج'], incH: 'التشغيل',
+        limits: ['فرع واحد', 'حتى 3 مستخدمين نشطين مع المالك', 'حتى 500 منتج'], incH: 'التشغيل',
         inc: ['نقطة البيع والمبيعات والطلبات', 'إدارة المنتجات', 'إدارة المخزون', 'العملاء', 'الموردون والمشتريات', 'فواتير العملاء', 'المالية والمصروفات', 'الرواتب والموظفون', 'لوحة التجهيز', 'لوحة التحكم والملخصات', 'التقارير الأساسية'],
         exc: ['الموقع الإلكتروني', 'أدوات التسويق', 'برنامج الولاء', 'التقارير المتقدمة', 'الصلاحيات المخصصة', 'التطبيقات التكاملية', 'واتساب'] },
       { name: 'الاحترافية', tag: 'إدارة + نمو', desc: 'شغّل متجرك وطوّر مبيعاتك بحضور رقمي وأدوات نمو متكاملة.', m: '29.900', y: '299', was: '358.800', featured: true,
-        limits: ['حتى 3 فروع', 'حتى 15 موظفًا نشطًا', 'حتى 5,000 منتج'], incH: 'كل ما في الأساسية، ومعها',
+        limits: ['حتى 3 فروع', 'حتى 15 مستخدمًا نشطًا مع المالك', 'حتى 10,000 منتج'], incH: 'كل ما في الأساسية، ومعها',
         inc: [
           { t: 'الموقع الإلكتروني', d: 'متجرك أونلاين بتصميمه ونطاقه وظهوره في البحث.' },
           { t: 'أدوات التسويق', d: 'الكوبونات والعروض وتقييمات العملاء.' },
@@ -262,11 +267,12 @@
         wa: ['إشعارات واتساب عبر رقم أبعاد', '100 رسالة واتساب مجانية شهريًا', 'إمكانية شراء رصيد رسائل إضافي'],
         add: [{ t: 'استخدم رقم واتساب متجرك', d: 'اربط رقم واتساب أعمالك الخاص بدل رقم أبعاد — متاح كإضافة اختيارية.' }, { t: 'خصص موقعك الإلكتروني', d: 'تخصيص احترافي للموقع بما يناسب هوية نشاطك — خدمة إضافية.' }] },
       { name: 'المؤسسات', tag: 'تشغيل عدة فروع', desc: 'للشركات والمتاجر التي تدير فرقًا أكبر وعدة فروع من نظام واحد.', m: '69.900', y: '699', was: '838.800',
-        limits: ['حتى 25 فرعًا', 'حتى 100 موظف نشط', 'حتى 100,000 منتج'], incH: 'كل ما في الاحترافية، ومعها',
+        limits: ['حتى 10 فروع', 'حتى 100 مستخدم نشط مع المالك', 'منتجات غير محدودة'], incH: 'كل ما في الاحترافية، ومعها',
+        more: 'أكثر من 10 فروع؟ تواصل معنا لسعر خاص',
         inc: [
-          { t: 'فروع أكثر', d: 'حتى 25 فرعًا من نظام واحد، بدل 3.' },
-          { t: 'فريق أكبر', d: 'حتى 100 موظف نشط، بدل 15.' },
-          { t: 'منتجات أكثر', d: 'حتى 100,000 منتج، بدل 5,000.' }
+          { t: 'فروع أكثر', d: 'حتى 10 فروع من نظام واحد، بدل 3.' },
+          { t: 'فريق أكبر', d: 'حتى 100 مستخدم نشط، بدل 15.' },
+          { t: 'منتجات بلا حد', d: 'منتجات غير محدودة، بدل 10,000.' }
         ],
         wa: ['إشعارات واتساب عبر رقم أبعاد', '100 رسالة واتساب مجانية شهريًا', 'إمكانية شراء رصيد رسائل إضافي'],
         add: [{ t: 'استخدم رقم واتساب شركتك', d: 'اربط رقم واتساب أعمالك الخاص بدل رقم أبعاد — متاح كإضافة اختيارية.' }, { t: 'خصص موقعك الإلكتروني', d: 'تخصيص احترافي للموقع بما يناسب هويتك وفروعك — خدمة إضافية.' }] }
@@ -286,11 +292,11 @@
     ],
     plans: [
       { name: 'Basic', tag: 'Run your store day to day', desc: 'Everything you need to run and manage your store every day.', m: '9.900', y: '99', was: '118.800',
-        limits: ['1 branch', 'Up to 3 active employees', 'Up to 100 products'], incH: 'Operations',
+        limits: ['1 branch', 'Up to 3 active users, including the owner', 'Up to 500 products'], incH: 'Operations',
         inc: ['Point of sale, sales and orders', 'Product management', 'Inventory management', 'Customers', 'Suppliers and purchasing', 'Customer invoices', 'Finance and expenses', 'Payroll and employees', 'Preparation board', 'Dashboard and summaries', 'Basic reports'],
         exc: ['Website', 'Marketing tools', 'Loyalty program', 'Advanced reports', 'Custom permissions', 'Integrations', 'WhatsApp'] },
       { name: 'Professional', tag: 'Management + growth', desc: 'Run your store and grow your sales with a digital presence and integrated growth tools.', m: '29.900', y: '299', was: '358.800', featured: true,
-        limits: ['Up to 3 branches', 'Up to 15 active employees', 'Up to 5,000 products'], incH: 'Everything in Basic, plus',
+        limits: ['Up to 3 branches', 'Up to 15 active users, including the owner', 'Up to 10,000 products'], incH: 'Everything in Basic, plus',
         inc: [
           { t: 'Website', d: 'Your store online, with its own design, domain and search visibility.' },
           { t: 'Marketing tools', d: 'Coupons, offers and customer reviews.' },
@@ -302,11 +308,12 @@
         wa: ['WhatsApp notifications through the Abaad number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
         add: [{ t: "Use your store's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the Abaad number — available as an optional add-on.' }, { t: 'Customize your website', d: 'Professional customization of your website to match your brand — an additional service.' }] },
       { name: 'Enterprise', tag: 'Multi-branch operations', desc: 'For companies and stores running larger teams and several branches from one system.', m: '69.900', y: '699', was: '838.800',
-        limits: ['Up to 25 branches', 'Up to 100 active employees', 'Up to 100,000 products'], incH: 'Everything in Professional, plus',
+        limits: ['Up to 10 branches', 'Up to 100 active users, including the owner', 'Unlimited products'], incH: 'Everything in Professional, plus',
+        more: 'More than 10 branches? Contact us for custom pricing',
         inc: [
-          { t: 'More branches', d: 'Up to 25 branches from one system, instead of 3.' },
-          { t: 'A larger team', d: 'Up to 100 active employees, instead of 15.' },
-          { t: 'More products', d: 'Up to 100,000 products, instead of 5,000.' }
+          { t: 'More branches', d: 'Up to 10 branches from one system, instead of 3.' },
+          { t: 'A larger team', d: 'Up to 100 active users, instead of 15.' },
+          { t: 'No product limit', d: 'Unlimited products, instead of 10,000.' }
         ],
         wa: ['WhatsApp notifications through the Abaad number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
         add: [{ t: "Use your company's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the Abaad number — available as an optional add-on.' }, { t: 'Customize your website', d: 'Professional customization of your website to fit your brand and branches — an additional service.' }] }
@@ -495,6 +502,7 @@
           '<div style="font-size:12.5px;font-weight:700;color:var(--muted)">' + esc(pr.limitsH) + '</div>' +
           '<ul data-limits style="list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px">' +
           p.limits.map(function (lm) { return '<li style="font-size:15px;font-weight:600">' + esc(lm) + '</li>'; }).join('') + '</ul></div>' +
+          (p.more ? '<a data-more href="#contact" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:13.5px;font-weight:700;color:var(--ink)">' + esc(p.more) + '<span aria-hidden="true">' + a + '</span></a>' : '') +
           '<div style="margin-top:20px;font-size:13.5px;font-weight:700;color:var(--ink)">' + esc(p.incH) + '</div>' +
           '<ul data-inc style="list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:9px">' +
           p.inc.map(function (f) { return check('var(--ink)', f); }).join('') + '</ul>';
