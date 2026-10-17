@@ -376,6 +376,58 @@ test('the pricing section is wholly English on /en/, with the same numbers and p
   assert.equal(d.getElementById('pricing').textContent, en.getElementById('pricing').textContent, 'الشهريّ لم يعد كما كان');
 });
 
+test('each plan lists only what it adds to the one before, by the same names, in both languages', () => {
+  /*
+   * كانت «المؤسسات» تقول «كل مميزات الاحترافية» ثم تعيد ثمانيةَ بنودٍ منها،
+   * والشيءُ نفسه يُسمّى في بطاقةٍ «أدوات التسويق» وفي أخرى «الكوبونات والعروض».
+   * فيقرأ الزائر إضافاتٍ ليست إضافات، ولا يعرف لماذا يدفع أكثر.
+   *
+   * وفي النظام: الأساسية تُغلق القدراتِ السبع، والاحترافية تفتحها كلَّها،
+   * والمؤسساتُ مثلُها بحدودٍ أعلى — وهذا ما يجب أن تقوله البطاقات.
+   */
+  const title = (li) => (li.querySelector('span > span') || li).textContent.trim();
+  const plan = (d, i) => {
+    const c = d.querySelector(`[data-plan="${i}"]`);
+    const list = (sel) => [...c.querySelectorAll(`${sel} > li`)];
+    return {
+      name: c.querySelector('h3').textContent,
+      incH: c.querySelector('[data-inc]').previousElementSibling.textContent,
+      inc: list('[data-inc]').map(title),
+      incD: list('[data-inc]').map((li) => li.querySelector('span > span + span')?.textContent ?? ''),
+      exc: list('[data-exc]').map(title),
+      // «فرع واحد» بلا رقم — والأرقام يُقرأ منها حدّا الاحترافية والمؤسسات وحدهما
+      limits: list('[data-limits]').map((li) => (li.textContent.match(/[\d,]+/) || [''])[0]),
+      wa: c.querySelector('[data-inc] ~ ul:not([data-exc])') ? [...c.querySelectorAll('[data-inc] ~ ul:not([data-exc]) > li')].map(title) : [],
+    };
+  };
+  const WA = { ar: 'واتساب', en: 'WhatsApp' };
+
+  for (const [lang, html] of [['ar', HTML], ['en', EN]]) {
+    const d = new JSDOM(html).window.document;
+    const [basic, pro, ent] = [0, 1, 2].map((i) => plan(d, i));
+
+    // ما يُغلق في الأساسية تفتحه الاحترافية — بالاسم نفسه، وواتساب في قسمه الأخضر
+    assert.deepEqual(basic.exc, [...pro.inc, WA[lang]], `${lang}: «غير مشمول» في الأساسية لا يطابق ما تضيفه الاحترافية`);
+    assert.equal(basic.exc.length, 7, `${lang}: القدراتُ في النظام سبع`);
+    assert.ok(pro.wa.length > 0 && ent.wa.length > 0, `${lang}: واتساب`);
+    assert.deepEqual(ent.wa, pro.wa, `${lang}: واتساب المؤسسات بصياغةٍ غير الاحترافية`);
+
+    // كلُّ بطاقةٍ تسمّي التي قبلها، ولا تعيد شيئًا منها
+    assert.ok(pro.incH.includes(basic.name), `${lang}: ${pro.incH}`);
+    assert.ok(ent.incH.includes(pro.name), `${lang}: ${ent.incH}`);
+    assert.deepEqual(ent.inc.filter((x) => pro.inc.includes(x) || basic.inc.includes(x)), [], `${lang}: المؤسسات تكرّر`);
+    assert.deepEqual(pro.inc.filter((x) => basic.inc.includes(x)), [], `${lang}: الاحترافية تكرّر`);
+    [...pro.inc, ...ent.inc].forEach((x, i) => assert.ok([...pro.incD, ...ent.incD][i], `${lang}: «${x}» بلا شرح`));
+
+    // وما تزيده المؤسسات هو حدودُها: كلُّ سطرٍ يذكر رقمَها ورقمَ الاحترافية الذي يحلّ محلَّه
+    assert.equal(ent.inc.length, ent.limits.length);
+    ent.incD.forEach((dsc, i) => {
+      assert.ok(dsc.includes(ent.limits[i]), `${lang}: «${dsc}» لا يذكر ${ent.limits[i]}`);
+      assert.ok(dsc.includes(pro.limits[i]), `${lang}: «${dsc}» لا يذكر ${pro.limits[i]}`);
+    });
+  }
+});
+
 test('the device bundles and the custom app sit under the plans in both languages, and ask through the contact form', async (t) => {
   /*
    * كانت في التصميم ولم تصل إلى الموقع: زائرٌ يريد آيبادًا ودرجَ نقدٍ مع النظام
