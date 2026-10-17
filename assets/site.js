@@ -237,21 +237,39 @@
       { tag: 'باقة أجهزة', name: 'باقة الأجهزة الأولى', desc: 'آيباد + ستاند', cta: 'اطلب السعر' },
       { tag: 'باقة أجهزة', name: 'باقة الأجهزة الثانية', desc: 'آيباد + ستاند + طابعة حرارية + درج كاش', cta: 'اطلب السعر' }
     ],
+    /*
+     * كلُّ بطاقةٍ تذكر ما تضيفه على التي قبلها، لا ما فيها كلَّه — وبأسماء
+     * قدرات النظام (`PlanFeatures` في abaad.Saas): ما يُغلق في الأساسية هو
+     * القدراتُ السبع، وتفتحها الاحترافية كلَّها، والمؤسساتُ مثلُها بحدودٍ أعلى.
+     * فالاسمُ هنا هو ما يقرؤه التاجر في رسالة «رقِّ الباقة لفتحها».
+     * وبندٌ `{ t, d }` عنوانٌ وشرحُه تحته.
+     */
     plans: [
       { name: 'الأساسية', tag: 'إدارة متجرك اليومية', desc: 'كل ما تحتاجه لتشغيل وإدارة متجرك يوميًا.', m: '9.900', y: '99', was: '118.800',
         limits: ['فرع واحد', 'حتى 3 موظفين نشطين', 'حتى 100 منتج'], incH: 'التشغيل',
         inc: ['نقطة البيع والمبيعات والطلبات', 'إدارة المنتجات', 'إدارة المخزون', 'العملاء', 'الموردون والمشتريات', 'فواتير العملاء', 'المالية والمصروفات', 'الرواتب والموظفون', 'لوحة التجهيز', 'لوحة التحكم والملخصات', 'التقارير الأساسية'],
-        exc: ['واتساب', 'الموقع الإلكتروني', 'أدوات التسويق', 'برنامج الولاء', 'التقارير المتقدمة', 'الصلاحيات المخصصة'] },
+        exc: ['الموقع الإلكتروني', 'أدوات التسويق', 'برنامج الولاء', 'التقارير المتقدمة', 'الصلاحيات المخصصة', 'التطبيقات التكاملية', 'واتساب'] },
       { name: 'الاحترافية', tag: 'إدارة + نمو', desc: 'شغّل متجرك وطوّر مبيعاتك بحضور رقمي وأدوات نمو متكاملة.', m: '29.900', y: '299', was: '358.800', featured: true,
-        limits: ['حتى 3 فروع', 'حتى 15 موظفًا نشطًا', 'حتى 5,000 منتج'], incH: 'المميزات',
-        inc: ['كل مميزات الأساسية', 'الموقع الإلكتروني', 'نشر المتجر والبيع عبر الموقع', 'تصميم وصفحات الموقع', 'ربط نطاق المتجر', 'إعدادات SEO والظهور', 'تقييمات العملاء', 'الكوبونات والعروض', 'برنامج الولاء والنقاط', 'التقارير المتقدمة', 'تحليل الهالك', 'تصدير التقارير', 'الصلاحيات المخصصة للموظفين'],
+        limits: ['حتى 3 فروع', 'حتى 15 موظفًا نشطًا', 'حتى 5,000 منتج'], incH: 'كل ما في الأساسية، ومعها',
+        inc: [
+          { t: 'الموقع الإلكتروني', d: 'متجرك أونلاين بتصميمه ونطاقه وظهوره في البحث.' },
+          { t: 'أدوات التسويق', d: 'الكوبونات والعروض وتقييمات العملاء.' },
+          { t: 'برنامج الولاء', d: 'نقاط يجمعها عملاؤك ويستبدلونها عند الصندوق.' },
+          { t: 'التقارير المتقدمة', d: 'تحليل الهالك وتصدير التقارير.' },
+          { t: 'الصلاحيات المخصصة', d: 'تحدد الأقسام التي يصل إليها كل موظف.' },
+          { t: 'التطبيقات التكاملية', d: 'خرائط Google وملف نشاطك على Google Business.' }
+        ],
         wa: ['إشعارات واتساب عبر رقم أبعاد', '100 رسالة واتساب مجانية شهريًا', 'إمكانية شراء رصيد رسائل إضافي'],
         add: [{ t: 'استخدم رقم واتساب متجرك', d: 'اربط رقم واتساب أعمالك الخاص بدل رقم أبعاد — متاح كإضافة اختيارية.' }, { t: 'خصص موقعك الإلكتروني', d: 'تخصيص احترافي للموقع بما يناسب هوية نشاطك — خدمة إضافية.' }] },
       { name: 'المؤسسات', tag: 'تشغيل عدة فروع', desc: 'للشركات والمتاجر التي تدير فرقًا أكبر وعدة فروع من نظام واحد.', m: '69.900', y: '699', was: '838.800',
-        limits: ['حتى 25 فرعًا', 'حتى 100 موظف نشط', 'حتى 100,000 منتج'], incH: 'المميزات',
-        inc: ['كل مميزات الاحترافية', 'تشغيل عدة فروع من نظام واحد', 'إدارة فرق أكبر', 'الموقع الإلكتروني', 'أدوات التسويق', 'برنامج الولاء', 'التقارير المتقدمة', 'تحليل الهالك', 'تصدير التقارير', 'الصلاحيات المخصصة'],
-        wa: ['واتساب أبعاد', '100 رسالة واتساب مجانية شهريًا', 'إمكانية شراء رصيد إضافي'],
-        add: [{ t: 'رقم واتساب الشركة الخاص', d: '' }, { t: 'تخصيص الموقع ليتناسب مع الهوية والفروع', d: '' }] }
+        limits: ['حتى 25 فرعًا', 'حتى 100 موظف نشط', 'حتى 100,000 منتج'], incH: 'كل ما في الاحترافية، ومعها',
+        inc: [
+          { t: 'فروع أكثر', d: 'حتى 25 فرعًا من نظام واحد، بدل 3.' },
+          { t: 'فريق أكبر', d: 'حتى 100 موظف نشط، بدل 15.' },
+          { t: 'منتجات أكثر', d: 'حتى 100,000 منتج، بدل 5,000.' }
+        ],
+        wa: ['إشعارات واتساب عبر رقم أبعاد', '100 رسالة واتساب مجانية شهريًا', 'إمكانية شراء رصيد رسائل إضافي'],
+        add: [{ t: 'استخدم رقم واتساب شركتك', d: 'اربط رقم واتساب أعمالك الخاص بدل رقم أبعاد — متاح كإضافة اختيارية.' }, { t: 'خصص موقعك الإلكتروني', d: 'تخصيص احترافي للموقع بما يناسب هويتك وفروعك — خدمة إضافية.' }] }
     ]
   };
   PRICING.en = {
@@ -270,17 +288,28 @@
       { name: 'Basic', tag: 'Run your store day to day', desc: 'Everything you need to run and manage your store every day.', m: '9.900', y: '99', was: '118.800',
         limits: ['1 branch', 'Up to 3 active employees', 'Up to 100 products'], incH: 'Operations',
         inc: ['Point of sale, sales and orders', 'Product management', 'Inventory management', 'Customers', 'Suppliers and purchasing', 'Customer invoices', 'Finance and expenses', 'Payroll and employees', 'Preparation board', 'Dashboard and summaries', 'Basic reports'],
-        exc: ['WhatsApp', 'Website', 'Marketing tools', 'Loyalty program', 'Advanced reports', 'Custom permissions'] },
+        exc: ['Website', 'Marketing tools', 'Loyalty program', 'Advanced reports', 'Custom permissions', 'Integrations', 'WhatsApp'] },
       { name: 'Professional', tag: 'Management + growth', desc: 'Run your store and grow your sales with a digital presence and integrated growth tools.', m: '29.900', y: '299', was: '358.800', featured: true,
-        limits: ['Up to 3 branches', 'Up to 15 active employees', 'Up to 5,000 products'], incH: 'Features',
-        inc: ['Everything in Basic', 'Website', 'Publish your store and sell online', 'Website design and pages', 'Connect your store domain', 'SEO and visibility settings', 'Customer reviews', 'Coupons and offers', 'Loyalty program and points', 'Advanced reports', 'Waste analysis', 'Report export', 'Custom staff permissions'],
+        limits: ['Up to 3 branches', 'Up to 15 active employees', 'Up to 5,000 products'], incH: 'Everything in Basic, plus',
+        inc: [
+          { t: 'Website', d: 'Your store online, with its own design, domain and search visibility.' },
+          { t: 'Marketing tools', d: 'Coupons, offers and customer reviews.' },
+          { t: 'Loyalty program', d: 'Points your customers earn and redeem at the till.' },
+          { t: 'Advanced reports', d: 'Waste analysis and report export.' },
+          { t: 'Custom permissions', d: 'Choose which sections each employee can reach.' },
+          { t: 'Integrations', d: 'Google Maps and your Google Business profile.' }
+        ],
         wa: ['WhatsApp notifications through the Abaad number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
         add: [{ t: "Use your store's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the Abaad number — available as an optional add-on.' }, { t: 'Customize your website', d: 'Professional customization of your website to match your brand — an additional service.' }] },
       { name: 'Enterprise', tag: 'Multi-branch operations', desc: 'For companies and stores running larger teams and several branches from one system.', m: '69.900', y: '699', was: '838.800',
-        limits: ['Up to 25 branches', 'Up to 100 active employees', 'Up to 100,000 products'], incH: 'Features',
-        inc: ['Everything in Professional', 'Run several branches from one system', 'Manage larger teams', 'Website', 'Marketing tools', 'Loyalty program', 'Advanced reports', 'Waste analysis', 'Report export', 'Custom permissions'],
-        wa: ['Abaad WhatsApp', '100 free WhatsApp messages a month', 'Option to buy extra credit'],
-        add: [{ t: "Your company's own WhatsApp number", d: '' }, { t: 'Website customization to fit your brand and branches', d: '' }] }
+        limits: ['Up to 25 branches', 'Up to 100 active employees', 'Up to 100,000 products'], incH: 'Everything in Professional, plus',
+        inc: [
+          { t: 'More branches', d: 'Up to 25 branches from one system, instead of 3.' },
+          { t: 'A larger team', d: 'Up to 100 active employees, instead of 15.' },
+          { t: 'More products', d: 'Up to 100,000 products, instead of 5,000.' }
+        ],
+        wa: ['WhatsApp notifications through the Abaad number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
+        add: [{ t: "Use your company's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the Abaad number — available as an optional add-on.' }, { t: 'Customize your website', d: 'Professional customization of your website to fit your brand and branches — an additional service.' }] }
     ]
   };
 
@@ -447,7 +476,9 @@
     plans: function (t) {
       var pr = pricing(), yearly = S.billing === 'y', a = arrow();
       var check = function (stroke, f) {
-        return '<li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="' + stroke + '" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>' + esc(f) + '</span></li>';
+        var body = typeof f === 'string' ? '<span>' + esc(f) + '</span>'
+          : '<span><span style="display:block;font-weight:600">' + esc(f.t) + '</span><span style="display:block;margin-top:1px;font-size:13.5px;line-height:1.7;color:var(--muted)">' + esc(f.d) + '</span></span>';
+        return '<li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="' + stroke + '" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>' + body + '</li>';
       };
       return pr.plans.map(function (p, i) {
         var on = !!p.featured;
@@ -462,10 +493,10 @@
           '<div data-was style="min-height:22px;margin-top:8px;font-size:13.5px;color:var(--muted)">' + (yearly ? wasLine(p) : '') + '</div>' +
           '<div style="margin-top:18px;background:var(--bg2);border-radius:14px;padding:14px 16px">' +
           '<div style="font-size:12.5px;font-weight:700;color:var(--muted)">' + esc(pr.limitsH) + '</div>' +
-          '<ul style="list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px">' +
+          '<ul data-limits style="list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px">' +
           p.limits.map(function (lm) { return '<li style="font-size:15px;font-weight:600">' + esc(lm) + '</li>'; }).join('') + '</ul></div>' +
           '<div style="margin-top:20px;font-size:13.5px;font-weight:700;color:var(--ink)">' + esc(p.incH) + '</div>' +
-          '<ul style="list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:9px">' +
+          '<ul data-inc style="list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:9px">' +
           p.inc.map(function (f) { return check('var(--ink)', f); }).join('') + '</ul>';
         if (p.wa && p.wa.length) {
           html += '<div style="margin-top:18px;font-size:13.5px;font-weight:700;color:var(--ink)">' + esc(pr.waH) + '</div>' +
@@ -485,7 +516,7 @@
         if (p.exc && p.exc.length) {
           html += '<div style="margin-top:18px;padding-top:16px;border-top:1px dashed var(--line)">' +
             '<div style="font-size:13px;font-weight:700;color:var(--muted)">' + esc(pr.excH) + '</div>' +
-            '<ul style="list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px">' +
+            '<ul data-exc style="list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px">' +
             p.exc.map(function (f) { return '<li style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)"><span style="width:9px;height:1.5px;background:#c9c9cb;flex:none"></span>' + esc(f) + '</li>'; }).join('') + '</ul></div>';
         }
         html += '<div style="flex:1"></div>' +
