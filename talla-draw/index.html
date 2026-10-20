@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0f0f0f">
+<title>سحب طلة</title>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&amp;display=swap">
+<link rel="stylesheet" href="/talla-event/talla.css?v=4dc03d209a">
+<script src="/talla-event/config.js?v=2502212fba" defer></script>
+<script src="/talla-event/api.js?v=4bf9ea640a" defer></script>
+<script src="/talla-event/wheel.js?v=ac23a1b883" defer></script>
+<script src="/talla-event/draw.js?v=b5eacfcd8e" defer></script>
+</head>
+<body class="t-page t-draw">
+<main class="t-stage" data-talla-draw>
+  <p class="t-state" data-loading>لحظة…</p>
+
+  <!-- الدخول: حسابُ المشرف في مشروع Supabase الخاصّ بالفعالية. لا سرَّ في هذه الصفحة -->
+  <section class="t-card t-login" data-login aria-labelledby="t-login-title" hidden>
+    <img src="/assets/img/logo.svg" alt="أبعاد" width="96" height="34">
+    <h1 class="t-login-title" id="t-login-title">سحب طلة</h1>
+    <p class="t-lead">للمشرف وحده — ادخل بحسابك.</p>
+    <form class="t-form" data-login-form novalidate>
+      <div class="t-field">
+        <label for="t-email">البريد الإلكتروني</label>
+        <input id="t-email" type="email" autocomplete="username" dir="ltr" required>
+      </div>
+      <div class="t-field">
+        <label for="t-password">كلمة المرور</label>
+        <input id="t-password" type="password" autocomplete="current-password" dir="ltr" required>
+      </div>
+      <button class="t-button" type="submit" data-login-submit>دخول</button>
+      <p class="t-message" data-login-message role="alert" hidden></p>
+    </form>
+  </section>
+
+  <section class="t-card t-login" data-unavailable hidden>
+    <h1 class="t-login-title">السحب غير متاح الآن</h1>
+    <p class="t-lead">لم يُربط بمشروع الفعالية بعد.</p>
+  </section>
+
+  <section class="t-board" data-board hidden>
+    <header class="t-bar">
+      <div class="t-bar-title">
+        <img src="/assets/img/logo.svg" alt="أبعاد" width="84" height="30">
+        <h1>سحب طلة</h1>
+      </div>
+      <ul class="t-stats">
+        <li><b data-stat-participants>0</b> في السحب</li>
+        <li><b data-stat-responses>0</b> رأيًا</li>
+        <li><b data-stat-winners>0</b> فائزًا</li>
+      </ul>
+      <div class="t-bar-actions">
+        <span class="t-live" data-live title="تُحدَّث القائمة كلَّ خمس ثوانٍ">مباشر</span>
+        <button class="t-ghost" type="button" data-fullscreen hidden>ملء الشاشة</button>
+        <button class="t-ghost" type="button" data-logout>خروج</button>
+      </div>
+    </header>
+
+    <div class="t-main">
+      <div class="t-wheel-area">
+        <div class="t-wheel-box">
+          <canvas class="t-wheel" data-wheel width="720" height="720" role="img" aria-label="عجلة السحب"></canvas>
+        </div>
+        <p class="t-ticker" data-ticker aria-hidden="true"></p>
+        <button class="t-button t-spin" type="button" data-spin>ابدأ السحب</button>
+        <p class="t-board-message" data-board-message role="status" hidden></p>
+      </div>
+
+      <aside class="t-side">
+        <section class="t-panel" aria-labelledby="t-winners-title">
+          <h2 id="t-winners-title">الفائزون</h2>
+          <ol class="t-winners" data-winners></ol>
+          <p class="t-empty" data-winners-empty>لم يُسحب أحدٌ بعد.</p>
+        </section>
+
+        <section class="t-panel" aria-labelledby="t-control-title">
+          <h2 id="t-control-title">التحكّم</h2>
+          <label class="t-switch"><input type="checkbox" data-accepting> <span>استقبال الآراء</span></label>
+          <label class="t-switch"><input type="checkbox" data-drawing> <span>السحب</span></label>
+          <p class="t-hint" data-open-note hidden></p>
+          <div class="t-closes">
+            <label for="t-closes">إغلاقٌ تلقائيّ للاستقبال</label>
+            <div class="t-closes-row">
+              <input id="t-closes" type="datetime-local" dir="ltr" data-closes>
+              <button class="t-ghost" type="button" data-closes-save>حفظ</button>
+              <button class="t-ghost" type="button" data-closes-clear>بلا موعد</button>
+            </div>
+          </div>
+          <button class="t-danger" type="button" data-end>إنهاء الفعالية</button>
+        </section>
+
+        <section class="t-panel" aria-labelledby="t-people-title">
+          <h2 id="t-people-title">المشاركون في السحب</h2>
+          <input class="t-filter" type="search" data-filter placeholder="ابحث عن اسم" aria-label="ابحث عن اسم">
+          <ul class="t-people" data-participants></ul>
+          <p class="t-empty" data-participants-empty>لا أحد بعد.</p>
+        </section>
+      </aside>
+    </div>
+  </section>
+
+  <div class="t-overlay" data-winner role="dialog" aria-modal="true" aria-labelledby="t-winner-name" hidden>
+    <canvas class="t-confetti" data-confetti aria-hidden="true"></canvas>
+    <div class="t-winner-card">
+      <p class="t-eyebrow" data-winner-round></p>
+      <h2 class="t-winner-name" id="t-winner-name" data-winner-name></h2>
+      <button class="t-button" type="button" data-winner-close>متابعة</button>
+    </div>
+  </div>
+
+  <div class="t-overlay" data-confirm role="dialog" aria-modal="true" aria-labelledby="t-confirm-title" hidden>
+    <div class="t-confirm-card">
+      <h2 id="t-confirm-title">إنهاء الفعالية؟</h2>
+      <p>يُغلق استقبالُ الآراء ويتوقّف السحب فورًا. تستطيع إعادة فتحهما من هنا متى شئت.</p>
+      <div class="t-confirm-actions">
+        <button class="t-danger" type="button" data-confirm-yes>إنهاء الآن</button>
+        <button class="t-ghost" type="button" data-confirm-no>تراجع</button>
+      </div>
+    </div>
+  </div>
+
+  <noscript><p class="t-message">تحتاج هذه الصفحة إلى تفعيل JavaScript في المتصفّح.</p></noscript>
+</main>
+</body>
+</html>
