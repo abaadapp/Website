@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#fbfbfb">
+<title>شاركنا رأيك | طلة</title>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&amp;display=swap">
+<link rel="stylesheet" href="/talla-event/talla.css?v=4dc03d209a">
+<script src="/talla-event/config.js?v=aebaed18f3" defer></script>
+<script src="/talla-event/api.js?v=4bf9ea640a" defer></script>
+<script src="/talla-event/feedback.js?v=b3a9571128" defer></script>
+</head>
+<body class="t-page t-feedback">
+<main class="t-shell" data-talla-feedback>
+  <header class="t-brand">
+    <img src="/assets/img/logo.svg" alt="أبعاد" width="96" height="34">
+  </header>
+
+  <section class="t-card" aria-labelledby="t-title">
+    <p class="t-eyebrow">فعالية</p>
+    <h1 class="t-title" id="t-title">طلة</h1>
+    <p class="t-lead">شاركنا رأيك واقتراحاتك — نقرأ كلَّ كلمة لنجعل الفعالية القادمة أجمل.</p>
+
+    <p class="t-state" data-loading>لحظة…</p>
+
+    <form class="t-form" data-form hidden novalidate>
+      <div class="t-field">
+        <label for="t-name">الاسم الكامل</label>
+        <input id="t-name" type="text" autocomplete="name" maxlength="80" required aria-describedby="t-name-error">
+        <p class="t-error" id="t-name-error" data-error-for="t-name" hidden></p>
+      </div>
+
+      <div class="t-field">
+        <label for="t-feedback">رأيك واقتراحاتك</label>
+        <textarea id="t-feedback" rows="7" maxlength="2000" required aria-describedby="t-feedback-error t-feedback-count"
+          placeholder="ما الذي أعجبك؟ وما الذي تقترح أن نحسّنه؟"></textarea>
+        <p class="t-count" id="t-feedback-count" data-count>0 / 2000</p>
+        <p class="t-error" id="t-feedback-error" data-error-for="t-feedback" hidden></p>
+      </div>
+
+      <label class="t-consent" for="t-consent">
+        <input id="t-consent" type="checkbox">
+        <span>
+          <strong>أرغب في دخول السحب على الجائزة</strong>
+          <small>اختياريّ — وسيظهر اسمك على شاشة السحب أثناء الفعالية.</small>
+        </span>
+      </label>
+
+      <div class="t-trap" aria-hidden="true">
+        <label for="t-website">اترك هذه الخانة فارغة</label>
+        <input id="t-website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <button class="t-button" type="submit" data-submit>إرسال</button>
+      <p class="t-message" data-message role="alert" hidden></p>
+      <p class="t-note">نستخدم إجابتك لتحسين الفعالية فقط.</p>
+    </form>
+
+    <div class="t-done" data-done tabindex="-1" hidden>
+      <span class="t-done-mark" aria-hidden="true"></span>
+      <h2>شكرًا لك!</h2>
+      <p>وصلنا رأيك.</p>
+      <p class="t-done-draw" data-done-draw hidden>دخل اسمك السحب — بالتوفيق!</p>
+      <button class="t-link" type="button" data-again>إرسال رأيٍ آخر</button>
+    </div>
+
+    <div class="t-closed" data-closed hidden>
+      <h2>انتهى استقبال الآراء</h2>
+      <p>شكرًا لكلّ من شاركنا رأيه في طلة.</p>
+    </div>
+
+    <div class="t-closed" data-unavailable hidden>
+      <h2>الاستبيان غير متاح الآن</h2>
+      <p>عُد إليه بعد قليل.</p>
+    </div>
+
+    <noscript><p class="t-message">يحتاج هذا النموذج إلى تفعيل JavaScript في المتصفّح.</p></noscript>
+  </section>
+</main>
+</body>
+</html>
