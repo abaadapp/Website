@@ -29,6 +29,9 @@ const FEEDBACK = read('talla-feedback/index.html');
 const DRAW = read('talla-draw/index.html');
 const JS = Object.fromEntries(['config', 'api', 'feedback', 'wheel', 'draw'].map((n) => [n, read(`talla-event/${n}.js`)]));
 const SQL = read('deploy/talla/supabase.sql');
+// config.js كما سيُنشر — مشروع الفعالية ومفتاحه العامّ
+const SHIPPED = runInNewContext(JS.config + ';window.TALLA_CONFIG', { window: {} });
+const HOST = SHIPPED.url.replace('https://', '');
 
 const CSP = "default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co; base-uri 'none'; form-action 'none'";
 const KEY = 'sb_publishable_talla_test_0123456789';
@@ -43,7 +46,7 @@ function backend(handlers = {}) {
   const fetch = async (url, init = {}) => {
     const u = new URL(url);
     const body = init.body ? JSON.parse(init.body) : {};
-    const call = { path: u.pathname, query: u.search, headers: { ...(init.headers || {}) }, body };
+    const call = { host: u.host, path: u.pathname, query: u.search, headers: { ...(init.headers || {}) }, body };
     calls.push(call);
     const name = u.pathname.split('/').pop();
     const handler = handlers[name] || handlers[u.pathname];
@@ -149,12 +152,9 @@ test('no secret in any event file: the public key only, and no password', () => 
     }
     assert.doesNotMatch(text, /password\s*[:=]\s*['"][^'"]+['"]/i, `${f}: كلمة مرور مكتوبة`);
   }
-  const shipped = runInNewContext(JS.config + ';window.TALLA_CONFIG', { window: {} });
-  assert.equal(typeof shipped.key, 'string');
-  assert.ok(!/^sb_secret_/.test(shipped.key), 'المفتاح في config.js سرّيّ');
-  if (/^eyJ/.test(shipped.key)) {
-    assert.notEqual(JSON.parse(Buffer.from(shipped.key.split('.')[1], 'base64url').toString()).role, 'service_role');
-  }
+  assert.equal(SHIPPED.enabled, true);
+  assert.match(SHIPPED.key, /^sb_publishable_[\w-]{20,}$/, 'المفتاح العامّ وحده — لا sb_secret_ ولا service_role');
+  assert.match(SHIPPED.url, /^https:\/\/[a-z0-9]+\.supabase\.co$/, 'رابطٌ يغطّيه CSP (https://*.supabase.co)');
 });
 
 test('the original Abaad pages know nothing of the event', () => {
@@ -188,9 +188,19 @@ test('the database: RLS on every table, nothing bypasses it from public, and the
 
 /* ═══════════ ٢ · نموذج الرأي ═══════════ */
 
-test('feedback: as shipped, not linked to a project yet, it says so and calls nothing', async (t) => {
-  const api = backend();
+test('feedback: as shipped, it talks to the event project only, with its public key', async (t) => {
+  const api = backend({ talla_status: () => ({ body: { accepting: true } }) });
   const { $ } = feedback(t, { fetch: api.fetch });
+  await until(() => visible($('[data-form]')), 'form');
+  assert.equal(api.calls.length, 1);
+  assert.equal(api.calls[0].host, HOST);
+  assert.equal(api.calls[0].headers.apikey, SHIPPED.key);
+  assert.equal(api.calls[0].headers.Authorization, undefined);
+});
+
+test('feedback: enabled: false in config.js says it is unavailable and calls nothing', async (t) => {
+  const api = backend();
+  const { $ } = feedback(t, { config: { ...SHIPPED, enabled: false }, fetch: api.fetch });
   await settle();
   assert.ok(visible($('[data-unavailable]')));
   assert.ok(!visible($('[data-form]')));
@@ -355,9 +365,20 @@ async function signIn(w, $, email = 'owner@example.test', password = 'correct ho
   $('[data-login-submit]').click();
 }
 
-test('draw: as shipped, not linked to a project yet, it says so and calls nothing', async (t) => {
+test('draw: as shipped, it signs in at the event project only, with its public key', async (t) => {
+  const api = adminBackend();
+  const { w, $ } = draw(t, { fetch: api.fetch });
+  await until(() => visible($('[data-login]')), 'login');
+  assert.equal(api.calls.length, 0, 'لا شيء قبل الدخول');
+  await signIn(w, $);
+  await until(() => visible($('[data-board]')));
+  assert.ok(api.calls.length >= 2);
+  assert.ok(api.calls.every((c) => c.host === HOST && c.headers.apikey === SHIPPED.key));
+});
+
+test('draw: enabled: false in config.js says it is unavailable and calls nothing', async (t) => {
   const api = backend();
-  const { $ } = draw(t, { fetch: api.fetch });
+  const { $ } = draw(t, { config: { ...SHIPPED, enabled: false }, fetch: api.fetch });
   await settle();
   assert.ok(visible($('[data-unavailable]')));
   assert.ok(!visible($('[data-board]')));

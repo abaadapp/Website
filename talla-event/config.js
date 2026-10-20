@@ -11,7 +11,7 @@ window.TALLA_CONFIG = {
   // false ← الصفحتان تقولان «غير متاح الآن» ولا تتّصلان بشيء
   enabled: true,
   // https://<المعرّف>.supabase.co — من Project Settings → Data API
-  url: '',
+  url: 'https://ngvsksogakyvzzbilkuy.supabase.co',
   // المفتاح العامّ: sb_publishable_… (أو anon القديم) — من Project Settings → API Keys
-  key: '',
+  key: 'sb_publishable_JH750LTf6_-KH7rh6FEfUg_02JFgOe-',
 };
