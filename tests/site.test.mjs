@@ -498,6 +498,41 @@ test('the device bundles and the custom app sit under the plans in both language
   assert.deepEqual(read(d), read(en));
 });
 
+test('the custom plan follows the three with all their features, names no price, and asks through the contact form', async (t) => {
+  /*
+   * لمن يحتاج تخصيصًا ومميزاتٍ على احتياجه: لا سعرَ يُذكر، ومكانُه «تواصل معنا».
+   * وليست `data-plan` — تلك تُشترى بالتسجيل ويبدّل سعرَها الشهريُّ والسنويّ.
+   */
+  const NAMES = { ar: ['المخصصة', 'تواصل معنا'], en: ['Custom', 'Contact us'] };
+  const look = (d) => {
+    const all = d.querySelectorAll('[data-custom-plan]'), c = all[0];
+    return {
+      count: all.length,
+      last: c.parentElement.matches('[data-list="plans"]') && !c.nextElementSibling,
+      name: c.querySelector('h3').textContent,
+      links: [...c.querySelectorAll('a')].map((a) => [a.textContent, a.getAttribute('href')]),
+      text: c.textContent,
+      first: c.querySelector('[data-inc] > li').textContent,
+    };
+  };
+  for (const [lang, html] of [['ar', HTML], ['en', EN]]) {
+    const d = new JSDOM(html).window.document, c = look(d);
+    const plans = [...d.querySelectorAll('[data-plan] h3')].map((h) => h.textContent);
+
+    assert.equal(c.count, 1, `${lang}: الباقة المخصّصة`);
+    assert.ok(c.last, `${lang}: ليست آخرَ الباقات`);
+    assert.equal(c.name, NAMES[lang][0]);
+    assert.deepEqual(c.links, [[NAMES[lang][1], '#contact']], `${lang}: زرُّها لا يذهب إلى «تواصل معنا» وحده`);
+    assert.doesNotMatch(c.text, /\d|ر\.ع|OMR/, `${lang}: ذكرت سعرًا`);
+    plans.forEach((p) => assert.ok(c.first.includes(p), `${lang}: «${c.first}» لا تذكر ${p}`));
+  }
+
+  // والسكربت يرسمها كما في الصفحة، والسنويّ لا يمسّها
+  const w = await page(t), d = w.document;
+  click(w, '[data-billing="y"]');
+  assert.deepEqual(look(d), look(new JSDOM(HTML).window.document));
+});
+
 test('one official contact number on the site and the three legal pages', () => {
   const OFFICIAL = '71141624';
   for (const f of ['index.html', 'en/index.html', 'assets/site.js', 'privacy/index.html', 'terms/index.html', 'data-deletion/index.html']) {

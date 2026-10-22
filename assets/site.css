@@ -24,6 +24,7 @@ button,input,select,textarea{font-family:inherit}
   [data-g="detail-wide"]{grid-template-columns:.7fr 1.3fr!important}
   [data-g="detail-xwide"]{grid-template-columns:.62fr 1.38fr!important}
   [data-g="contact"]{grid-template-columns:.8fr 1.2fr!important}
+  [data-g="custom-plan"]{grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr) auto!important}
 }
 
 /* الجوّال — أُضيفت بعد فحص Safari/WebKit */
