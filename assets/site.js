@@ -276,7 +276,19 @@
         ],
         wa: ['إشعارات واتساب عبر رقم أبعاد', '100 رسالة واتساب مجانية شهريًا', 'إمكانية شراء رصيد رسائل إضافي'],
         add: [{ t: 'استخدم رقم واتساب شركتك', d: 'اربط رقم واتساب أعمالك الخاص بدل رقم أبعاد — متاح كإضافة اختيارية.' }, { t: 'خصص موقعك الإلكتروني', d: 'تخصيص احترافي للموقع بما يناسب هويتك وفروعك — خدمة إضافية.' }] }
-    ]
+    ],
+    /*
+     * الباقة المخصّصة — كلُّ ما في الباقات الثلاث، ويُبنى فوقه ما يحتاجه النشاط.
+     * بلا سعر: مكانُه «تواصل معنا». وليست في `plans` لأنّها لا تُشترى عند التسجيل.
+     */
+    custom: { name: 'المخصصة', tag: 'مصممة على احتياجك', desc: 'للشركات والأفراد الذين يحتاجون تخصيصًا ومميزات تُبنى على احتياجهم.',
+      incH: 'ما تحصل عليه',
+      inc: [
+        { t: 'كل مميزات الباقات', d: 'كل ما في الأساسية والاحترافية والمؤسسات.' },
+        { t: 'مميزات مخصصة لنشاطك', d: 'نبني ما يحتاجه عملك من مميزات وتقارير وطريقة عمل.' },
+        { t: 'حدود على مقاسك', d: 'فروع ومستخدمون ومنتجات بالعدد الذي تحتاجه.' }
+      ],
+      cta: 'تواصل معنا' }
   };
   PRICING.en = {
     cur: 'OMR', perMonth: 'month', perYear: 'year', popular: 'Most popular', save: 'Save two months', instead: 'instead of',
@@ -317,7 +329,15 @@
         ],
         wa: ['WhatsApp notifications through the Abaad number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
         add: [{ t: "Use your company's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the Abaad number — available as an optional add-on.' }, { t: 'Customize your website', d: 'Professional customization of your website to fit your brand and branches — an additional service.' }] }
-    ]
+    ],
+    custom: { name: 'Custom', tag: 'Built around your needs', desc: 'For companies and individuals who need customization and features built around their needs.',
+      incH: 'What you get',
+      inc: [
+        { t: 'Every plan feature', d: 'Everything in Basic, Professional and Enterprise.' },
+        { t: 'Features built for your business', d: 'We build the features, reports and workflow your business needs.' },
+        { t: 'Limits that fit your size', d: 'As many branches, users and products as you need.' }
+      ],
+      cta: 'Contact us' }
   };
 
   var CAP_IMGS = [null, IMG + 'invoices.webp', IMG + 'store.webp', IMG + 'customer.webp'];
@@ -530,7 +550,18 @@
         html += '<div style="flex:1"></div>' +
           '<a href="' + LINKS.register + '" style="margin-top:26px;text-align:center;border-radius:999px;padding:15px 24px;font-size:15.5px;font-weight:700;background:' + (on ? 'var(--ink)' : 'transparent') + ';color:' + (on ? '#fff' : 'var(--ink)') + ';border:1px solid var(--ink)">' + esc(t.startNow) + '</a></div>';
         return html;
-      }).join('');
+      }).join('') + custom(pr.custom);
+      // صفٌّ كاملٌ تحت الثلاث، وليست `data-plan`: لا سعرَ يبدّله الشهريُّ والسنويّ، وزرُّها إلى «تواصل معنا» لا إلى التسجيل
+      function custom(c) {
+        return '<div data-custom-plan data-g="custom-plan" style="grid-column:1/-1;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px 26px 26px;display:grid;grid-template-columns:minmax(0,1fr);gap:22px 40px">' +
+          '<div><h3 style="margin:0;font-size:22px;font-weight:700">' + esc(c.name) + '</h3>' +
+          '<p style="margin:6px 0 0;font-size:14.5px;font-weight:700;color:var(--peach-ink)">' + esc(c.tag) + '</p>' +
+          '<p style="margin:10px 0 0;font-size:15px;line-height:1.8;color:var(--ink2);text-wrap:pretty">' + esc(c.desc) + '</p></div>' +
+          '<div><div style="font-size:13.5px;font-weight:700;color:var(--ink)">' + esc(c.incH) + '</div>' +
+          '<ul data-inc style="list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:9px">' +
+          c.inc.map(function (f) { return check('var(--ink)', f); }).join('') + '</ul></div>' +
+          '<a href="#contact" style="align-self:center;text-align:center;white-space:nowrap;border-radius:999px;padding:15px 32px;font-size:15.5px;font-weight:700;background:var(--ink);color:#fff;border:1px solid var(--ink)">' + esc(c.cta) + '</a></div>';
+      }
     },
     // بطاقاتُ ما يُضاف تحت الأسعار — زرُّها إلى «تواصل معنا»، لا إلى التسجيل
     extras: function () {
