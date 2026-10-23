@@ -39,7 +39,7 @@
       brand: 'أبعاد', navAria: 'أقسام الموقع', menuAria: 'القائمة',
       navHome: 'الرئيسية', navPlatform: 'المنصة', navSolutions: 'الحلول', navContact: 'تواصل معنا', navPricing: 'الأسعار',
       priceTitle: 'باقات واضحة تناسب نشاطك.', priceSub: 'اختر الباقة التي تناسب حجم نشاطك، وابدأ بما تحتاجه اليوم.',
-      billMonthly: 'شهري', billYearly: 'سنوي',
+      billMonthly: 'شهري', billHalf: 'نصف سنوي', billYearly: 'سنوي',
       heroTitle: 'كل أعمالك. في مكان واحد.',
       heroSub: 'أبعاد منصة متكاملة تجمع المبيعات، الإدارة، التجارة الإلكترونية، العملاء، المدفوعات، المالية والأتمتة — لتشغّل أعمالك من مكان واحد وتنمو بوضوح أكبر.',
       heroCta: 'ابدأ مع أبعاد', heroCta2: 'استكشف المنصة',
@@ -93,7 +93,7 @@
       brand: 'Abaad', navAria: 'Site navigation', menuAria: 'Menu',
       navHome: 'Home', navPlatform: 'Platform', navSolutions: 'Solutions', navContact: 'Contact us', navPricing: 'Pricing',
       priceTitle: 'Clear plans that fit your business.', priceSub: 'Pick the right plan, then add the devices or services you need.',
-      billMonthly: 'Monthly', billYearly: 'Yearly',
+      billMonthly: 'Monthly', billHalf: 'Semi-annual', billYearly: 'Yearly',
       heroTitle: 'Your whole business. In one place.',
       heroSub: 'Abaad is an integrated platform that brings together sales, management, e-commerce, customers, payments, finance and automation — so you run your business from one place and grow with more clarity.',
       heroCta: 'Start with Abaad', heroCta2: 'Explore the platform',
@@ -222,7 +222,7 @@
    */
   var PRICING = {};
   PRICING.ar = {
-    cur: 'ر.ع', perMonth: 'شهريًا', perYear: 'سنويًا', popular: 'الأكثر طلبًا', save: 'وفّر قيمة شهرين', instead: 'بدل',
+    cur: 'ر.ع', perMonth: 'شهريًا', perHalf: 'نصف سنويًا', perYear: 'سنويًا', popular: 'الأكثر طلبًا', save: 'وفّر قيمة شهرين', instead: 'بدل',
     limitsH: 'حدود الاستخدام', waH: 'واتساب', excH: 'غير مشمول في هذه الباقة',
     addH: 'تخصيصات اختيارية', addTag: 'إضافة اختيارية', addCta: 'تواصل معنا للتفعيل',
     waNote: 'في الباقات التي تشمل واتساب: 100 رسالة مجانية شهريًا عبر رقم أبعاد.',
@@ -250,11 +250,11 @@
      * وما فوق عشرة فروع سعرٌ خاصّ (`more`).
      */
     plans: [
-      { name: 'الأساسية', tag: 'إدارة متجرك اليومية', desc: 'كل ما تحتاجه لتشغيل وإدارة متجرك يوميًا.', m: '9.900', y: '99', was: '118.800',
+      { name: 'الأساسية', tag: 'إدارة متجرك اليومية', desc: 'كل ما تحتاجه لتشغيل وإدارة متجرك يوميًا.', m: '9.900', h: '59.400', y: '99', was: '118.800',
         limits: ['فرع واحد', 'حتى 3 مستخدمين نشطين مع المالك', 'حتى 500 منتج'], incH: 'التشغيل',
         inc: ['نقطة البيع والمبيعات والطلبات', 'إدارة المنتجات', 'إدارة المخزون', 'العملاء', 'الموردون والمشتريات', 'فواتير العملاء', 'المالية والمصروفات', 'الرواتب والموظفون', 'لوحة التجهيز', 'لوحة التحكم والملخصات', 'التقارير الأساسية'],
         exc: ['الموقع الإلكتروني', 'أدوات التسويق', 'برنامج الولاء', 'التقارير المتقدمة', 'الصلاحيات المخصصة', 'التطبيقات التكاملية', 'واتساب'] },
-      { name: 'الاحترافية', tag: 'إدارة + نمو', desc: 'شغّل متجرك وطوّر مبيعاتك بحضور رقمي وأدوات نمو متكاملة.', m: '29.900', y: '299', was: '358.800', featured: true,
+      { name: 'الاحترافية', tag: 'إدارة + نمو', desc: 'شغّل متجرك وطوّر مبيعاتك بحضور رقمي وأدوات نمو متكاملة.', m: '29.900', h: '179.400', y: '299', was: '358.800', featured: true,
         limits: ['حتى 3 فروع', 'حتى 15 مستخدمًا نشطًا مع المالك', 'حتى 10,000 منتج'], incH: 'كل ما في الأساسية، ومعها',
         inc: [
           { t: 'الموقع الإلكتروني', d: 'متجرك أونلاين بتصميمه ونطاقه وظهوره في البحث.' },
@@ -266,7 +266,7 @@
         ],
         wa: ['إشعارات واتساب عبر رقم أبعاد', '100 رسالة واتساب مجانية شهريًا', 'إمكانية شراء رصيد رسائل إضافي'],
         add: [{ t: 'استخدم رقم واتساب متجرك', d: 'اربط رقم واتساب أعمالك الخاص بدل رقم أبعاد — متاح كإضافة اختيارية.' }, { t: 'خصص موقعك الإلكتروني', d: 'تخصيص احترافي للموقع بما يناسب هوية نشاطك — خدمة إضافية.' }] },
-      { name: 'المؤسسات', tag: 'تشغيل عدة فروع', desc: 'للشركات والمتاجر التي تدير فرقًا أكبر وعدة فروع من نظام واحد.', m: '69.900', y: '699', was: '838.800',
+      { name: 'المؤسسات', tag: 'تشغيل عدة فروع', desc: 'للشركات والمتاجر التي تدير فرقًا أكبر وعدة فروع من نظام واحد.', m: '69.900', h: '419.400', y: '699', was: '838.800',
         limits: ['حتى 10 فروع', 'حتى 100 مستخدم نشط مع المالك', 'منتجات غير محدودة'], incH: 'كل ما في الاحترافية، ومعها',
         more: 'أكثر من 10 فروع؟ تواصل معنا لسعر خاص',
         inc: [
@@ -291,7 +291,7 @@
       cta: 'تواصل معنا' }
   };
   PRICING.en = {
-    cur: 'OMR', perMonth: 'month', perYear: 'year', popular: 'Most popular', save: 'Save two months', instead: 'instead of',
+    cur: 'OMR', perMonth: 'month', perHalf: '6 months', perYear: 'year', popular: 'Most popular', save: 'Save two months', instead: 'instead of',
     limitsH: 'Usage limits', waH: 'WhatsApp', excH: 'Not included in this plan',
     addH: 'Optional customizations', addTag: 'Optional add-on', addCta: 'Contact us to activate',
     waNote: 'On plans that include WhatsApp: 100 free messages a month through the Abaad number.',
@@ -303,11 +303,11 @@
       { tag: 'Device bundle', name: 'Device Bundle 2', desc: 'iPad + stand + thermal printer + cash drawer', cta: 'Request a quote' }
     ],
     plans: [
-      { name: 'Basic', tag: 'Run your store day to day', desc: 'Everything you need to run and manage your store every day.', m: '9.900', y: '99', was: '118.800',
+      { name: 'Basic', tag: 'Run your store day to day', desc: 'Everything you need to run and manage your store every day.', m: '9.900', h: '59.400', y: '99', was: '118.800',
         limits: ['1 branch', 'Up to 3 active users, including the owner', 'Up to 500 products'], incH: 'Operations',
         inc: ['Point of sale, sales and orders', 'Product management', 'Inventory management', 'Customers', 'Suppliers and purchasing', 'Customer invoices', 'Finance and expenses', 'Payroll and employees', 'Preparation board', 'Dashboard and summaries', 'Basic reports'],
         exc: ['Website', 'Marketing tools', 'Loyalty program', 'Advanced reports', 'Custom permissions', 'Integrations', 'WhatsApp'] },
-      { name: 'Professional', tag: 'Management + growth', desc: 'Run your store and grow your sales with a digital presence and integrated growth tools.', m: '29.900', y: '299', was: '358.800', featured: true,
+      { name: 'Professional', tag: 'Management + growth', desc: 'Run your store and grow your sales with a digital presence and integrated growth tools.', m: '29.900', h: '179.400', y: '299', was: '358.800', featured: true,
         limits: ['Up to 3 branches', 'Up to 15 active users, including the owner', 'Up to 10,000 products'], incH: 'Everything in Basic, plus',
         inc: [
           { t: 'Website', d: 'Your store online, with its own design, domain and search visibility.' },
@@ -319,7 +319,7 @@
         ],
         wa: ['WhatsApp notifications through the Abaad number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
         add: [{ t: "Use your store's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the Abaad number — available as an optional add-on.' }, { t: 'Customize your website', d: 'Professional customization of your website to match your brand — an additional service.' }] },
-      { name: 'Enterprise', tag: 'Multi-branch operations', desc: 'For companies and stores running larger teams and several branches from one system.', m: '69.900', y: '699', was: '838.800',
+      { name: 'Enterprise', tag: 'Multi-branch operations', desc: 'For companies and stores running larger teams and several branches from one system.', m: '69.900', h: '419.400', y: '699', was: '838.800',
         limits: ['Up to 10 branches', 'Up to 100 active users, including the owner', 'Unlimited products'], incH: 'Everything in Professional, plus',
         more: 'More than 10 branches? Contact us for custom pricing',
         inc: [
@@ -515,8 +515,8 @@
           '<p style="margin:6px 0 0;font-size:14.5px;font-weight:700;color:var(--peach-ink)">' + esc(p.tag) + '</p>' +
           '<p style="margin:10px 0 0;font-size:15px;line-height:1.8;color:var(--ink2);text-wrap:pretty;min-height:54px">' + esc(p.desc) + '</p>' +
           '<div style="display:flex;align-items:baseline;gap:8px;margin-top:20px;white-space:nowrap">' +
-          '<span data-price style="font-size:clamp(38px,4vw,46px);font-weight:700;letter-spacing:-.02em;line-height:1" dir="ltr">' + (yearly ? p.y : p.m) + '</span>' +
-          '<span data-period style="font-size:15px;font-weight:600;color:var(--ink2)">' + esc(pr.cur) + ' / ' + esc(yearly ? pr.perYear : pr.perMonth) + '</span></div>' +
+          '<span data-price style="font-size:clamp(38px,4vw,46px);font-weight:700;letter-spacing:-.02em;line-height:1" dir="ltr">' + billPrice(p) + '</span>' +
+          '<span data-period style="font-size:15px;font-weight:600;color:var(--ink2)">' + esc(pr.cur) + ' / ' + esc(billPeriod(pr)) + '</span></div>' +
           '<div data-was style="min-height:22px;margin-top:8px;font-size:13.5px;color:var(--muted)">' + (yearly ? wasLine(p) : '') + '</div>' +
           '<div style="margin-top:18px;background:var(--bg2);border-radius:14px;padding:14px 16px">' +
           '<div style="font-size:12.5px;font-weight:700;color:var(--muted)">' + esc(pr.limitsH) + '</div>' +
@@ -616,6 +616,14 @@
       { k: t.ciPhone, v: t.ciPhoneV, href: 'tel:' + t.ciPhoneV.replace(/\s+/g, '') }
     ];
   }
+  /*
+   * السعرُ ومدّتُه بحسب الزرّ: شهريّ (`m`)، أو نصف سنويّ (`h`)، أو سنويّ (`y`).
+   *
+   * ونصفُ السنة ستّةُ أشهرٍ بسعرها بلا خصم، فلا «بدل» ولا «وفّر» معه — هما
+   * للسنويّ وحده، وهو الذي يوفّر قيمة شهرين.
+   */
+  function billPrice(p) { return S.billing === 'y' ? p.y : S.billing === 'h' ? p.h : p.m; }
+  function billPeriod(pr) { return S.billing === 'y' ? pr.perYear : S.billing === 'h' ? pr.perHalf : pr.perMonth; }
   function wasLine(p) {
     var pr = pricing();
     return '<span>' + esc(pr.instead) + ' </span><s dir="ltr" style="unicode-bidi:isolate">' + p.was + '</s><span> ' + esc(pr.cur) + '</span>';
@@ -706,15 +714,15 @@
   function applyBilling() {
     var yearly = S.billing === 'y', pr = pricing();
     $$('[data-billing]').forEach(function (b) {
-      var on = (b.getAttribute('data-billing') === 'y') === yearly, k = billingLook(on);
+      var on = b.getAttribute('data-billing') === S.billing, k = billingLook(on);
       b.style.background = k.bg; b.style.color = k.fg; b.style.boxShadow = k.sh;
       b.setAttribute('aria-selected', String(on));
     });
     $('[data-save]').style.opacity = yearly ? '1' : '0';
     $$('[data-plan]').forEach(function (card) {
       var p = pr.plans[Number(card.getAttribute('data-plan'))];
-      $('[data-price]', card).textContent = yearly ? p.y : p.m;
-      $('[data-period]', card).textContent = pr.cur + ' / ' + (yearly ? pr.perYear : pr.perMonth);
+      $('[data-price]', card).textContent = billPrice(p);
+      $('[data-period]', card).textContent = pr.cur + ' / ' + billPeriod(pr);
       $('[data-was]', card).innerHTML = yearly ? wasLine(p) : '';
     });
   }
