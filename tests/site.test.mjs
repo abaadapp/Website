@@ -186,6 +186,32 @@ test('yearly billing shows the yearly price and what it replaces', async (t) => 
   assert.equal(basic().querySelector('[data-was]').textContent, '');
 });
 
+/**
+ * ونصفُ السنة ستّةُ أشهرٍ بسعرها: لا «بدل» ولا «وفّر» معه — هما للسنويّ وحده.
+ * والأسعارُ ستّةُ أضعاف الشهريّ تمامًا.
+ */
+test('semi-annual billing shows six months at their price, in both languages, without a saving', async (t) => {
+  for (const [lang, period, label] of [['ar', 'ر.ع / نصف سنويًا', 'نصف سنوي'], ['en', 'OMR / 6 months', 'Semi-annual']]) {
+    const w = await page(t, lang), d = w.document;
+    assert.equal(d.querySelector('[data-billing="h"]').textContent, label);
+    click(w, '[data-billing="h"]');
+
+    const shown = [...d.querySelectorAll('[data-plan] [data-price]')].map((p) => p.textContent);
+    assert.deepEqual(shown, ['59.400', '179.400', '419.400'], lang);
+    assert.deepEqual(shown, ['9.900', '29.900', '69.900'].map((m) => (Number(m) * 6).toFixed(3)), 'ليس ستّةَ أشهرٍ بسعرها');
+    assert.equal(d.querySelector('[data-plan="0"] [data-period]').textContent, period);
+    assert.deepEqual([...d.querySelectorAll('[data-plan] [data-was]')].map((x) => x.textContent), ['', '', '']);
+    assert.equal(d.querySelector('[data-save]').style.opacity, '0');
+    assert.deepEqual([...d.querySelectorAll('[data-billing]')].map((b) => b.getAttribute('aria-selected')), ['false', 'true', 'false']);
+
+    // والسنويّ بعده كما كان، والشهريّ يعود
+    click(w, '[data-billing="y"]');
+    assert.equal(d.querySelector('[data-plan="0"] [data-price]').textContent, '99');
+    click(w, '[data-billing="m"]');
+    assert.equal(d.querySelector('[data-plan="0"] [data-price]').textContent, '9.900');
+  }
+});
+
 test('a capability card opens its own panel', async (t) => {
   const w = await page(t), d = w.document;
   click(w, '[data-cap="4"]');
