@@ -402,6 +402,12 @@ test('the pricing section is wholly English on /en/, with the same numbers and p
   assert.equal(d.getElementById('pricing').textContent, en.getElementById('pricing').textContent, 'الشهريّ لم يعد كما كان');
 });
 
+/** قدراتُ المؤسسات كما تُعرض — كلُّ بندٍ شاشةٌ تعمل في النظام بقدرتها */
+const BRANCH_OPS = {
+  ar: ['نقل المخزون بين الفروع', 'طلبات تزويد الفروع', 'إدارة الموافقات', 'مقارنة أداء الفروع', 'تقارير حركة المخزون', 'تنبيهات مركزية', 'تقرير أسبوعي للفروع'],
+  en: ['Inter-branch inventory transfers', 'Branch replenishment requests', 'Approval workflows', 'Branch performance comparison', 'Inventory transfer reports', 'Centralized alerts', 'Weekly branch report'],
+};
+
 test('each plan lists only what it adds to the one before, by the same names, in both languages', () => {
   /*
    * كانت «المؤسسات» تقول «كل مميزات الاحترافية» ثم تعيد ثمانيةَ بنودٍ منها،
@@ -445,12 +451,28 @@ test('each plan lists only what it adds to the one before, by the same names, in
     assert.deepEqual(pro.inc.filter((x) => basic.inc.includes(x)), [], `${lang}: الاحترافية تكرّر`);
     [...pro.inc, ...ent.inc].forEach((x, i) => assert.ok([...pro.incD, ...ent.incD][i], `${lang}: «${x}» بلا شرح`));
 
-    // وما تزيده المؤسسات هو حدودُها: كلُّ سطرٍ يذكر رقمَها ورقمَ الاحترافية الذي يحلّ محلَّه
-    assert.equal(ent.inc.length, ent.limits.length);
-    ent.incD.forEach((dsc, i) => {
-      assert.ok(dsc.includes(ent.limits[i]), `${lang}: «${dsc}» لا يذكر ${ent.limits[i]}`);
-      assert.ok(dsc.includes(pro.limits[i]), `${lang}: «${dsc}» لا يذكر ${pro.limits[i]}`);
-    });
+    /*
+     * وما تزيده المؤسسات: حدودُها أوّلًا — كلُّ سطرٍ يذكر رقمَها —، ثمّ إدارةُ
+     * الفروع التي تُباع معها وحدها في النظام (`PlanFeatures::ENTERPRISE`)، بالترتيب
+     * نفسِه في اللغتين.
+     */
+    ent.limits.forEach((n, i) => assert.ok(ent.incD[i].includes(n), `${lang}: «${ent.incD[i]}» لا يذكر ${n}`));
+    assert.deepEqual(ent.inc.slice(ent.limits.length), BRANCH_OPS[lang], `${lang}: إدارةُ الفروع في بطاقة المؤسسات`);
+  }
+});
+
+
+test('no card but Enterprise promises branch operations, and nothing promises a weekly report by email or WhatsApp', () => {
+  for (const html of [HTML, EN]) {
+    const d = new JSDOM(html).window.document;
+    for (const i of [0, 1]) {
+      const card = d.querySelector(`[data-plan="${i}"]`).textContent;
+      for (const lang of ['ar', 'en']) {
+        BRANCH_OPS[lang].forEach((x) => assert.ok(!card.includes(x), `«${x}» في بطاقةٍ غير المؤسسات`));
+      }
+    }
+    const pricing = d.getElementById('pricing').textContent;
+    assert.ok(!/أسبوعي[^.،]*(بالبريد|عبر واتساب)|weekly[^.,]*(by email|via WhatsApp|on WhatsApp)/i.test(pricing), 'وعدٌ بإرسالٍ أسبوعيٍّ لم يُبنَ');
   }
 });
 
