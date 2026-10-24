@@ -240,7 +240,8 @@
     /*
      * كلُّ بطاقةٍ تذكر ما تضيفه على التي قبلها، لا ما فيها كلَّه — وبأسماء
      * قدرات النظام (`PlanFeatures` في abaad.Saas): ما يُغلق في الأساسية هو
-     * القدراتُ السبع، وتفتحها الاحترافية كلَّها، والمؤسساتُ مثلُها بحدودٍ أعلى.
+     * القدراتُ السبع، وتفتحها الاحترافية كلَّها، والمؤسساتُ مثلُها بحدودٍ أعلى
+     * ومعها قدراتُ إدارة الفروع التي لا تُفتح لغيرها.
      * فالاسمُ هنا هو ما يقرؤه التاجر في رسالة «رقِّ الباقة لفتحها».
      * وبندٌ `{ t, d }` عنوانٌ وشرحُه تحته.
      *
@@ -266,13 +267,26 @@
         ],
         wa: ['إشعارات واتساب عبر رقم أبعاد', '100 رسالة واتساب مجانية شهريًا', 'إمكانية شراء رصيد رسائل إضافي'],
         add: [{ t: 'استخدم رقم واتساب متجرك', d: 'اربط رقم واتساب أعمالك الخاص بدل رقم أبعاد — متاح كإضافة اختيارية.' }, { t: 'خصص موقعك الإلكتروني', d: 'تخصيص احترافي للموقع بما يناسب هوية نشاطك — خدمة إضافية.' }] },
-      { name: 'المؤسسات', tag: 'تشغيل عدة فروع', desc: 'للشركات والمتاجر التي تدير فرقًا أكبر وعدة فروع من نظام واحد.', m: '69.900', h: '419.400', y: '699', was: '838.800',
-        limits: ['حتى 10 فروع', 'حتى 100 مستخدم نشط مع المالك', 'منتجات غير محدودة'], incH: 'كل ما في الاحترافية، ومعها',
+      /*
+       * والمؤسساتُ: حدودٌ أعلى، وإدارةُ الفروع التي تُباع معها وحدها — قدراتُ
+       * `PlanFeatures::ENTERPRISE` في abaad.Saas (نقلُ المخزون، وطلباتُ التزويد،
+       * وأداءُ الفروع، والتقريرُ الأسبوعيّ، والتنبيهاتُ المركزيّة). كلُّ بندٍ هنا
+       * شاشةٌ تعمل في النظام، ولا يُوعَد بإرسالٍ أسبوعيٍّ بالبريد أو واتساب.
+       */
+      { name: 'المؤسسات', tag: 'إدارة متقدمة لجميع فروعك', desc: 'للشركات والمتاجر متعددة الفروع التي تحتاج إلى متابعة الأداء وإدارة المخزون والطلبات والموافقات من نظام واحد.', m: '69.900', h: '419.400', y: '699', was: '838.800',
+        limits: ['حتى 10 فروع', 'حتى 100 مستخدم نشط مع المالك', 'منتجات غير محدودة'], incH: 'كل ما في الاحترافية، بالإضافة إلى',
         more: 'أكثر من 10 فروع؟ تواصل معنا لسعر خاص',
         inc: [
-          { t: 'فروع أكثر', d: 'حتى 10 فروع من نظام واحد، بدل 3.' },
-          { t: 'فريق أكبر', d: 'حتى 100 مستخدم نشط، بدل 15.' },
-          { t: 'منتجات بلا حد', d: 'منتجات غير محدودة، بدل 10,000.' }
+          { t: 'تشغيل عدة فروع', d: 'حتى 10 فروع من نظام واحد.' },
+          { t: 'فريق أكبر', d: 'حتى 100 مستخدم نشط مع المالك.' },
+          { t: 'منتجات غير محدودة', d: 'إدارة عدد غير محدود من المنتجات.' },
+          { t: 'نقل المخزون بين الفروع', d: 'نقل المنتجات بسندات موثقة، مع متابعة الإرسال وتأكيد الاستلام.' },
+          { t: 'طلبات تزويد الفروع', d: 'تطلب الفروع البضاعة وتتابع الموافقة والتجهيز والتسليم.' },
+          { t: 'إدارة الموافقات', d: 'التحكم في من يطلب ومن يعتمد ومن يرسل ومن يستلم.' },
+          { t: 'مقارنة أداء الفروع', d: 'متابعة مبيعات وأرباح ومخزون جميع الفروع في لوحة مركزية.' },
+          { t: 'تقارير حركة المخزون', d: 'مراجعة التحويلات والكميات والفروقات بين الفروع.' },
+          { t: 'تنبيهات مركزية', d: 'متابعة نقص المخزون والطلبات المعلقة والتحويلات المتأخرة.' },
+          { t: 'تقرير أسبوعي للفروع', d: 'ملخص أسبوعي للمبيعات والأرباح والمخزون والعمليات.' }
         ],
         wa: ['إشعارات واتساب عبر رقم أبعاد', '100 رسالة واتساب مجانية شهريًا', 'إمكانية شراء رصيد رسائل إضافي'],
         add: [{ t: 'استخدم رقم واتساب شركتك', d: 'اربط رقم واتساب أعمالك الخاص بدل رقم أبعاد — متاح كإضافة اختيارية.' }, { t: 'خصص موقعك الإلكتروني', d: 'تخصيص احترافي للموقع بما يناسب هويتك وفروعك — خدمة إضافية.' }] }
@@ -319,13 +333,20 @@
         ],
         wa: ['WhatsApp notifications through the Abaad number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
         add: [{ t: "Use your store's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the Abaad number — available as an optional add-on.' }, { t: 'Customize your website', d: 'Professional customization of your website to match your brand — an additional service.' }] },
-      { name: 'Enterprise', tag: 'Multi-branch operations', desc: 'For companies and stores running larger teams and several branches from one system.', m: '69.900', h: '419.400', y: '699', was: '838.800',
+      { name: 'Enterprise', tag: 'Advanced management for all your branches', desc: 'For multi-branch businesses that need to monitor performance and manage inventory, requests, and approvals from one system.', m: '69.900', h: '419.400', y: '699', was: '838.800',
         limits: ['Up to 10 branches', 'Up to 100 active users, including the owner', 'Unlimited products'], incH: 'Everything in Professional, plus',
         more: 'More than 10 branches? Contact us for custom pricing',
         inc: [
-          { t: 'More branches', d: 'Up to 10 branches from one system, instead of 3.' },
-          { t: 'A larger team', d: 'Up to 100 active users, instead of 15.' },
-          { t: 'No product limit', d: 'Unlimited products, instead of 10,000.' }
+          { t: 'Multi-branch operations', d: 'Up to 10 branches in one system.' },
+          { t: 'Larger teams', d: 'Up to 100 active users, including the owner.' },
+          { t: 'Unlimited products', d: 'Manage an unlimited number of products.' },
+          { t: 'Inter-branch inventory transfers', d: 'Transfer products with documented records, dispatch tracking, and receipt confirmation.' },
+          { t: 'Branch replenishment requests', d: 'Request stock, approve replenishment, and track fulfillment.' },
+          { t: 'Approval workflows', d: 'Control who can request, approve, dispatch, and receive stock.' },
+          { t: 'Branch performance comparison', d: 'Compare branch sales, profits, and inventory in a centralized dashboard.' },
+          { t: 'Inventory transfer reports', d: 'Track stock movements, quantities, and discrepancies.' },
+          { t: 'Centralized alerts', d: 'Stay informed about low stock, pending requests, and delayed transfers.' },
+          { t: 'Weekly branch report', d: 'Review weekly sales, profit, inventory, and operational performance.' }
         ],
         wa: ['WhatsApp notifications through the Abaad number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
         add: [{ t: "Use your company's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the Abaad number — available as an optional add-on.' }, { t: 'Customize your website', d: 'Professional customization of your website to fit your brand and branches — an additional service.' }] }
