@@ -65,13 +65,14 @@ async function open(engine, [width, height], path = '') {
   const ctx = await engines[engine].newContext({ viewport: { width, height }, ...touch });
   // واتساب لا يُطلب فعلًا: يُجاب هنا، ويُقرأ عنوانُ النافذة التي فُتحت
   await ctx.route('https://wa.me/**', (r) => r.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><title>wa</title>' }));
-  await ctx.route('https://fonts.googleapis.com/**', (r) => r.fulfill({ status: 200, contentType: 'text/css', body: '' }));
   const page = await ctx.newPage();
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
   page.on('response', (r) => { if (r.status() >= 400 && r.url().startsWith(base)) errors.push(`${r.status()} ${r.url()}`); });
   await page.goto(base + path, { waitUntil: 'load' });
+  // بخطّ الموقع نفسه كما في layout.browser.mjs — خطٌّ احتياطيٌّ أعرض يُفيض أقسامًا غيرَ هذه
+  await page.evaluate(() => document.fonts.ready);
   return {
     page, ctx,
     close: async () => {
