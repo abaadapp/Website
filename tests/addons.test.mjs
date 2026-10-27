@@ -70,7 +70,8 @@ test('the new offer ships switched off — the published pricing is untouched an
     const section = doc.querySelector('[data-addons-section]');
     assert.ok(section && section.hasAttribute('hidden'), `${lang}: قسمُ الإضافات ظاهر قبل الإطلاق`);
     assert.equal(doc.querySelectorAll('[data-addon]').length, 0, `${lang}: بطاقاتُ إضافاتٍ في الصفحة المنشورة`);
-    assert.equal(doc.querySelector('a[href^="https://wa.me/"]'), null, `${lang}: رابطُ استفسارٍ قبل الإطلاق`);
+    // وأزرارُ الباقات المدفوعة واتسابٌ باشتراكها (`paid-plans.test.mjs`) — لا استفسارُ إضافة
+    assert.equal(doc.querySelector('[data-addons-section] a[href^="https://wa.me/"]'), null, `${lang}: رابطُ استفسارٍ قبل الإطلاق`);
     assert.equal(doc.querySelector('a[href="#addons"]'), null, `${lang}: رابطٌ إلى قسمٍ مخفيّ`);
   }
   // والأساسيّةُ اليوم فيها نقطةُ البيع — كما يُسجَّل الزائرُ على السياسة السابقة
