@@ -32,6 +32,23 @@
   // نوعُ النشاط يُرسَل مفتاحًا ثابتًا بترتيب `types` ثمّ «أخرى» — والتسميةُ للعرض وحده
   var TYPE_KEYS = ['retail', 'ecommerce', 'services', 'subscriptions', 'other'];
   var IMG = '/assets/img/';
+  /*
+   * واتساب أبعاد — رقمُ التواصل الرسميّ نفسُه (`ciPhoneV`) بأرقامه وحدها، كما يطلبه wa.me.
+   * والرابطُ يفتح المحادثةَ برسالةٍ جاهزة ولا يرسلها: الزائرُ يضغط «إرسال» بنفسه.
+   */
+  var WA = '96871141624';
+  /*
+   * ═══ العرضُ الجديد: الأساسيّةُ بلا نقطة البيع، وإضافاتُ كلّ باقة ═══
+   *
+   * مقبضُ نشرٍ مستقلّ، مطفأٌ حتى يُعتمد الإطلاقُ التجاريّ. يتبع النظامَ ولا يسبقه:
+   * لا يُشعَل قبل `new_merchant_addon_pricing_enabled` في لوحة المنصّة (abaad.Saas،
+   * `Addons\PricingPolicy`). فقبله يُسجَّل الزائرُ على السياسة السابقة، وأساسيّتُها
+   * فيها نقطةُ البيع كما تقول البطاقةُ اليوم — والإعلانُ عن غيرها وعدٌ لا يُنفَّذ.
+   *
+   * ومطفأً لا يتغيّر في الصفحة شيء: البطاقاتُ كما كانت، وقسمُ الإضافات مخفيّ.
+   * ويُشعَل بسطرٍ هنا ثمّ `npm run prerender` — في طلبٍ وحده بعد الإطلاق.
+   */
+  var ADDON_OFFER = false;
 
   var T = {
     ar: {
@@ -361,13 +378,125 @@
       cta: 'Contact us' }
   };
 
+  /*
+   * ═══ إضافاتُ الاشتراك — نسخةٌ للعرض من كتالوج النظام ═══
+   *
+   * المصدرُ كتالوجُ «إضافات الاشتراك» في لوحة المنصّة (abaad.Saas): رموزُه وأسماؤه،
+   * وأين يُشترى كلٌّ (`eligible`) وأين يُشمل (`included`) — كما زرعه ترحيلُ
+   * `2026_10_30_090000_future_merchants_grow_their_subscription_with_addons`
+   * (`CATALOG` و`PLANS`)، والوصفُ من `Addons\Catalog::DESCRIPTIONS`. ولا بابَ عامًّا
+   * يقرؤه الموقعُ منه، فهو منسوخٌ هنا: إن تغيّر في اللوحة اسمٌ أو أهليّةٌ أو أُوقف
+   * بيعُ إضافة، يُعدَّل هنا معه.
+   *
+   * ولا أسعار فيه عمدًا: سعرُ الإضافة في اللوحة وفواتيرها، والزائرُ يسأل عنه بواتساب.
+   * والمشمولُ في باقةٍ لا يُعرض فيها إضافةً تُشترى — يُذكر «مشمولة في الباقة».
+   */
+  var ADDON_PLANS = [
+    { key: 'basic', eligible: ['pos', 'website', 'marketing', 'loyalty', 'whatsapp'], included: [] },
+    { key: 'professional', eligible: ['extra_branch', 'gift_orders', 'whatsapp_own_number', 'api_integrations'], included: ['pos', 'website', 'marketing', 'loyalty', 'whatsapp'] },
+    { key: 'enterprise', eligible: ['gift_orders', 'whatsapp_own_number', 'api_integrations'], included: ['pos', 'website', 'marketing', 'loyalty', 'whatsapp'] }
+  ];
+  // أيقونةٌ لكلّ إضافة — خطوطٌ بلون النصّ، بلا ملفّ
+  var ADDON_ICONS = {
+    pos: '<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"></path><path d="M9 8h6M9 12h6M9 16h3"></path>',
+    website: '<path d="M5 8h14l-1.2 12H6.2z"></path><path d="M9 8V6.5a3 3 0 0 1 6 0V8"></path>',
+    marketing: '<path d="M3.5 12.5V4h8.5l9 9-8.5 8.5z"></path><circle cx="8" cy="8.5" r="1.4"></circle>',
+    loyalty: '<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.9z"></path>',
+    whatsapp: '<path d="M4.5 19.5l1.2-3.6A7.8 7.8 0 1 1 8.4 18.4z"></path><path d="M9.2 9.3c.3 2.3 2.4 4.4 4.7 4.8"></path>',
+    extra_branch: '<path d="M3 21h18"></path><path d="M5 21V9.5L12 4l7 5.5V21"></path><path d="M9.5 21v-5.5h5V21"></path>',
+    gift_orders: '<path d="M4.5 11.5h15V21h-15z"></path><path d="M3.5 7.5h17v4h-17z"></path><path d="M12 7.5V21"></path><path d="M12 7.5C10.5 4.5 7 4.5 7 6.3s3 1.2 5 1.2zm0 0c1.5-3 5-3 5-1.2s-3 1.2-5 1.2z"></path>',
+    whatsapp_own_number: '<path d="M6 3.5h3.5l1.8 4.6-2.3 1.4a10.5 10.5 0 0 0 5.5 5.5l1.4-2.3 4.6 1.8V18a2.5 2.5 0 0 1-2.5 2.5A15 15 0 0 1 3.5 6 2.5 2.5 0 0 1 6 3.5z"></path>',
+    api_integrations: '<path d="M8 7l-5 5 5 5"></path><path d="M16 7l5 5-5 5"></path><path d="M13.5 5l-3 14"></path>'
+  };
+
+  PRICING.ar.addonsTag = 'الإضافات';
+  PRICING.ar.addonsTitle = 'طوّر نظامك حسب احتياجات مشروعك';
+  PRICING.ar.addonsSub = 'مع أبعاد، تقدر تبدأ بالخدمات الأساسية وتضيف المزيد من المميزات مع نمو نشاطك، بكل مرونة.';
+  PRICING.ar.addons = {
+    heads: { basic: 'الإضافات المتاحة للباقة الأساسية', professional: 'الإضافات المتاحة للباقة الاحترافية', enterprise: 'الإضافات المتاحة لباقة المؤسسات' },
+    // اسمُ الباقة في الرسالة — بالاسمين، فيعرفها فريقُ أبعاد أيًّا كانت لغةُ الزائر
+    planLabel: { basic: 'الأساسية (Basic)', professional: 'الاحترافية (Professional)', enterprise: 'المؤسسات (Enterprise)' },
+    tag: 'إضافة اختيارية', includedH: 'مشمولة في الباقة', pick: 'حدّد', ask: 'استفسر عبر واتساب',
+    askSelected: 'استفسر عن الإضافات المحددة', copy: 'انسخ الرسالة',
+    none: 'حدّد إضافة واحدة على الأقل، ثمّ استفسر عنها.',
+    copied: 'نُسخت الرسالة — الصقها في واتساب وأرسلها إلى +968 71141624.',
+    copyFail: 'تعذّر النسخ تلقائيًا — حدّد الرسالة أدناه وانسخها، ثمّ أرسلها في واتساب إلى +968 71141624.',
+    items: {
+      pos: { name: 'نظام الكاشير ونقاط البيع POS', desc: 'البيع من صندوق المحل وإصدار الإيصالات ومتابعة جلسات الكاشير.' },
+      website: { name: 'المتجر الإلكتروني وإدارة الطلبات', desc: 'متجر إلكتروني باسمك يستقبل طلبات زبائنك وتديرها من لوحتك.' },
+      marketing: { name: 'العروض والخصومات والكوبونات', desc: 'الكوبونات والعروض وتقييمات العملاء.' },
+      loyalty: { name: 'برنامج الولاء والمكافآت', desc: 'نقاط يجمعها عملاؤك من مشترياتهم ويستبدلونها عند الصندوق.' },
+      whatsapp: { name: 'إشعارات واتساب', desc: 'إرسال حالة الطلب إلى العميل عبر واتساب.' },
+      extra_branch: { name: 'فرع إضافي', desc: 'فروع فوق حد الفروع في باقتك.',
+        one: 'أرغب بالاستفسار عن إضافة فرع جديد.', askOne: 'أريد معرفة التكلفة والشروط وطريقة التفعيل.' },
+      gift_orders: { name: 'إدارة الهدايا والطلبات المخصصة', desc: 'طلبات الإهداء ببيانات المستلم ومناسبته، والطلبات المخصصة بحقولها.' },
+      whatsapp_own_number: { name: 'ربط واتساب برقم المتجر', desc: 'إرسال رسائل متجرك من رقم واتساب الخاص به بدل الرقم المشترك.',
+        by: { enterprise: { name: 'ربط واتساب برقم الشركة', desc: 'إرسال رسائل شركتك من رقم واتساب الخاص بها بدل الرقم المشترك.' } } },
+      api_integrations: { name: 'التكامل مع الأنظمة الخارجية API', desc: 'ربط أبعاد بأنظمتك الأخرى عبر واجهة API، يُدرس مع فريق أبعاد حسب احتياجك.' }
+    },
+    msg: {
+      hello: 'السلام عليكم فريق أبعاد،', one: 'أرغب بالاستفسار عن إحدى إضافات نظام أبعاد.', many: 'أرغب بالاستفسار عن الإضافات التالية:',
+      plan: 'الباقة: ', addon: 'الإضافة المطلوبة: ', addons: 'الإضافات المطلوبة:',
+      askOne: 'أريد معرفة سعر الإضافة وطريقة الاشتراك والتفعيل.', askMany: 'أرجو تزويدي بالأسعار والتفاصيل وطريقة التفعيل.', thanks: 'شكرًا لكم.'
+    }
+  };
+  PRICING.en.addonsTag = 'Add-ons';
+  PRICING.en.addonsTitle = 'Grow your system with your business';
+  PRICING.en.addonsSub = 'With Abaad, start with the essentials and add more features as your business grows — with full flexibility.';
+  PRICING.en.addons = {
+    heads: { basic: 'Add-ons for the Basic plan', professional: 'Add-ons for the Professional plan', enterprise: 'Add-ons for the Enterprise plan' },
+    planLabel: { basic: 'Basic', professional: 'Professional', enterprise: 'Enterprise' },
+    tag: 'Optional add-on', includedH: 'Included in the plan', pick: 'Select', ask: 'Ask on WhatsApp',
+    askSelected: 'Ask about the selected add-ons', copy: 'Copy the message',
+    none: 'Select at least one add-on, then ask about it.',
+    copied: 'Message copied — paste it in WhatsApp and send it to +968 71141624.',
+    copyFail: 'Could not copy automatically — select the message below and copy it, then send it on WhatsApp to +968 71141624.',
+    items: {
+      pos: { name: 'Cashier & point of sale (POS)', desc: 'Sell from the shop till, issue receipts and follow cashier sessions.' },
+      website: { name: 'Online store & order management', desc: "An online store in your name that takes your customers' orders, managed from your dashboard." },
+      marketing: { name: 'Offers, discounts & coupons', desc: 'Coupons, offers and customer reviews.' },
+      loyalty: { name: 'Loyalty & rewards', desc: 'Points your customers earn on purchases and redeem at the till.' },
+      whatsapp: { name: 'WhatsApp notifications', desc: 'Send order status to the customer on WhatsApp.' },
+      extra_branch: { name: 'Extra branch', desc: "Branches beyond your plan's branch limit.",
+        one: "I'd like to ask about adding a new branch.", askOne: "I'd like to know the cost, the terms and how to activate it." },
+      gift_orders: { name: 'Gift & custom orders', desc: 'Gift orders with the recipient and occasion, and custom orders with their own fields.' },
+      whatsapp_own_number: { name: 'WhatsApp on your own number', desc: "Send your store's messages from its own WhatsApp number instead of the shared one.",
+        by: { enterprise: { name: "WhatsApp on your company's number", desc: "Send your company's messages from its own WhatsApp number instead of the shared one." } } },
+      api_integrations: { name: 'External systems integration (API)', desc: 'Connect Abaad to your other systems through an API, scoped with the Abaad team to your needs.' }
+    },
+    msg: {
+      hello: 'Hello Abaad team,', one: "I'd like to ask about one of Abaad's add-ons.", many: "I'd like to ask about the following add-ons:",
+      plan: 'Plan: ', addon: 'Add-on: ', addons: 'Add-ons:',
+      askOne: "I'd like to know the add-on's price and how to subscribe and activate it.", askMany: 'Please send me the prices, details and how to activate them.', thanks: 'Thank you.'
+    }
+  };
+  /*
+   * والبطاقتان تحت العرض الجديد (`ADDON_OFFER`): الأساسيّةُ بلا نقطة البيع، وإضافاتُها
+   * الخمس تحتها؛ والاحترافيّةُ تذكر نقطةَ البيع أوّلَ ما تضيفه. وما يبقى خارج الأساسيّة
+   * قدراتٌ من الباقة لا تُباع إضافة (`PlanFeatures`). والسعرُ هو هو — 9.900 و99.
+   */
+  PRICING.ar.offerPlans = [
+    { inc: ['المبيعات والطلبات', 'إدارة المنتجات', 'إدارة المخزون', 'العملاء', 'الموردون والمشتريات', 'فواتير العملاء', 'المالية والمصروفات', 'الرواتب والموظفون', 'لوحة التجهيز', 'لوحة التحكم والملخصات', 'التقارير الأساسية'],
+      addH: 'إضافات اختيارية', addCta: 'استفسر عنها عبر واتساب', addHref: '#addons',
+      add: [{ t: 'نظام الكاشير ونقاط البيع POS' }, { t: 'المتجر الإلكتروني وإدارة الطلبات' }, { t: 'العروض والخصومات والكوبونات' }, { t: 'برنامج الولاء والمكافآت' }, { t: 'إشعارات واتساب' }],
+      exc: ['التقارير المتقدمة', 'الصلاحيات المخصصة', 'التطبيقات التكاملية'] },
+    { incPlus: [{ t: 'نظام الكاشير ونقاط البيع', d: 'البيع من صندوق المحل وإصدار الإيصالات ومتابعة جلسات الكاشير.' }] }
+  ];
+  PRICING.en.offerPlans = [
+    { inc: ['Sales and orders', 'Product management', 'Inventory management', 'Customers', 'Suppliers and purchasing', 'Customer invoices', 'Finance and expenses', 'Payroll and employees', 'Preparation board', 'Dashboard and summaries', 'Basic reports'],
+      addH: 'Optional add-ons', addCta: 'Ask about them on WhatsApp', addHref: '#addons',
+      add: [{ t: 'Cashier & point of sale (POS)' }, { t: 'Online store & order management' }, { t: 'Offers, discounts & coupons' }, { t: 'Loyalty & rewards' }, { t: 'WhatsApp notifications' }],
+      exc: ['Advanced reports', 'Custom permissions', 'Integrations'] },
+    { incPlus: [{ t: 'Cashier & point of sale', d: 'Sell from the shop till, issue receipts and follow cashier sessions.' }] }
+  ];
+
   var CAP_IMGS = [null, IMG + 'invoices.webp', IMG + 'store.webp', IMG + 'customer.webp'];
   var TYPE_IMGS = [IMG + 'solution-retail.webp', IMG + 'solution-ecommerce.webp', IMG + 'solution-services.webp', IMG + 'solution-subscriptions.webp'];
   var CAP_COUNT = 5, CAP_INTERVAL = 3500;
   var FLOW_COUNT = 3, FLOW_INTERVAL = 4000, FLOW_STEP_MS = 550;
   var TICK_MS = 1100;
 
-  var S = { lang: 'ar', menuOpen: false, cap: 0, capVis: true, billing: 'm', flow: 0, flowVis: true, flowTick: 0, ind: null, tick: 0, sent: false, sending: false };
+  var S = { lang: 'ar', menuOpen: false, cap: 0, capVis: true, billing: 'm', flow: 0, flowVis: true, flowTick: 0, ind: null, tick: 0, sent: false, sending: false, picks: { basic: [], professional: [], enterprise: [] } };
 
   function pad(n) { return String(n).padStart(2, '0'); }
   function esc(s) {
@@ -528,8 +657,8 @@
           : '<span><span style="display:block;font-weight:600">' + esc(f.t) + '</span><span style="display:block;margin-top:1px;font-size:13.5px;line-height:1.7;color:var(--muted)">' + esc(f.d) + '</span></span>';
         return '<li style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.6"><svg viewBox="0 0 16 16" width="16" height="16" style="flex:none;margin-top:3px" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="' + stroke + '" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>' + body + '</li>';
       };
-      return pr.plans.map(function (p, i) {
-        var on = !!p.featured;
+      return pr.plans.map(function (_, i) {
+        var p = planFor(i), on = !!p.featured;
         var html = '<div data-plan="' + i + '" style="position:relative;background:var(--card);border:' + (on ? '1.5px solid var(--ink)' : '1px solid var(--line)') + ';border-radius:22px;padding:30px 26px 26px;display:flex;flex-direction:column;box-shadow:' + (on ? '0 2px 6px rgba(15,15,15,.04),0 18px 44px rgba(15,15,15,.08)' : 'none') + '">' +
           (on ? '<span style="position:absolute;top:26px;inset-inline-end:24px;background:var(--peach);color:var(--peach-ink);border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:700">' + esc(pr.popular) + '</span>' : '') +
           '<h3 style="margin:0;font-size:22px;font-weight:700">' + esc(p.name) + '</h3>' +
@@ -554,13 +683,13 @@
         }
         if (p.add && p.add.length) {
           html += '<div style="margin-top:18px;border:1px dashed #c9c9cb;border-radius:14px;padding:14px 16px">' +
-            '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:13px;font-weight:700;color:var(--ink)">' + esc(pr.addH) + '</span><span style="background:var(--bg2);border-radius:999px;padding:2px 9px;font-size:11.5px;font-weight:700;color:var(--muted)">' + esc(pr.addTag) + '</span></div>' +
+            '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:13px;font-weight:700;color:var(--ink)">' + esc(p.addH || pr.addH) + '</span><span style="background:var(--bg2);border-radius:999px;padding:2px 9px;font-size:11.5px;font-weight:700;color:var(--muted)">' + esc(pr.addTag) + '</span></div>' +
             '<ul style="list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:10px">' +
             p.add.map(function (ad) {
               return '<li style="display:flex;align-items:flex-start;gap:10px"><span aria-hidden="true" style="flex:none;font-size:14px;line-height:1.5;font-weight:700;color:var(--muted)">+</span><div><div style="font-size:14.5px;font-weight:600;line-height:1.5">' + esc(ad.t) + '</div>' +
                 (ad.d ? '<div style="margin-top:2px;font-size:13.5px;line-height:1.7;color:var(--muted)">' + esc(ad.d) + '</div>' : '') + '</div></li>';
             }).join('') + '</ul>' +
-            '<a href="#contact" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:13.5px;font-weight:700;color:var(--ink)">' + esc(pr.addCta) + '<span aria-hidden="true">' + a + '</span></a></div>';
+            '<a href="' + (p.addHref || '#contact') + '" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:13.5px;font-weight:700;color:var(--ink)">' + esc(p.addCta || pr.addCta) + '<span aria-hidden="true">' + a + '</span></a></div>';
         }
         if (p.exc && p.exc.length) {
           html += '<div style="margin-top:18px;padding-top:16px;border-top:1px dashed var(--line)">' +
@@ -583,6 +712,50 @@
           c.inc.map(function (f) { return check('var(--ink)', f); }).join('') + '</ul></div>' +
           '<a href="#contact" style="align-self:center;text-align:center;white-space:nowrap;border-radius:999px;padding:15px 32px;font-size:15.5px;font-weight:700;background:var(--ink);color:#fff;border:1px solid var(--ink)">' + esc(c.cta) + '</a></div>';
       }
+    },
+    /*
+     * إضافاتُ كلّ باقة — بلا سعر، ولكلٍّ رابطُ واتساب برسالتها، وتحديدُ عدّةٍ برسالةٍ واحدة.
+     * ورابطُ البطاقة مرسومٌ في الصفحة: يعمل بلا JavaScript. والتحديدُ وزرّاه يعملان به.
+     */
+    addons: function () {
+      if (!ADDON_OFFER) return '';
+      var A = pricing().addons;
+      var icon = function (c) {
+        return '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ADDON_ICONS[c] + '</svg>';
+      };
+      return ADDON_PLANS.map(function (plan) {
+        var head = 'addons-' + plan.key;
+        var cards = plan.eligible.map(function (c) {
+          var it = addonText(A, c, plan.key), id = 'addon-' + plan.key + '-' + c;
+          return '<li data-addon="' + c + '" style="position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px;transition:border-color .2s,box-shadow .2s">' +
+            '<div style="display:flex;align-items:flex-start;gap:12px">' +
+            '<span style="flex:none;width:40px;height:40px;border-radius:12px;background:var(--peach);color:var(--peach-ink);display:flex;align-items:center;justify-content:center">' + icon(c) + '</span>' +
+            '<div style="min-width:0;flex:1"><h4 id="' + id + '" style="margin:0;font-size:16px;font-weight:700;line-height:1.5">' + esc(it.name) + '</h4>' +
+            '<span style="display:inline-block;margin-top:4px;background:var(--bg2);border-radius:999px;padding:2px 9px;font-size:11.5px;font-weight:700;color:var(--muted)">' + esc(A.tag) + '</span></div>' +
+            '<label style="flex:none;display:flex;align-items:center;justify-content:center;width:40px;height:40px;margin:-8px;cursor:pointer">' +
+            '<input type="checkbox" data-pick="' + plan.key + ':' + c + '" aria-label="' + esc(A.pick + ' ' + it.name) + '" style="width:20px;height:20px;margin:0;accent-color:var(--ink);cursor:pointer"></label></div>' +
+            '<p style="margin:0;font-size:14px;line-height:1.75;color:var(--ink2);text-wrap:pretty">' + esc(it.desc) + '</p>' +
+            '<div style="flex:1"></div>' +
+            '<a data-ask href="' + esc(waLink(enquiry(plan.key, [c]))) + '" target="_blank" rel="noopener" style="align-self:flex-start;display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:700;color:var(--wa)">' +
+            WA_ICON + esc(A.ask) + '</a></li>';
+        }).join('');
+        var included = plan.included.length
+          ? '<div data-included style="margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;gap:8px"><span style="font-size:13px;font-weight:700;color:var(--muted)">' + esc(A.includedH) + ':</span>' +
+            plan.included.map(function (c) {
+              return '<span style="display:inline-flex;align-items:center;gap:5px;background:var(--bg2);border-radius:999px;padding:4px 11px;font-size:13px;font-weight:600;color:var(--ink2)"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M3.5 8.4l2.9 2.9 6.1-6.6" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>' + esc(addonText(A, c, plan.key).name) + '</span>';
+            }).join('') + '</div>'
+          : '';
+        return '<div data-addon-plan="' + plan.key + '" role="group" aria-labelledby="' + head + '" style="background:var(--bg2);border-radius:24px;padding:clamp(18px,3vw,28px)">' +
+          '<h3 id="' + head + '" style="margin:0;font-size:clamp(19px,2.2vw,22px);font-weight:700;line-height:1.5">' + esc(A.heads[plan.key]) + '</h3>' + included +
+          '<ul style="list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px">' + cards + '</ul>' +
+          // التحديدُ وزرّاه — يُظهرها التشغيل؛ بلا JavaScript لا عملَ لها، ورابطُ كلّ بطاقةٍ يكفي
+          '<div data-addon-bar hidden style="margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px">' +
+          '<a data-ask-selected="' + plan.key + '" role="button" aria-disabled="true" tabindex="0" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 20px;font-size:14.5px;font-weight:700;background:var(--wa);color:#fff;opacity:.45;cursor:not-allowed">' +
+          WA_ICON + '<span>' + esc(A.askSelected) + '</span><span data-count dir="ltr">(0)</span></a>' +
+          '<button type="button" data-copy="' + plan.key + '" disabled style="border:1px solid var(--line);background:var(--card);border-radius:999px;padding:11px 18px;font-size:14px;font-weight:700;color:var(--ink);cursor:pointer">' + esc(A.copy) + '</button>' +
+          '<p data-addon-status role="status" aria-live="polite" style="margin:0;flex-basis:100%;font-size:13.5px;line-height:1.7;color:var(--muted)"></p>' +
+          '<textarea data-addon-text readonly hidden rows="8" style="flex-basis:100%;width:100%;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:16px;line-height:1.7;background:var(--card);color:var(--ink)"></textarea></div></div>';
+      }).join('');
     },
     // بطاقاتُ ما يُضاف تحت الأسعار — زرُّها إلى «تواصل معنا»، لا إلى التسجيل
     extras: function () {
@@ -637,6 +810,49 @@
       { k: t.ciPhone, v: t.ciPhoneV, href: 'tel:' + t.ciPhoneV.replace(/\s+/g, '') }
     ];
   }
+  /* ═══════════ الإضافات ورسالةُ واتساب ═══════════ */
+
+  /** بطاقةُ الباقة كما تُعرض — وتحت العرض الجديد بما يتغيّر فيها (`offerPlans`) */
+  function planFor(i) {
+    var pr = pricing(), p = pr.plans[i], o = ADDON_OFFER && pr.offerPlans[i];
+    if (!o) return p;
+    var q = Object.assign({}, p, o);
+    if (o.incPlus) q.inc = o.incPlus.concat(p.inc);
+    delete q.incPlus;
+    return q;
+  }
+  /** اسمُ الإضافة ووصفُها في باقتها — «رقم الشركة» في المؤسسات */
+  function addonText(A, code, planKey) {
+    var it = A.items[code], by = it.by && it.by[planKey];
+    return by ? Object.assign({}, it, by) : it;
+  }
+  function addonPlan(key) { return ADDON_PLANS.filter(function (p) { return p.key === key; })[0]; }
+  /**
+   * رسالةُ الاستفسار بلغة الصفحة — باسم الباقة والإضافات المحدّدة.
+   *
+   * وما ليس من إضافات الباقة لا يدخلها (مشمولٌ فيها أو لا يُباع لها)، والمكرّرُ مرّة،
+   * والترتيبُ ترتيبُ الكتالوج. ولا تحديد = لا رسالة (`null`) — لا يُفتح واتساب بفراغ.
+   */
+  function enquiry(planKey, codes, lang) {
+    var A = PRICING[lang || S.lang].addons, m = A.msg, plan = addonPlan(planKey);
+    if (!plan) return null;
+    var picked = plan.eligible.filter(function (c) { return codes.indexOf(c) !== -1; });
+    if (!picked.length) return null;
+    var name = function (c) { return addonText(A, c, planKey).name; };
+    var lines;
+    if (picked.length === 1) {
+      var it = A.items[picked[0]];
+      lines = [m.hello, '', it.one || m.one, '', m.plan + A.planLabel[planKey], '', m.addon + name(picked[0]) + '.', '', it.askOne || m.askOne, '', m.thanks];
+    } else {
+      lines = [m.hello, '', m.many, '', m.plan + A.planLabel[planKey], '', m.addons]
+        .concat(picked.map(function (c) { return '- ' + name(c) + '.'; }), ['', m.askMany, '', m.thanks]);
+    }
+    return lines.join('\n');
+  }
+  /** wa.me برسالةٍ مرمَّزة — يفتح واتساب الهاتف أو WhatsApp Web، ولا يُرسل شيئًا */
+  function waLink(text) { return 'https://wa.me/' + WA + '?text=' + encodeURIComponent(text); }
+  var WA_ICON = '<svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" style="flex:none"><path fill="currentColor" d="M12 2.5a9.5 9.5 0 0 0-8.2 14.3L2.5 21.5l4.8-1.3A9.5 9.5 0 1 0 12 2.5zm0 17.3c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-2.8.8.8-2.7-.2-.3A7.8 7.8 0 1 1 12 19.8zm4.3-5.8c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 3.9 3.5 1.4.6 1.9.6 2.6.5.4-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1l-.4-.2z"></path></svg>';
+
   /*
    * السعرُ ومدّتُه بحسب الزرّ: شهريّ (`m`)، أو نصف سنويّ (`h`)، أو سنويّ (`y`).
    *
@@ -672,6 +888,8 @@
       var draw = R[el.getAttribute('data-list')];
       if (draw) el.innerHTML = draw(t, d);
     });
+    // قسمُ الإضافات لا يظهر قبل العرض الجديد — ولا رابطَ إليه
+    $$('[data-addons-section]', root).forEach(function (el) { el.hidden = !ADDON_OFFER; });
     var panel = $('[data-cap-panel]', root);
     if (panel) panel.setAttribute('data-g', capGrid());
     $$('[data-arrow]', root).forEach(function (el) { el.textContent = arrow(); });
@@ -746,6 +964,58 @@
       $('[data-period]', card).textContent = pr.cur + ' / ' + billPeriod(pr);
       $('[data-was]', card).innerHTML = yearly ? wasLine(p) : '';
     });
+  }
+
+  /* ═══════════ تحديدُ الإضافات: رسالةٌ واحدةٌ لكلّ باقة ═══════════ */
+
+  function addonBox(planKey) { return $('[data-addon-plan="' + planKey + '"]'); }
+  function say(box, text) { $('[data-addon-status]', box).textContent = text || ''; }
+  function applyPicks(planKey) {
+    var box = addonBox(planKey);
+    if (!box) return;
+    var picks = S.picks[planKey], text = enquiry(planKey, picks);
+    $$('[data-addon]', box).forEach(function (card) {
+      var on = picks.indexOf(card.getAttribute('data-addon')) !== -1;
+      card.style.borderColor = on ? 'var(--ink)' : 'var(--line)';
+      card.style.boxShadow = on ? '0 1px 3px rgba(15,15,15,.06),0 10px 24px rgba(15,15,15,.06)' : 'none';
+    });
+    var ask = $('[data-ask-selected]', box), copy = $('[data-copy]', box);
+    $('[data-count]', ask).textContent = '(' + picks.length + ')';
+    // بلا تحديد لا رابط: لا تُفتح محادثةٌ برسالةٍ لا تقول شيئًا
+    if (text) ask.setAttribute('href', waLink(text)); else ask.removeAttribute('href');
+    ask.setAttribute('aria-disabled', String(!text));
+    ask.style.opacity = text ? '1' : '.45';
+    ask.style.cursor = text ? 'pointer' : 'not-allowed';
+    copy.disabled = !text;
+    var shown = $('[data-addon-text]', box);
+    if (!shown.hidden) shown.value = text || '';
+    if (!text) shown.hidden = true;
+    if (text) say(box, '');
+  }
+  function pick(input) {
+    var parts = input.getAttribute('data-pick').split(':'), list = S.picks[parts[0]];
+    var at = list.indexOf(parts[1]);
+    if (input.checked && at === -1) list.push(parts[1]);
+    if (!input.checked && at !== -1) list.splice(at, 1);
+    applyPicks(parts[0]);
+  }
+  /** ينسخ الرسالة — وإن تعذّر النسخُ تظهر مكتوبةً ليُنسخ باليد، فلا يقف الزائرُ بلا طريق */
+  function copyEnquiry(planKey) {
+    var box = addonBox(planKey), text = enquiry(planKey, S.picks[planKey]), A = pricing().addons;
+    if (!text) { say(box, A.none); return; }
+    var shown = $('[data-addon-text]', box);
+    var failed = function () {
+      shown.value = text; shown.hidden = false; shown.focus(); shown.select();
+      say(box, A.copyFail);
+    };
+    var done = function () { shown.hidden = true; say(box, A.copied); };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, failed);
+        return;
+      }
+    } catch (e) { /* يُكمل إلى النسخ اليدويّ */ }
+    failed();
   }
 
   /* ═══════════ القدرات: دورةٌ كلّ 3.5 ثانية، تتوقّف تحت المؤشّر ═══════════ */
@@ -894,10 +1164,28 @@
     var year = $('[data-year]'); if (year) year.textContent = String(new Date().getFullYear());
     renderAll(document);
     applyBilling();
+    $$('[data-addon-bar]').forEach(function (bar) { bar.hidden = false; });
+    ADDON_PLANS.forEach(function (p) { applyPicks(p.key); });
+    document.addEventListener('change', function (e) {
+      if (e.target.matches && e.target.matches('[data-pick]')) pick(e.target);
+    });
+    // «استفسر عن المحدّدة» بلا تحديد ليس رابطًا — فـEnter والمسافة يقولان ما يُنتظر
+    document.addEventListener('keydown', function (e) {
+      var el = e.target.closest && e.target.closest('[data-ask-selected]');
+      if (el && !el.hasAttribute('href') && (e.key === 'Enter' || e.key === ' ')) {
+        e.preventDefault(); say(addonBox(el.getAttribute('data-ask-selected')), pricing().addons.none);
+      }
+    });
 
     document.addEventListener('click', function (e) {
-      var el = e.target.closest('[data-action],[data-cap],[data-flow],[data-billing],[data-close-menu]');
+      var el = e.target.closest('[data-action],[data-cap],[data-flow],[data-billing],[data-close-menu],[data-ask-selected],[data-copy]');
       if (!el) return;
+      if (el.hasAttribute('data-ask-selected')) {
+        // بلا تحديد: لا رابط، ويُقال ما يُنتظر — ومع تحديدٍ يفتح الرابطُ واتساب كما هو
+        if (!el.hasAttribute('href')) { e.preventDefault(); say(addonBox(el.getAttribute('data-ask-selected')), pricing().addons.none); }
+        return;
+      }
+      if (el.hasAttribute('data-copy')) { copyEnquiry(el.getAttribute('data-copy')); return; }
       if (el.hasAttribute('data-cap')) { showCap(Number(el.getAttribute('data-cap'))); startCapCycle(); return; }
       if (el.hasAttribute('data-flow')) { showFlow(Number(el.getAttribute('data-flow'))); startFlowCycle(); return; }
       if (el.hasAttribute('data-billing')) { S.billing = el.getAttribute('data-billing'); applyBilling(); return; }
