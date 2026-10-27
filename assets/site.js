@@ -319,7 +319,7 @@
         { t: 'مميزات مخصصة لنشاطك', d: 'نبني ما يحتاجه عملك من مميزات وتقارير وطريقة عمل.' },
         { t: 'حدود على مقاسك', d: 'فروع ومستخدمون ومنتجات بالعدد الذي تحتاجه.' }
       ],
-      cta: 'تواصل معنا' }
+      cta: 'تواصل معنا عبر واتساب' }
   };
   PRICING.en = {
     cur: 'OMR', perMonth: 'month', perHalf: '6 months', perYear: 'year', popular: 'Most popular', save: 'Save two months', instead: 'instead of',
@@ -375,7 +375,7 @@
         { t: 'Features built for your business', d: 'We build the features, reports and workflow your business needs.' },
         { t: 'Limits that fit your size', d: 'As many branches, users and products as you need.' }
       ],
-      cta: 'Contact us' }
+      cta: 'Contact us on WhatsApp' }
   };
 
   /*
@@ -407,6 +407,39 @@
     gift_orders: '<path d="M4.5 11.5h15V21h-15z"></path><path d="M3.5 7.5h17v4h-17z"></path><path d="M12 7.5V21"></path><path d="M12 7.5C10.5 4.5 7 4.5 7 6.3s3 1.2 5 1.2zm0 0c1.5-3 5-3 5-1.2s-3 1.2-5 1.2z"></path>',
     whatsapp_own_number: '<path d="M6 3.5h3.5l1.8 4.6-2.3 1.4a10.5 10.5 0 0 0 5.5 5.5l1.4-2.3 4.6 1.8V18a2.5 2.5 0 0 1-2.5 2.5A15 15 0 0 1 3.5 6 2.5 2.5 0 0 1 6 3.5z"></path>',
     api_integrations: '<path d="M8 7l-5 5 5 5"></path><path d="M16 7l5 5-5 5"></path><path d="M13.5 5l-3 14"></path>'
+  };
+
+  /*
+   * ═══ الاشتراك المدفوع عبر فريق أبعاد ═══
+   *
+   * التسجيلُ الذاتيّ تجربةُ الأساسيّة وحدها (abaad.Saas `Signup`): أربعةَ عشر يومًا بلا
+   * اختيار باقةٍ ولا دفع. فزرُّ الأساسيّة يذهب إلى التسجيل، وأزرارُ الباقات المدفوعة
+   * والمخصّصة وتفعيلِ الإضافات تفتح واتساب أبعاد برسالةٍ تذكر الباقة ومدّتها — والفريقُ
+   * يفتح الاشتراك ويُصدر فاتورته من لوحة المنصّة.
+   */
+  PRICING.ar.trialCta = 'ابدأ تجربتك المجانية';
+  PRICING.ar.subscribeCta = 'اشترك عبر واتساب';
+  PRICING.ar.addWaCta = 'استفسر عن التفعيل عبر واتساب';
+  PRICING.ar.cycleLabel = { m: 'شهري', h: 'نصف سنوي', y: 'سنوي' };
+  PRICING.ar.planKeys = ['basic', 'professional', 'enterprise'];
+  PRICING.ar.subscribeMsg = {
+    hello: 'السلام عليكم فريق أبعاد،', want: 'أرغب بالاشتراك في إحدى باقات نظام أبعاد.', plan: 'الباقة: ', cycle: 'المدة: ',
+    ask: 'أريد معرفة طريقة الاشتراك والدفع والتفعيل.', thanks: 'شكرًا لكم.',
+    add: 'أرغب بالاستفسار عن تفعيل إضافات اختيارية لباقتي.', addList: 'الإضافات:', addAsk: 'أرجو تزويدي بالأسعار والتفاصيل وطريقة التفعيل.',
+    custom: 'أرغب بالاستفسار عن الباقة المخصصة لنشاطي.', customAsk: 'أرجو التواصل معي لمعرفة التفاصيل والسعر.',
+    more: 'أرغب بالاستفسار عن سعر خاص لأكثر من 10 فروع.'
+  };
+  PRICING.en.trialCta = 'Start your free trial';
+  PRICING.en.subscribeCta = 'Subscribe on WhatsApp';
+  PRICING.en.addWaCta = 'Ask to activate on WhatsApp';
+  PRICING.en.cycleLabel = { m: 'Monthly', h: 'Semi-annual', y: 'Yearly' };
+  PRICING.en.planKeys = ['basic', 'professional', 'enterprise'];
+  PRICING.en.subscribeMsg = {
+    hello: 'Hello Abaad team,', want: "I'd like to subscribe to one of Abaad's plans.", plan: 'Plan: ', cycle: 'Billing: ',
+    ask: "I'd like to know how to subscribe, pay and activate it.", thanks: 'Thank you.',
+    add: "I'd like to ask about activating optional add-ons for my plan.", addList: 'Add-ons:', addAsk: 'Please send me the prices, details and how to activate them.',
+    custom: "I'd like to ask about a custom plan for my business.", customAsk: 'Please contact me with the details and the price.',
+    more: "I'd like to ask about a special price for more than 10 branches."
   };
 
   PRICING.ar.addonsTag = 'الإضافات';
@@ -672,7 +705,7 @@
           '<div style="font-size:12.5px;font-weight:700;color:var(--muted)">' + esc(pr.limitsH) + '</div>' +
           '<ul data-limits style="list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px">' +
           p.limits.map(function (lm) { return '<li style="font-size:15px;font-weight:600">' + esc(lm) + '</li>'; }).join('') + '</ul></div>' +
-          (p.more ? '<a data-more href="#contact" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:13.5px;font-weight:700;color:var(--ink)">' + esc(p.more) + '<span aria-hidden="true">' + a + '</span></a>' : '') +
+          (p.more ? '<a data-more href="' + esc(waLink(moreText(i))) + '" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:13.5px;font-weight:700;color:var(--ink)">' + esc(p.more) + '<span aria-hidden="true">' + a + '</span></a>' : '') +
           '<div style="margin-top:20px;font-size:13.5px;font-weight:700;color:var(--ink)">' + esc(p.incH) + '</div>' +
           '<ul data-inc style="list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:9px">' +
           p.inc.map(function (f) { return check('var(--ink)', f); }).join('') + '</ul>';
@@ -689,7 +722,9 @@
               return '<li style="display:flex;align-items:flex-start;gap:10px"><span aria-hidden="true" style="flex:none;font-size:14px;line-height:1.5;font-weight:700;color:var(--muted)">+</span><div><div style="font-size:14.5px;font-weight:600;line-height:1.5">' + esc(ad.t) + '</div>' +
                 (ad.d ? '<div style="margin-top:2px;font-size:13.5px;line-height:1.7;color:var(--muted)">' + esc(ad.d) + '</div>' : '') + '</div></li>';
             }).join('') + '</ul>' +
-            '<a href="' + (p.addHref || '#contact') + '" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:13.5px;font-weight:700;color:var(--ink)">' + esc(p.addCta || pr.addCta) + '<span aria-hidden="true">' + a + '</span></a></div>';
+            (p.addHref
+              ? '<a href="' + p.addHref + '" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:13.5px;font-weight:700;color:var(--ink)">' + esc(p.addCta) + '<span aria-hidden="true">' + a + '</span></a></div>'
+              : '<a data-add-cta href="' + esc(waLink(addText(i, p.add))) + '" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:13.5px;font-weight:700;color:var(--wa)">' + WA_ICON + esc(pr.addWaCta) + '</a></div>');
         }
         if (p.exc && p.exc.length) {
           html += '<div style="margin-top:18px;padding-top:16px;border-top:1px dashed var(--line)">' +
@@ -697,8 +732,10 @@
             '<ul data-exc style="list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px">' +
             p.exc.map(function (f) { return '<li style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)"><span style="width:9px;height:1.5px;background:#c9c9cb;flex:none"></span>' + esc(f) + '</li>'; }).join('') + '</ul></div>';
         }
+        // الأساسيّةُ تجربةٌ بالتسجيل الذاتيّ؛ والمدفوعةُ عبر فريق أبعاد بواتساب — بالباقة ومدّتها
+        var paid = i > 0;
         html += '<div style="flex:1"></div>' +
-          '<a href="' + LINKS.register + '" style="margin-top:26px;text-align:center;border-radius:999px;padding:15px 24px;font-size:15.5px;font-weight:700;background:' + (on ? 'var(--ink)' : 'transparent') + ';color:' + (on ? '#fff' : 'var(--ink)') + ';border:1px solid var(--ink)">' + esc(t.startNow) + '</a></div>';
+          '<a data-plan-cta href="' + esc(paid ? waLink(subscribeText(i)) : LINKS.register) + '"' + (paid ? ' target="_blank" rel="noopener"' : '') + ' style="margin-top:26px;text-align:center;border-radius:999px;padding:15px 24px;font-size:15.5px;font-weight:700;background:' + (on ? 'var(--ink)' : 'transparent') + ';color:' + (on ? '#fff' : 'var(--ink)') + ';border:1px solid var(--ink)">' + esc(paid ? pr.subscribeCta : pr.trialCta) + '</a></div>';
         return html;
       }).join('') + custom(pr.custom);
       // صفٌّ كاملٌ تحت الثلاث، وليست `data-plan`: لا سعرَ يبدّله الشهريُّ والسنويّ، وزرُّها إلى «تواصل معنا» لا إلى التسجيل
@@ -710,7 +747,7 @@
           '<div><div style="font-size:13.5px;font-weight:700;color:var(--ink)">' + esc(c.incH) + '</div>' +
           '<ul data-inc style="list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:9px">' +
           c.inc.map(function (f) { return check('var(--ink)', f); }).join('') + '</ul></div>' +
-          '<a href="#contact" style="align-self:center;text-align:center;white-space:nowrap;border-radius:999px;padding:15px 32px;font-size:15.5px;font-weight:700;background:var(--ink);color:#fff;border:1px solid var(--ink)">' + esc(c.cta) + '</a></div>';
+          '<a data-custom-cta href="' + esc(waLink(customText())) + '" target="_blank" rel="noopener" style="align-self:center;text-align:center;white-space:nowrap;border-radius:999px;padding:15px 32px;font-size:15.5px;font-weight:700;background:var(--ink);color:#fff;border:1px solid var(--ink)">' + esc(c.cta) + '</a></div>';
       }
     },
     /*
@@ -810,6 +847,29 @@
       { k: t.ciPhone, v: t.ciPhoneV, href: 'tel:' + t.ciPhoneV.replace(/\s+/g, '') }
     ];
   }
+  /* ═══════════ الاشتراكُ المدفوع ورسالتُه ═══════════ */
+
+  /** رسالةُ الاشتراك في باقةٍ مدفوعة — باسمها ومدّتِها المختارة في الأسعار */
+  function subscribeText(i) {
+    var pr = pricing(), m = pr.subscribeMsg;
+    return [m.hello, '', m.want, '', m.plan + pr.addons.planLabel[pr.planKeys[i]], '', m.cycle + pr.cycleLabel[S.billing], '', m.ask, '', m.thanks].join('\n');
+  }
+  /** رسالةُ تفعيل الإضافات الاختياريّة المذكورة في بطاقة الباقة */
+  function addText(i, items) {
+    var pr = pricing(), m = pr.subscribeMsg;
+    return [m.hello, '', m.add, '', m.plan + pr.addons.planLabel[pr.planKeys[i]], '', m.addList]
+      .concat(items.map(function (ad) { return '- ' + ad.t + '.'; }), ['', m.addAsk, '', m.thanks]).join('\n');
+  }
+  /** «أكثر من عشرة فروع؟» — سعرٌ خاصّ يُسأل عنه الفريق */
+  function moreText(i) {
+    var pr = pricing(), m = pr.subscribeMsg;
+    return [m.hello, '', m.more, '', m.plan + pr.addons.planLabel[pr.planKeys[i]], '', m.customAsk, '', m.thanks].join('\n');
+  }
+  function customText() {
+    var m = pricing().subscribeMsg;
+    return [m.hello, '', m.custom, '', m.customAsk, '', m.thanks].join('\n');
+  }
+
   /* ═══════════ الإضافات ورسالةُ واتساب ═══════════ */
 
   /** بطاقةُ الباقة كما تُعرض — وتحت العرض الجديد بما يتغيّر فيها (`offerPlans`) */
@@ -963,6 +1023,9 @@
       $('[data-price]', card).textContent = billPrice(p);
       $('[data-period]', card).textContent = pr.cur + ' / ' + billPeriod(pr);
       $('[data-was]', card).innerHTML = yearly ? wasLine(p) : '';
+      // والرسالةُ تقول المدّةَ المختارة الآن — شهريًّا أو نصف سنويًّا أو سنويًّا
+      var i = Number(card.getAttribute('data-plan')), cta = $('[data-plan-cta]', card);
+      if (cta && i > 0) cta.setAttribute('href', waLink(subscribeText(i)));
     });
   }
 

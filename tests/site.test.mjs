@@ -61,7 +61,9 @@ function assertCtas(doc, lang) {
   assert.ok(c.start.length >= 4, `${lang}: أزرار «ابدأ» ناقصة`);
   c.start.forEach((h) => assert.equal(h, REGISTER, `${lang}: «ابدأ» لا يذهب إلى التسجيل`));
   assert.equal(c.plans.length, 3);
-  c.plans.forEach((h) => assert.equal(h, REGISTER, `${lang}: زرّ الباقة لا يذهب إلى التسجيل`));
+  // الأساسيّةُ تجربةٌ بالتسجيل الذاتيّ، والمدفوعتان عبر فريق أبعاد بواتساب
+  assert.equal(c.plans[0], REGISTER, `${lang}: تجربةُ الأساسيّة لا تذهب إلى التسجيل`);
+  c.plans.slice(1).forEach((h) => assert.ok(h.startsWith('https://wa.me/96871141624?text='), `${lang}: باقةٌ مدفوعةٌ لا تفتح واتساب أبعاد: ${h.slice(0, 40)}`));
   assert.equal(c.footLogin, LOGIN, `${lang}: دخول التذييل`);
   // ولا رابطٌ نسبيّ إلى الدخول أو التسجيل: يبقى على abaadapp.om ولا يصل إلى النظام
   c.all.filter((h) => /login|register/i.test(h)).forEach((h) => assert.ok(h === LOGIN || h === REGISTER, `${lang}: ${h}`));
@@ -500,9 +502,9 @@ test('the usage limits are the ones the system enforces, the owner among the use
       if (LADDER.products[i] === null) assert.equal(products, UNLIMITED[lang], `${lang} ${i}: المنتجات`);
       else assert.equal(num(products), LADDER.products[i], `${lang} ${i}: المنتجات`);
 
-      // وما فوق عشرة فروع يُسأل عنه — من المؤسسات وحدها، وإلى «تواصل معنا»
+      // وما فوق عشرة فروع يُسأل عنه — من المؤسسات وحدها، فريقَ أبعاد بواتساب
       const more = c.querySelector('[data-more]');
-      if (i === 2) assert.equal(more?.getAttribute('href'), '#contact', `${lang}: لا رابطَ لأكثر من عشرة فروع`);
+      if (i === 2) assert.ok(more?.getAttribute('href')?.startsWith('https://wa.me/96871141624?text='), `${lang}: لا رابطَ لأكثر من عشرة فروع`);
       else assert.equal(more, null, `${lang} ${i}: رابطُ «أكثر من 10 فروع» في غير المؤسسات`);
     });
   }
@@ -546,12 +548,12 @@ test('the device bundles and the custom app sit under the plans in both language
   assert.deepEqual(read(d), read(en));
 });
 
-test('the custom plan follows the three with all their features, names no price, and asks through the contact form', async (t) => {
+test('the custom plan follows the three with all their features, names no price, and asks the Abaad team on WhatsApp', async (t) => {
   /*
-   * لمن يحتاج تخصيصًا ومميزاتٍ على احتياجه: لا سعرَ يُذكر، ومكانُه «تواصل معنا».
-   * وليست `data-plan` — تلك تُشترى بالتسجيل ويبدّل سعرَها الشهريُّ والسنويّ.
+   * لمن يحتاج تخصيصًا ومميزاتٍ على احتياجه: لا سعرَ يُذكر، ويُسأل عنها فريقُ أبعاد بواتساب
+   * (اشتراكٌ مدفوعٌ يفتحه الفريق). وليست `data-plan` — تلك يبدّل سعرَها الشهريُّ والسنويّ.
    */
-  const NAMES = { ar: ['المخصصة', 'تواصل معنا'], en: ['Custom', 'Contact us'] };
+  const NAMES = { ar: ['المخصصة', 'تواصل معنا عبر واتساب'], en: ['Custom', 'Contact us on WhatsApp'] };
   const look = (d) => {
     const all = d.querySelectorAll('[data-custom-plan]'), c = all[0];
     return {
@@ -570,7 +572,9 @@ test('the custom plan follows the three with all their features, names no price,
     assert.equal(c.count, 1, `${lang}: الباقة المخصّصة`);
     assert.ok(c.last, `${lang}: ليست آخرَ الباقات`);
     assert.equal(c.name, NAMES[lang][0]);
-    assert.deepEqual(c.links, [[NAMES[lang][1], '#contact']], `${lang}: زرُّها لا يذهب إلى «تواصل معنا» وحده`);
+    assert.equal(c.links.length, 1, `${lang}: زرٌّ واحد`);
+    assert.equal(c.links[0][0], NAMES[lang][1]);
+    assert.ok(c.links[0][1].startsWith('https://wa.me/96871141624?text='), `${lang}: زرُّها لا يفتح واتساب أبعاد`);
     assert.doesNotMatch(c.text, /\d|ر\.ع|OMR/, `${lang}: ذكرت سعرًا`);
     plans.forEach((p) => assert.ok(c.first.includes(p), `${lang}: «${c.first}» لا تذكر ${p}`));
   }
