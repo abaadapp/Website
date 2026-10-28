@@ -48,7 +48,7 @@
    * ومطفأً لا يتغيّر في الصفحة شيء: البطاقاتُ كما كانت، وقسمُ الإضافات مخفيّ.
    * ويُشعَل بسطرٍ هنا ثمّ `npm run prerender` — في طلبٍ وحده بعد الإطلاق.
    */
-  var ADDON_OFFER = false;
+  var ADDON_OFFER = true;
 
   var T = {
     ar: {
@@ -418,6 +418,12 @@
    * يفتح الاشتراك ويُصدر فاتورته من لوحة المنصّة.
    */
   PRICING.ar.trialCta = 'ابدأ تجربتك المجانية';
+  /*
+   * وما تشمله التجربةُ يُقال تحت زرّها: الأساسيّةُ أربعةَ عشر يومًا بلا نقطة البيع ولا
+   * إضافة (abaad.Saas `TrialOffer`) — مفتوحًا كان الإطلاقُ أو مطفأً. فلا يسجّل زائرٌ
+   * ينتظر صندوقًا لا تفتحه التجربة.
+   */
+  PRICING.ar.trialNote = 'تجربة 14 يومًا على الباقة الأساسية، دون نقطة البيع POS والإضافات.';
   PRICING.ar.subscribeCta = 'اشترك عبر واتساب';
   PRICING.ar.addWaCta = 'استفسر عن التفعيل عبر واتساب';
   PRICING.ar.cycleLabel = { m: 'شهري', h: 'نصف سنوي', y: 'سنوي' };
@@ -430,6 +436,7 @@
     more: 'أرغب بالاستفسار عن سعر خاص لأكثر من 10 فروع.'
   };
   PRICING.en.trialCta = 'Start your free trial';
+  PRICING.en.trialNote = 'A 14-day trial of the Basic plan, without the POS or add-ons.';
   PRICING.en.subscribeCta = 'Subscribe on WhatsApp';
   PRICING.en.addWaCta = 'Ask to activate on WhatsApp';
   PRICING.en.cycleLabel = { m: 'Monthly', h: 'Semi-annual', y: 'Yearly' };
@@ -735,7 +742,8 @@
         // الأساسيّةُ تجربةٌ بالتسجيل الذاتيّ؛ والمدفوعةُ عبر فريق أبعاد بواتساب — بالباقة ومدّتها
         var paid = i > 0;
         html += '<div style="flex:1"></div>' +
-          '<a data-plan-cta href="' + esc(paid ? waLink(subscribeText(i)) : LINKS.register) + '"' + (paid ? ' target="_blank" rel="noopener"' : '') + ' style="margin-top:26px;text-align:center;border-radius:999px;padding:15px 24px;font-size:15.5px;font-weight:700;background:' + (on ? 'var(--ink)' : 'transparent') + ';color:' + (on ? '#fff' : 'var(--ink)') + ';border:1px solid var(--ink)">' + esc(paid ? pr.subscribeCta : pr.trialCta) + '</a></div>';
+          '<a data-plan-cta href="' + esc(paid ? waLink(subscribeText(i)) : LINKS.register) + '"' + (paid ? ' target="_blank" rel="noopener"' : '') + ' style="margin-top:26px;text-align:center;border-radius:999px;padding:15px 24px;font-size:15.5px;font-weight:700;background:' + (on ? 'var(--ink)' : 'transparent') + ';color:' + (on ? '#fff' : 'var(--ink)') + ';border:1px solid var(--ink)">' + esc(paid ? pr.subscribeCta : pr.trialCta) + '</a>' +
+          (paid ? '' : '<p data-trial-note style="margin:10px 0 0;text-align:center;font-size:12.5px;line-height:1.6;color:var(--muted)">' + esc(pr.trialNote) + '</p>') + '</div>';
         return html;
       }).join('') + custom(pr.custom);
       // صفٌّ كاملٌ تحت الثلاث، وليست `data-plan`: لا سعرَ يبدّله الشهريُّ والسنويّ، وزرُّها إلى «تواصل معنا» لا إلى التسجيل

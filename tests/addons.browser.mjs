@@ -26,7 +26,8 @@ const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 
 const read = (p) => readFileSync(new URL(p, new URL('../', import.meta.url)), 'utf8');
 
 const JS = read('assets/site.js');
-const ON = JS.replace('var ADDON_OFFER = false;', 'var ADDON_OFFER = true;');
+// site.js كما يُنشر — والعرضُ مُشعَل منذ أُطلقت السياسةُ في النظام
+const ON = JS;
 const HTML = read('index.html');
 const PAGES = { '/': prerender(HTML, ON, 'ar'), '/en/': withStamps(prerender(HTML, ON, 'en')) };
 const WA = 'https://wa.me/96871141624?text=';
