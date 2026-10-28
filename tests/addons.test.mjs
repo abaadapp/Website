@@ -298,3 +298,12 @@ test('asking never reaches the system — no order, invoice or sign-up, only a W
   assert.equal(section.querySelector('form'), null);
   assert.ok(!section.innerHTML.includes('app.abaadapp.om'), 'القسمُ يكلّم النظام');
 });
+
+test('no plan card sells what the platform catalog does not — website design is a service asked for, not an optional add-on', () => {
+  for (const [lang, html, word] of [['ar', HTML, /خصص موقعك|تخصيص احترافي للموقع/], ['en', EN, /Customize your website|customization of your website/i]]) {
+    const doc = new JSDOM(html).window.document;
+    for (const card of doc.querySelectorAll('[data-plan]')) {
+      assert.doesNotMatch(card.textContent, word, `${lang}: بطاقةُ باقةٍ تعرض تخصيصَ الموقع إضافةً اختياريّة — ليس في كتالوج النظام`);
+    }
+  }
+});
