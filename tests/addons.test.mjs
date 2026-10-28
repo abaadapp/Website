@@ -1,7 +1,8 @@
 /*
  * إضافاتُ كلّ باقة والاستفسارُ عنها بواتساب أبعاد — ما يجب ألّا ينكسر.
  *
- *   - العرضُ الجديد خلف مقبضٍ مطفأ (`ADDON_OFFER`): مطفأً لا يتغيّر في الصفحة شيء.
+ *   - العرضُ الجديد خلف مقبض (`ADDON_OFFER`)، مُشعَلٌ منذ أُطلقت السياسةُ في النظام؛ ومطفأً تعود البطاقاتُ كما كانت.
+ *   - التجربةُ تقول تحت زرّها إنّها الأساسيّةُ بلا نقطة البيع ولا إضافة.
  *   - مُشعَلًا: أسعارُ الباقات ظاهرة، ولا سعرَ لإضافة؛ وإضافاتُ كلّ باقةٍ كما في كتالوج
  *     النظام — والمشمولُ «مشمولة في الباقة» لا إضافةً تُشترى.
  *   - رابطُ كلّ إضافة wa.me إلى الرقم الرسميّ برسالةٍ مرمَّزة باسم الباقة والإضافة.
@@ -23,9 +24,12 @@ const read = (p) => readFileSync(new URL(p, root), 'utf8');
 const HTML = read('index.html');
 const EN = read('en/index.html');
 const JS = read('assets/site.js');
-const OFF = 'var ADDON_OFFER = false;';
-/** site.js والعرضُ الجديد مُشعَل — كما سيكون بعد الإطلاق */
-export const ON = JS.replace(OFF, 'var ADDON_OFFER = true;');
+const ON_LINE = 'var ADDON_OFFER = true;';
+const OFF_LINE = 'var ADDON_OFFER = false;';
+/** site.js كما يُنشر — والعرضُ الجديد مُشعَل منذ أُطلقت السياسةُ في النظام */
+export const ON = JS;
+/** والعرضُ مطفأ — إن أُطفئ الإطلاقُ يومًا */
+const OFF = JS.replace(ON_LINE, OFF_LINE);
 
 const WA = 'https://wa.me/96871141624?text=';
 const OFFICIAL = '+968 71141624';
@@ -61,27 +65,37 @@ function tick(w, plan, code, on = true) {
   input.dispatchEvent(new w.Event('change', { bubbles: true }));
 }
 
-/* ═══════════ المقبضُ مطفأ: الصفحةُ كما كانت ═══════════ */
+/* ═══════════ المقبضُ مُشعَل — كما أُطلقت السياسةُ في النظام ═══════════ */
 
-test('the new offer ships switched off — the published pricing is untouched and the add-ons section stays hidden', async (t) => {
-  assert.ok(JS.includes(OFF), 'العرضُ الجديد مُشعَل في site.js — لا يُشعَل قبل الإطلاق التجاريّ في النظام');
+test('the new offer ships switched on, as the platform launch is on — and the published pages already show it', async (t) => {
+  assert.ok(JS.includes(ON_LINE), 'العرضُ مطفأ والإطلاقُ مفتوح في النظام — الموقعُ يعد بنقطة بيعٍ لا تفتحها الأساسيّة');
   for (const [lang, html] of [['ar', HTML], ['en', EN]]) {
     const doc = new JSDOM(html).window.document;
     const section = doc.querySelector('[data-addons-section]');
-    assert.ok(section && section.hasAttribute('hidden'), `${lang}: قسمُ الإضافات ظاهر قبل الإطلاق`);
-    assert.equal(doc.querySelectorAll('[data-addon]').length, 0, `${lang}: بطاقاتُ إضافاتٍ في الصفحة المنشورة`);
-    // وأزرارُ الباقات المدفوعة واتسابٌ باشتراكها (`paid-plans.test.mjs`) — لا استفسارُ إضافة
-    assert.equal(doc.querySelector('[data-addons-section] a[href^="https://wa.me/"]'), null, `${lang}: رابطُ استفسارٍ قبل الإطلاق`);
-    assert.equal(doc.querySelector('a[href="#addons"]'), null, `${lang}: رابطٌ إلى قسمٍ مخفيّ`);
+    assert.ok(section && !section.hasAttribute('hidden'), `${lang}: قسمُ الإضافات مخفيٌّ في الصفحة المنشورة`);
+    assert.ok(doc.querySelectorAll('[data-addon]').length > 0, `${lang}: لا بطاقات إضافاتٍ في الصفحة المنشورة`);
+    const basic = doc.querySelector('[data-plan="0"]');
+    assert.doesNotMatch(basic.querySelector('[data-inc]').textContent, /نقطة البيع|point of sale|POS/i, `${lang}: نقطةُ البيع مشمولةٌ في الأساسيّة المنشورة`);
+    assert.ok(basic.querySelector('a[href="#addons"]'), `${lang}: الأساسيّةُ لا تدلّ على إضافاتها`);
   }
-  // والأساسيّةُ اليوم فيها نقطةُ البيع — كما يُسجَّل الزائرُ على السياسة السابقة
-  const basic = new JSDOM(HTML).window.document.querySelector('[data-plan="0"]');
+});
+
+test('the trial says what it is under its button in both languages — and the old card stays whole if the offer is switched off again', async (t) => {
+  for (const [lang, html, note] of [['ar', HTML, 'تجربة 14 يومًا على الباقة الأساسية، دون نقطة البيع POS والإضافات.'], ['en', EN, 'A 14-day trial of the Basic plan, without the POS or add-ons.']]) {
+    const doc = new JSDOM(html).window.document;
+    assert.equal(doc.querySelector('[data-plan="0"] [data-trial-note]')?.textContent, note, `${lang}: التجربةُ لا تقول ما تشمله`);
+    // والمدفوعةُ لا تجربةَ لها — تُفتح عبر فريق أبعاد
+    assert.equal(doc.querySelectorAll('[data-trial-note]').length, 1, `${lang}: ملاحظةُ التجربة على باقةٍ مدفوعة`);
+  }
+
+  // ومطفأً — إن أُطفئ الإطلاقُ يومًا — تعود البطاقةُ كما كانت، والتجربةُ ما زالت بلا نقطة البيع
+  const w = await page(t, 'ar', OFF);
+  const basic = w.document.querySelector('[data-plan="0"]');
+  assert.ok(w.document.querySelector('[data-addons-section]').hidden);
   assert.ok(basic.querySelector('[data-inc]').textContent.includes('نقطة البيع والمبيعات والطلبات'));
   assert.ok(basic.querySelector('[data-exc]').textContent.includes('الموقع الإلكتروني'));
   assert.ok(!basic.textContent.includes('إضافات اختيارية'));
-  // والجافاسكربت مطفأً لا يُظهر شيئًا
-  const w = await page(t, 'ar', JS);
-  assert.ok(w.document.querySelector('[data-addons-section]').hidden);
+  assert.ok(basic.querySelector('[data-trial-note]').textContent.includes('دون نقطة البيع POS'));
 });
 
 /* ═══════════ المقبضُ مُشعَل: ما يراه الزائر ═══════════ */
@@ -283,4 +297,13 @@ test('asking never reaches the system — no order, invoice or sign-up, only a W
   }
   assert.equal(section.querySelector('form'), null);
   assert.ok(!section.innerHTML.includes('app.abaadapp.om'), 'القسمُ يكلّم النظام');
+});
+
+test('no plan card sells what the platform catalog does not — website design is a service asked for, not an optional add-on', () => {
+  for (const [lang, html, word] of [['ar', HTML, /خصص موقعك|تخصيص احترافي للموقع/], ['en', EN, /Customize your website|customization of your website/i]]) {
+    const doc = new JSDOM(html).window.document;
+    for (const card of doc.querySelectorAll('[data-plan]')) {
+      assert.doesNotMatch(card.textContent, word, `${lang}: بطاقةُ باقةٍ تعرض تخصيصَ الموقع إضافةً اختياريّة — ليس في كتالوج النظام`);
+    }
+  }
 });

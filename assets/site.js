@@ -48,7 +48,7 @@
    * ومطفأً لا يتغيّر في الصفحة شيء: البطاقاتُ كما كانت، وقسمُ الإضافات مخفيّ.
    * ويُشعَل بسطرٍ هنا ثمّ `npm run prerender` — في طلبٍ وحده بعد الإطلاق.
    */
-  var ADDON_OFFER = false;
+  var ADDON_OFFER = true;
 
   var T = {
     ar: {
@@ -262,6 +262,10 @@
      * فالاسمُ هنا هو ما يقرؤه التاجر في رسالة «رقِّ الباقة لفتحها».
      * وبندٌ `{ t, d }` عنوانٌ وشرحُه تحته.
      *
+     * وما تحت «تخصيصات اختيارية» (`add`) إضافاتٌ من كتالوج النظام وحدها — تُفعَّل فيه.
+     * و«خصّص موقعك» كان هنا وليس في الكتالوج: خدمةُ تصميمٍ يقدّمها الفريق، مكانُها
+     * قسمُها في «الحلول» (`addonTitle`) بالتواصل، لا بطاقةٌ تقول «إضافة اختيارية».
+     *
      * والحدودُ هي ما يفرضه النظام (`PlanLimits`، وترحيل
      * `2026_10_17_120000_the_plans_climb_one_ladder_of_limits`): فروع 1·3·10،
      * ومستخدمون نشطون 3·15·100 والمالكُ منهم، ومنتجات 500·10,000·بلا حدّ.
@@ -283,7 +287,7 @@
           { t: 'التطبيقات التكاملية', d: 'خرائط Google وملف نشاطك على Google Business.' }
         ],
         wa: ['إشعارات واتساب عبر رقم أبعاد', '100 رسالة واتساب مجانية شهريًا', 'إمكانية شراء رصيد رسائل إضافي'],
-        add: [{ t: 'استخدم رقم واتساب متجرك', d: 'اربط رقم واتساب أعمالك الخاص بدل رقم أبعاد — متاح كإضافة اختيارية.' }, { t: 'خصص موقعك الإلكتروني', d: 'تخصيص احترافي للموقع بما يناسب هوية نشاطك — خدمة إضافية.' }] },
+        add: [{ t: 'استخدم رقم واتساب متجرك', d: 'اربط رقم واتساب أعمالك الخاص بدل رقم أبعاد — متاح كإضافة اختيارية.' }] },
       /*
        * والمؤسساتُ: حدودٌ أعلى، وإدارةُ الفروع التي تُباع معها وحدها — قدراتُ
        * `PlanFeatures::ENTERPRISE` في abaad.Saas (نقلُ المخزون، وطلباتُ التزويد،
@@ -306,7 +310,7 @@
           { t: 'تقرير أسبوعي للفروع', d: 'ملخص أسبوعي للمبيعات والأرباح والمخزون والعمليات.' }
         ],
         wa: ['إشعارات واتساب عبر رقم أبعاد', '100 رسالة واتساب مجانية شهريًا', 'إمكانية شراء رصيد رسائل إضافي'],
-        add: [{ t: 'استخدم رقم واتساب شركتك', d: 'اربط رقم واتساب أعمالك الخاص بدل رقم أبعاد — متاح كإضافة اختيارية.' }, { t: 'خصص موقعك الإلكتروني', d: 'تخصيص احترافي للموقع بما يناسب هويتك وفروعك — خدمة إضافية.' }] }
+        add: [{ t: 'استخدم رقم واتساب شركتك', d: 'اربط رقم واتساب أعمالك الخاص بدل رقم أبعاد — متاح كإضافة اختيارية.' }] }
     ],
     /*
      * الباقة المخصّصة — كلُّ ما في الباقات الثلاث، ويُبنى فوقه ما يحتاجه النشاط.
@@ -349,7 +353,7 @@
           { t: 'Integrations', d: 'Google Maps and your Google Business profile.' }
         ],
         wa: ['WhatsApp notifications through the Abaad number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
-        add: [{ t: "Use your store's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the Abaad number — available as an optional add-on.' }, { t: 'Customize your website', d: 'Professional customization of your website to match your brand — an additional service.' }] },
+        add: [{ t: "Use your store's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the Abaad number — available as an optional add-on.' }] },
       { name: 'Enterprise', tag: 'Advanced management for all your branches', desc: 'For multi-branch businesses that need to monitor performance and manage inventory, requests, and approvals from one system.', m: '69.900', h: '419.400', y: '699', was: '838.800',
         limits: ['Up to 10 branches', 'Up to 100 active users, including the owner', 'Unlimited products'], incH: 'Everything in Professional, plus',
         more: 'More than 10 branches? Contact us for custom pricing',
@@ -366,7 +370,7 @@
           { t: 'Weekly branch report', d: 'Review weekly sales, profit, inventory, and operational performance.' }
         ],
         wa: ['WhatsApp notifications through the Abaad number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
-        add: [{ t: "Use your company's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the Abaad number — available as an optional add-on.' }, { t: 'Customize your website', d: 'Professional customization of your website to fit your brand and branches — an additional service.' }] }
+        add: [{ t: "Use your company's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the Abaad number — available as an optional add-on.' }] }
     ],
     custom: { name: 'Custom', tag: 'Built around your needs', desc: 'For companies and individuals who need customization and features built around their needs.',
       incH: 'What you get',
@@ -418,6 +422,12 @@
    * يفتح الاشتراك ويُصدر فاتورته من لوحة المنصّة.
    */
   PRICING.ar.trialCta = 'ابدأ تجربتك المجانية';
+  /*
+   * وما تشمله التجربةُ يُقال تحت زرّها: الأساسيّةُ أربعةَ عشر يومًا بلا نقطة البيع ولا
+   * إضافة (abaad.Saas `TrialOffer`) — مفتوحًا كان الإطلاقُ أو مطفأً. فلا يسجّل زائرٌ
+   * ينتظر صندوقًا لا تفتحه التجربة.
+   */
+  PRICING.ar.trialNote = 'تجربة 14 يومًا على الباقة الأساسية، دون نقطة البيع POS والإضافات.';
   PRICING.ar.subscribeCta = 'اشترك عبر واتساب';
   PRICING.ar.addWaCta = 'استفسر عن التفعيل عبر واتساب';
   PRICING.ar.cycleLabel = { m: 'شهري', h: 'نصف سنوي', y: 'سنوي' };
@@ -430,6 +440,7 @@
     more: 'أرغب بالاستفسار عن سعر خاص لأكثر من 10 فروع.'
   };
   PRICING.en.trialCta = 'Start your free trial';
+  PRICING.en.trialNote = 'A 14-day trial of the Basic plan, without the POS or add-ons.';
   PRICING.en.subscribeCta = 'Subscribe on WhatsApp';
   PRICING.en.addWaCta = 'Ask to activate on WhatsApp';
   PRICING.en.cycleLabel = { m: 'Monthly', h: 'Semi-annual', y: 'Yearly' };
@@ -735,7 +746,8 @@
         // الأساسيّةُ تجربةٌ بالتسجيل الذاتيّ؛ والمدفوعةُ عبر فريق أبعاد بواتساب — بالباقة ومدّتها
         var paid = i > 0;
         html += '<div style="flex:1"></div>' +
-          '<a data-plan-cta href="' + esc(paid ? waLink(subscribeText(i)) : LINKS.register) + '"' + (paid ? ' target="_blank" rel="noopener"' : '') + ' style="margin-top:26px;text-align:center;border-radius:999px;padding:15px 24px;font-size:15.5px;font-weight:700;background:' + (on ? 'var(--ink)' : 'transparent') + ';color:' + (on ? '#fff' : 'var(--ink)') + ';border:1px solid var(--ink)">' + esc(paid ? pr.subscribeCta : pr.trialCta) + '</a></div>';
+          '<a data-plan-cta href="' + esc(paid ? waLink(subscribeText(i)) : LINKS.register) + '"' + (paid ? ' target="_blank" rel="noopener"' : '') + ' style="margin-top:26px;text-align:center;border-radius:999px;padding:15px 24px;font-size:15.5px;font-weight:700;background:' + (on ? 'var(--ink)' : 'transparent') + ';color:' + (on ? '#fff' : 'var(--ink)') + ';border:1px solid var(--ink)">' + esc(paid ? pr.subscribeCta : pr.trialCta) + '</a>' +
+          (paid ? '' : '<p data-trial-note style="margin:10px 0 0;text-align:center;font-size:12.5px;line-height:1.6;color:var(--muted)">' + esc(pr.trialNote) + '</p>') + '</div>';
         return html;
       }).join('') + custom(pr.custom);
       // صفٌّ كاملٌ تحت الثلاث، وليست `data-plan`: لا سعرَ يبدّله الشهريُّ والسنويّ، وزرُّها إلى «تواصل معنا» لا إلى التسجيل

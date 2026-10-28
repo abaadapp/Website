@@ -23,6 +23,8 @@ const exists = (p) => existsSync(new URL(p.replace(/^\//, ''), root));
 const HTML = read('index.html');
 const EN = read('en/index.html');
 const JS = read('assets/site.js');
+/** العرضُ الجديد كما يُنشر (`ADDON_OFFER`) — يقرأ منه اختبارُ سلّم الباقات أيَّ بطاقةٍ يقيس */
+const OFFER = JS.includes('var ADDON_OFFER = true;');
 const CSS = read('assets/site.css');
 
 const LOGIN = 'https://app.abaadapp.om/login';
@@ -440,9 +442,26 @@ test('each plan lists only what it adds to the one before, by the same names, in
     const d = new JSDOM(html).window.document;
     const [basic, pro, ent] = [0, 1, 2].map((i) => plan(d, i));
 
-    // ما يُغلق في الأساسية تفتحه الاحترافية — بالاسم نفسه، وواتساب في قسمه الأخضر
-    assert.deepEqual(basic.exc, [...pro.inc, WA[lang]], `${lang}: «غير مشمول» في الأساسية لا يطابق ما تضيفه الاحترافية`);
-    assert.equal(basic.exc.length, 7, `${lang}: القدراتُ في النظام سبع`);
+    /*
+     * ما يُغلق في الأساسية تفتحه الاحترافية — بالاسم نفسه، وواتساب في قسمه الأخضر.
+     *
+     * وتحت العرض الجديد (`ADDON_OFFER`، مُشعَلٌ منذ أُطلقت السياسةُ في النظام) تنقسم
+     * السبعُ ونقطةُ البيع: خمسٌ تُشترى إضافاتٍ للأساسيّة (بأسماء كتالوج النظام)، وثلاثٌ
+     * تبقى «غير مشمولة» — وكلُّ ذلك تشمله الاحترافيّة، ونقطةُ البيع أوّلُ ما تضيفه.
+     */
+    if (OFFER) {
+      // صندوقُ «إضافات اختيارية» المنقّط — لا «غير مشمول» الذي يليه
+      const addBox = [...d.querySelectorAll('[data-plan="0"] [data-inc] ~ div')].find((div) => !div.querySelector('[data-exc]'));
+      const adds = [...addBox.querySelectorAll('li')].map((li) => li.querySelector('div > div').textContent.trim());
+      assert.equal(basic.exc.length, 3, `${lang}: ما لا يُشترى إضافةً للأساسيّة`);
+      assert.deepEqual(basic.exc.filter((x) => !pro.inc.includes(x)), [], `${lang}: «غير مشمول» في الأساسية لا تشمله الاحترافية`);
+      assert.equal(adds.length, 5, `${lang}: إضافاتُ الأساسيّة الخمس`);
+      assert.equal(basic.exc.length + adds.length, pro.inc.length + 1, `${lang}: ما ينقص الأساسيّةَ غيرُ ما تضيفه الاحترافية`);
+      assert.match(pro.inc[0], /نقاط البيع|point of sale/i, `${lang}: الاحترافيّةُ لا تبدأ بنقطة البيع`);
+    } else {
+      assert.deepEqual(basic.exc, [...pro.inc, WA[lang]], `${lang}: «غير مشمول» في الأساسية لا يطابق ما تضيفه الاحترافية`);
+      assert.equal(basic.exc.length, 7, `${lang}: القدراتُ في النظام سبع`);
+    }
     assert.ok(pro.wa.length > 0 && ent.wa.length > 0, `${lang}: واتساب`);
     assert.deepEqual(ent.wa, pro.wa, `${lang}: واتساب المؤسسات بصياغةٍ غير الاحترافية`);
 
