@@ -80,9 +80,9 @@
       waSub: 'اربط واتساب بعملياتك في أبعاد، وشغّل الرسائل والإجراءات تلقائيًا بناءً على ما يحدث في أعمالك.',
       waKey: 'واتساب ليس منفصلًا عن أعمالك. إنه متصل بالعميل والطلب والعمليات داخل نظامك.',
       when: 'عند', waChip1: 'طلب جديد', waChip2: 'تم تحديث الحالة',
-      storeBadge: 'التجارة الإلكترونية', storeTitle: 'متجرك الإلكتروني متصل بأعمالك من البداية.',
-      storeSub: 'أنشئ متجرك مع أبعاد، وأدر المنتجات والطلبات والعملاء والمدفوعات من نفس النظام — بدون فصل متجرك عن عملياتك.',
-      storeKey: 'متجر واحد. بيانات موحّدة. إدارة أسهل.',
+      storeBadge: 'أبعاد ويب', storeTitle: 'موقعك الإلكتروني متصل بأعمالك من البداية.',
+      storeSub: 'أنشئ موقع نشاطك مع أبعاد، واعرض فيه منتجاتك وخدماتك من نفس النظام الذي تدير به أعمالك، ودع عملاءك يصلون إليك بسهولة عبر واتساب.',
+      storeKey: 'موقع واحد. بيانات موحّدة. إدارة أسهل.',
       addonBadge: 'خدمة إضافية', addonTitle: 'خصّص متجرك بما يناسب علامتك',
       addonSub: 'نصمم ونخصص واجهة متجرك لتناسب هوية علامتك ومتطلباتك، كخدمة إضافية مدفوعة.', addonCta: 'اطلب تخصيص متجرك',
       finBadge: 'المالية', finTitle: 'اعرف أين تذهب\nأموالك.',
@@ -135,9 +135,9 @@
       waSub: 'Connect WhatsApp to your operations in ABAAD, and run messages and actions automatically based on what happens in your business.',
       waKey: 'WhatsApp is not separate from your business. It is connected to the customer, the order and the operations inside your system.',
       when: 'When', waChip1: 'New order', waChip2: 'Status updated',
-      storeBadge: 'E-commerce', storeTitle: 'Your online store, connected to your business from day one.',
-      storeSub: 'Build your website and store with ABAAD, and manage products, orders, customers and payments from the same system that runs your internal operations.',
-      storeKey: 'No separate store. No separate data.',
+      storeBadge: 'ABAAD Web', storeTitle: 'Your website, connected to your business from day one.',
+      storeSub: 'Build your business website with ABAAD, show your products and services from the same system that runs your business, and let customers reach you easily on WhatsApp.',
+      storeKey: 'No separate website. No separate data.',
       addonBadge: 'Add-on service', addonTitle: 'Customize your store to fit your brand',
       addonSub: 'We offer a design and customization service for your online storefront, tailored to your brand identity and needs, for an additional fee.', addonCta: 'Request store customization',
       finBadge: 'Finance', finTitle: 'Know where your money goes.',
@@ -169,21 +169,21 @@
       trust: ['سحابي', 'آمن', 'متعدد الأجهزة', 'متعدد اللغات', 'تحديثات مستمرة'],
       pillars: [
         { title: 'أدر', sub: 'لوحة تحكم واحدة لإدارة نشاطك وفروعك وعملياتك.' },
-        { title: 'بِع', sub: 'نقاط البيع والمتجر الإلكتروني والطلبات والمدفوعات في تجربة واحدة.' },
+        { title: 'بِع', sub: 'نقاط البيع والطلبات والمدفوعات في تجربة واحدة.' },
         { title: 'تواصل', sub: 'العملاء وواتساب والإشعارات والتواصل من نفس النظام.' },
         { title: 'حلّل', sub: 'تقارير وتحليلات وبيانات تساعدك على اتخاذ قرارات أفضل وتنمية أعمالك.' }
       ],
       caps: [
         { title: 'المبيعات ونقاط البيع', sub: 'أدر المبيعات والطلبات والفواتير والمدفوعات من تجربة بيع سريعة ومتكاملة.', detail: 'بع بسهولة، وأدر الطلبات والفواتير والمدفوعات من تجربة واحدة سريعة ومتكاملة.', items: ['POS', 'الطلبات', 'الفواتير', 'المدفوعات'] },
         { title: 'التجارة والمخزون', sub: 'أدر المنتجات والمخزون والمشتريات والموردين، واربطها مباشرة بعمليات البيع.', detail: 'أدر المنتجات والمخزون والمشتريات والموردين من مكان واحد، واربطها مباشرة بعمليات البيع.', items: ['المنتجات', 'المخزون', 'المشتريات', 'الموردون'] },
-        { title: 'التجارة الإلكترونية', sub: 'أنشئ وأدر موقعك ومتجرك الإلكتروني واربط الطلبات والمنتجات والعملاء ببقية أعمالك.', items: ['الموقع', 'المتجر', 'المنتجات', 'الطلبات'] },
+        { title: 'الموقع الإلكتروني', sub: 'أنشئ موقع نشاطك وأدره من أبعاد، واعرض فيه منتجاتك وخدماتك، وتواصل مع عملائك عبر واتساب.', items: ['الموقع', 'المنتجات', 'الظهور في البحث', 'واتساب'] },
         { title: 'العملاء والتواصل', sub: 'اجمع بيانات عملائك وتاريخ تعاملاتهم وتواصل معهم من نفس منظومة العمل.', items: ['العملاء', 'WhatsApp', 'الإشعارات', 'سجل التعاملات'] },
         { title: 'المالية والتقارير', sub: 'تابع الحركة المالية والمدفوعات والمصروفات والمستحقات والتقارير من مكان واحد.', badge: 'التقارير', detailTitle: 'افهم التكاليف والخسائر بوضوح.', detail: 'تابع تكلفة المبيعات والتشغيل والخسائر والمصروفات الأخرى، وقارن أداءك بالفترة السابقة لمعرفة أين تتغيّر تكاليفك ولماذا.', items: ['تكلفة المبيعات', 'تكاليف التشغيل', 'الخسائر', 'المصروفات الأخرى'] }
       ],
       kpis: ['المبيعات', 'الطلبات', 'المخزون', 'العملاء', 'المالية', 'الأداء'],
       flows: [
         { name: 'المبيعات', steps: ['بيع', 'المخزون', 'العميل', 'المدفوعات', 'المالية', 'التقارير'] },
-        { name: 'التجارة الإلكترونية', steps: ['طلب إلكتروني', 'العميل', 'الدفع', 'المخزون', 'التنفيذ', 'WhatsApp'] },
+        { name: 'الموقع الإلكتروني', steps: ['المخزون', 'المنتجات', 'الموقع', 'الزائر', 'WhatsApp'] },
         { name: 'الحجوزات', steps: ['حجز', 'العميل', 'الدفع', 'Automation', 'WhatsApp'] }
       ],
       rules: [
@@ -191,11 +191,11 @@
         ['تحديث حالة الطلب', 'إشعار العميل'],
         ['اكتمال الطلب', 'إرسال تحديث للعميل']
       ],
-      storeFlow: ['المتجر', 'المنتجات', 'المخزون', 'الطلبات', 'العملاء'],
+      storeFlow: ['المخزون', 'المنتجات', 'الموقع', 'واتساب', 'العملاء'],
       finItems: ['المبيعات', 'المشتريات', 'المصروفات', 'المدفوعات', 'المستحقات', 'التقارير المالية'],
       types: [
         { title: 'التجزئة', sub: 'نقاط البيع، المنتجات، المخزون، العملاء والمشتريات.' },
-        { title: 'التجارة الإلكترونية', sub: 'الموقع، المنتجات، الطلبات، المدفوعات والعملاء.' },
+        { title: 'التجارة الإلكترونية', sub: 'الموقع، المنتجات، المخزون، العملاء والتواصل عبر واتساب.' },
         { title: 'الخدمات والحجوزات', sub: 'الخدمات، المواعيد، الحجوزات والتواصل مع العملاء.' },
         { title: 'الاشتراكات', sub: 'إدارة العملاء والخدمات والعمليات والمدفوعات المتكررة.' }
       ]
@@ -204,21 +204,21 @@
       trust: ['Cloud-based', 'Secure', 'Multi-device', 'Multilingual', 'Continuous updates'],
       pillars: [
         { title: 'Manage', sub: 'One dashboard to run your business, operations and team.' },
-        { title: 'Sell', sub: 'Point of sale, orders, online store and payments.' },
+        { title: 'Sell', sub: 'Point of sale, orders and payments.' },
         { title: 'Connect', sub: 'Customers, WhatsApp, notifications and customer engagement.' },
         { title: 'Grow', sub: 'Finance, reports, automation and the data that helps you grow.' }
       ],
       caps: [
         { title: 'Sales & point of sale', sub: 'Manage sales, orders, invoices and payments from a fast, complete selling experience.', detail: 'Sell with ease, and manage orders, invoices and payments from one fast, complete experience.', items: ['POS', 'Orders', 'Invoices', 'Payments'] },
         { title: 'Commerce & inventory', sub: 'Manage products, inventory, purchasing and suppliers, linked directly to your sales.', detail: 'Manage products, inventory, purchasing and suppliers from one place, and link it all directly to your sales.', items: ['Products', 'Inventory', 'Purchasing', 'Suppliers'] },
-        { title: 'E-commerce', sub: 'Build and run your website and online store, with orders, products and customers linked to the rest of your business.', items: ['Website', 'Store', 'Products', 'Orders'] },
+        { title: 'Website', sub: 'Build and run your business website with ABAAD, show your products and services on it, and talk to your customers on WhatsApp.', items: ['Website', 'Products', 'Search visibility', 'WhatsApp'] },
         { title: 'Customers & communication', sub: 'Collect customer data and history, and reach customers from the same system you work in.', items: ['Customers', 'WhatsApp', 'Notifications', 'History'] },
         { title: 'Finance & reports', sub: 'Track cash flow, payments, expenses, receivables and reports from one place.', items: ['Finance', 'Expenses', 'Receivables', 'Reports'] }
       ],
       kpis: ['Sales', 'Orders', 'Inventory', 'Customers', 'Finance', 'Performance'],
       flows: [
         { name: 'Sales', steps: ['Sale', 'Inventory', 'Customer', 'Payments', 'Finance', 'Reports'] },
-        { name: 'E-commerce', steps: ['Online order', 'Customer', 'Payment', 'Inventory', 'Fulfilment', 'WhatsApp'] },
+        { name: 'Website', steps: ['Inventory', 'Products', 'Website', 'Visitor', 'WhatsApp'] },
         { name: 'Bookings', steps: ['Booking', 'Customer', 'Payment', 'Automation', 'WhatsApp'] }
       ],
       rules: [
@@ -226,11 +226,11 @@
         ['Order status updated', 'Notify the customer'],
         ['Order completed', 'Send an update to the customer']
       ],
-      storeFlow: ['Store', 'Products', 'Inventory', 'Orders', 'Customers'],
+      storeFlow: ['Inventory', 'Products', 'Website', 'WhatsApp', 'Customers'],
       finItems: ['Sales', 'Purchases', 'Expenses', 'Payments', 'Receivables', 'Financial reports'],
       types: [
         { title: 'Retail', sub: 'Point of sale, products, inventory, customers and purchasing.' },
-        { title: 'E-commerce', sub: 'Website, products, orders, payments and customers.' },
+        { title: 'E-commerce', sub: 'Website, products, inventory, customers and WhatsApp.' },
         { title: 'Services & bookings', sub: 'Services, appointments, bookings and customer communication.' },
         { title: 'Subscriptions', sub: 'Manage customers, services, operations and recurring payments.' }
       ]
@@ -283,7 +283,7 @@
       { name: 'الاحترافية', tag: 'إدارة + نمو', desc: 'شغّل متجرك وطوّر مبيعاتك بحضور رقمي وأدوات نمو متكاملة.', m: '29.900', h: '179.400', y: '299', was: '358.800', featured: true,
         limits: ['حتى 3 فروع', 'حتى 15 مستخدمًا نشطًا مع المالك', 'حتى 10,000 منتج'], incH: 'كل ما في الأساسية، ومعها',
         inc: [
-          { t: 'الموقع الإلكتروني', d: 'متجرك أونلاين بتصميمه ونطاقه وظهوره في البحث.' },
+          { t: 'الموقع الإلكتروني', d: 'موقعك الإلكتروني بتصميمه ومنتجاته وظهوره في البحث.' },
           { t: 'أدوات التسويق', d: 'الكوبونات والعروض وتقييمات العملاء.' },
           { t: 'برنامج الولاء', d: 'نقاط يجمعها عملاؤك ويستبدلونها عند الصندوق.' },
           { t: 'التقارير المتقدمة', d: 'تحليل الهالك وتصدير التقارير.' },
@@ -349,7 +349,7 @@
       { name: 'Professional', tag: 'Management + growth', desc: 'Run your store and grow your sales with a digital presence and integrated growth tools.', m: '29.900', h: '179.400', y: '299', was: '358.800', featured: true,
         limits: ['Up to 3 branches', 'Up to 15 active users, including the owner', 'Up to 10,000 products'], incH: 'Everything in Basic, plus',
         inc: [
-          { t: 'Website', d: 'Your store online, with its own design, domain and search visibility.' },
+          { t: 'Website', d: 'Your website, with its own design, products and search visibility.' },
           { t: 'Marketing tools', d: 'Coupons, offers and customer reviews.' },
           { t: 'Loyalty program', d: 'Points your customers earn and redeem at the till.' },
           { t: 'Advanced reports', d: 'Waste analysis and report export.' },
@@ -471,7 +471,7 @@
     copyFail: 'تعذّر النسخ تلقائيًا — حدّد الرسالة أدناه وانسخها، ثمّ أرسلها في واتساب إلى +968 71141624.',
     items: {
       pos: { name: 'نظام الكاشير ونقاط البيع POS', desc: 'البيع من صندوق المحل وإصدار الإيصالات ومتابعة جلسات الكاشير.' },
-      website: { name: 'المتجر الإلكتروني وإدارة الطلبات', desc: 'متجر إلكتروني باسمك يستقبل طلبات زبائنك وتديرها من لوحتك.' },
+      website: { name: 'المتجر الإلكتروني وإدارة الطلبات', desc: 'موقع باسم نشاطك يعرض منتجاتك، ويتواصل معك زبائنك منه عبر واتساب، وتديره من لوحتك.' },
       marketing: { name: 'العروض والخصومات والكوبونات', desc: 'الكوبونات والعروض وتقييمات العملاء.' },
       loyalty: { name: 'برنامج الولاء والمكافآت', desc: 'نقاط يجمعها عملاؤك من مشترياتهم ويستبدلونها عند الصندوق.' },
       whatsapp: { name: 'إشعارات واتساب', desc: 'إرسال حالة الطلب إلى العميل عبر واتساب.' },
@@ -501,7 +501,7 @@
     copyFail: 'Could not copy automatically — select the message below and copy it, then send it on WhatsApp to +968 71141624.',
     items: {
       pos: { name: 'Cashier & point of sale (POS)', desc: 'Sell from the shop till, issue receipts and follow cashier sessions.' },
-      website: { name: 'Online store & order management', desc: "An online store in your name that takes your customers' orders, managed from your dashboard." },
+      website: { name: 'Online store & order management', desc: 'A website in your business name that shows your products, lets customers reach you on WhatsApp, and is managed from your dashboard.' },
       marketing: { name: 'Offers, discounts & coupons', desc: 'Coupons, offers and customer reviews.' },
       loyalty: { name: 'Loyalty & rewards', desc: 'Points your customers earn on purchases and redeem at the till.' },
       whatsapp: { name: 'WhatsApp notifications', desc: 'Send order status to the customer on WhatsApp.' },

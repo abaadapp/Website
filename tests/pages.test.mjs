@@ -215,3 +215,72 @@ test('an unknown address answers 404 with its own page — not a second home pag
   assert.doesNotMatch(read('sitemap.xml'), /404/);
   for (const a of d.querySelectorAll('a[href^="/"]')) assert.ok(existsSync(new URL(served(a.getAttribute('href')), root)), a.getAttribute('href'));
 });
+
+/*
+ * والرئيسيةُ تصف مواقعَ التجّار كما هي: موقعٌ يعرض المنتجات والخدمات ويُراسَل على واتساب.
+ *
+ * يُقرأ النصُّ من الصفحتين المولَّدتين ومن نصوص site.js معًا: مسارُ «الموقع الإلكتروني» ولوحةُ
+ * القدرات لا تظهر في HTML الثابت إلّا أوّلُها، والباقي يرسمه السكربت حين يتنقّل الزائر.
+ *
+ * ويبقى ما هو حقيقيّ: طلباتُ نقطة البيع ومدفوعاتُها والمالية، وخدمةُ تخصيص الواجهة (الواجهاتُ
+ * الخاصّة كـ RIBBON فيها سلّةٌ فعلًا)، واسمُ الإضافة كما في كتالوج النظام.
+ */
+const HOME_CLAIMS = {
+  ar: [
+    /متجرك الإلكتروني متصل|يستقبل طلبات زبائنك|ونطاقه|نطاقك الخاص|ربط النطاق|دومين|طلب إلكتروني/,
+    /نقاط البيع والمتجر الإلكتروني|واربط الطلبات والمنتجات|وأدر المنتجات والطلبات والعملاء والمدفوعات|الطلبات، المدفوعات والعملاء|متجر واحد\./,
+    /سلة|سلّة|إتمام الطلب|الدفع الإلكتروني|الدفع عند الاستلام|التحويل البنكي|الدفع بالبطاقة/,
+  ],
+  en: [
+    /Your online store, connected|takes your customers' orders|domain|Online order|online store and payments/i,
+    /with orders, products and customers linked|manage products, orders, customers and payments|orders, payments and customers|No separate store\./i,
+    /add to cart|shopping cart|online payment|cash on delivery|bank transfer|card payment/i,
+  ],
+};
+const HOME_FIXED = {
+  ar: [
+    'موقعك الإلكتروني متصل بأعمالك من البداية.',
+    'أنشئ موقع نشاطك مع أبعاد، واعرض فيه منتجاتك وخدماتك من نفس النظام الذي تدير به أعمالك، ودع عملاءك يصلون إليك بسهولة عبر واتساب.',
+    'أنشئ موقع نشاطك وأدره من أبعاد، واعرض فيه منتجاتك وخدماتك، وتواصل مع عملائك عبر واتساب.',
+    'موقعك الإلكتروني بتصميمه ومنتجاته وظهوره في البحث.',
+    'موقع باسم نشاطك يعرض منتجاتك، ويتواصل معك زبائنك منه عبر واتساب، وتديره من لوحتك.',
+  ],
+  en: [
+    'Your website, connected to your business from day one.',
+    'Build your business website with ABAAD, show your products and services from the same system that runs your business, and let customers reach you easily on WhatsApp.',
+    'Build and run your business website with ABAAD, show your products and services on it, and talk to your customers on WhatsApp.',
+    'Your website, with its own design, products and search visibility.',
+    'A website in your business name that shows your products, lets customers reach you on WhatsApp, and is managed from your dashboard.',
+  ],
+};
+const HOME_KEPT = {
+  ar: ['أدر المبيعات والطلبات والفواتير والمدفوعات من تجربة بيع سريعة ومتكاملة.', 'نقاط البيع والطلبات والمدفوعات في تجربة واحدة.', 'تابع الحركة المالية والمدفوعات والمصروفات والمستحقات والتقارير من مكان واحد.', 'نصمم ونخصص واجهة متجرك لتناسب هوية علامتك ومتطلباتك، كخدمة إضافية مدفوعة.', 'المتجر الإلكتروني وإدارة الطلبات'],
+  en: ['Manage sales, orders, invoices and payments from a fast, complete selling experience.', 'Point of sale, orders and payments.', 'Track cash flow, payments, expenses, receivables and reports from one place.', 'We offer a design and customization service for your online storefront, tailored to your brand identity and needs, for an additional fee.', 'Online store & order management'],
+};
+
+/** نصوصُ site.js بلغةٍ واحدة — ما بين علامتَي الاقتباس، بلا التعليقات */
+function scriptStrings(lang) {
+  const src = read('assets/site.js').replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+  const all = [...src.matchAll(/'((?:[^'\\\n]|\\.)*)'|"((?:[^"\\\n]|\\.)*)"/g)].map((m) => m[1] ?? m[2]);
+  return all.filter((t) => (lang === 'ar' ? ARABIC.test(t) : /[A-Za-z]{3}/.test(t) && !ARABIC.test(t)));
+}
+
+test('the home page describes merchant websites as they are — showing products and talking on WhatsApp, with no cart, payment, orders or custom domain', () => {
+  for (const [lang, file] of [['ar', 'index.html'], ['en', 'en/index.html']]) {
+    const d = doc(file);
+    const page = d.querySelector('[data-site]').textContent + '\n' + content(d, 'meta[name="description"]');
+    const script = scriptStrings(lang).join('\n');
+    for (const claim of HOME_CLAIMS[lang]) {
+      assert.doesNotMatch(page, claim, `${file}: ${claim}`);
+      assert.doesNotMatch(script, claim, `site.js (${lang}): ${claim}`);
+    }
+    for (const line of HOME_FIXED[lang]) assert.ok(script.includes(line), `site.js (${lang}): «${line.slice(0, 40)}»`);
+    // قسمُ الموقع وبطاقةُ الباقة والإضافة مرسومةٌ في HTML الثابت نفسِه
+    for (const line of [HOME_FIXED[lang][0], HOME_FIXED[lang][1], HOME_FIXED[lang][3], HOME_FIXED[lang][4]]) assert.ok(page.includes(line), `${file}: «${line.slice(0, 40)}»`);
+    // وما هو حقيقيّ باقٍ كما كان
+    for (const line of HOME_KEPT[lang]) assert.ok(page.includes(line), `${file}: حُذف ما هو حقيقيّ «${line.slice(0, 40)}»`);
+  }
+  // والقسمُ يدلّ على صفحته
+  assert.equal(doc('index.html').querySelector('#store [data-sub="web"]').getAttribute('href'), '/web/');
+  assert.equal(doc('en/index.html').querySelector('#store [data-sub="web"]').getAttribute('href'), '/en/web/');
+});
