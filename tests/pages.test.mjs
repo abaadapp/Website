@@ -6,7 +6,7 @@
  *   - JSON-LD: صفحةٌ من موقع أبعاد (WebPage) ومسارُها من الرئيسية (BreadcrumbList).
  *   - الروابطُ إلى النظام القائم وحده (app.abaadapp.om/register و/login)، وكلُّ رابطٍ داخليّ صفحةٌ موجودة.
  *   - الرئيسيةُ بلغتيها تربط بالصفحتين، والإنجليزيةُ بلا عربية.
- *   - «أبعاد ويب» لا تَعِد بنطاقٍ خاصّ ولا بدفعٍ إلكترونيّ — كلاهما غير مفتوحٍ للتجّار بعد.
+ *   - الصفحتان لا تَعِدان بسلّةٍ ولا دفعٍ ولا طلبٍ يصل إلى اللوحة ولا نطاقٍ خاصّ — الموقعُ العاديّ يعرض ويُراسَل على واتساب.
  *
  * npm test
  */
@@ -141,13 +141,52 @@ test('the English pages have no Arabic left, and the Arabic pages are Arabic', (
   }
 });
 
-test('ABAAD Web promises no custom domain and no online card payment — neither is open to merchants yet', () => {
-  for (const lang of ['ar', 'en']) {
-    const text = doc(pageFile('web', lang)).querySelector('main').textContent;
-    assert.doesNotMatch(text, /نطاق|دومين|domain|Paymob|الدفع بالبطاقة|بطاقة ائتمان|بطاقات الدفع|الدفع الإلكتروني|الدفع الالكتروني|online payment|card payment|pay by card|credit card|debit card/i, `${lang}: وعدٌ غير مفتوح`);
-    // الدفعُ المفتوح فعلًا: عند الاستلام أو بالتحويل
-    assert.match(text, lang === 'ar' ? /الدفع عند الاستلام أو بالتحويل البنكي/ : /cash on delivery or bank transfer/);
+/*
+ * ما لا يفعله موقعُ التاجر العاديّ اليوم — فلا تَعِد به الصفحتان بأيّ صياغة:
+ *
+ *   - لا سلّة ولا إتمامَ طلبٍ ولا دفع: الطلبُ محادثةُ واتساب (abaad.Saas `Website\Commerce::checkout`
+ *     ‏= false لكلّ متجرٍ بلا واجهةٍ خاصّة، والسلّةُ لـ RIBBON وحدها في `Store\WebCheckout`).
+ *   - فلا «يصلك الطلب في لوحتك»، ولا دفعٌ عند الاستلام أو تحويلٌ بنكيّ أو بطاقة.
+ *   - ولا نطاقٌ خاصّ (`STOREFRONT_CUSTOM_DOMAINS` مطفأ).
+ *
+ * فإن فُتح شيءٌ منها للتجّار جميعًا، يُرفع من هنا في الطلب نفسه الذي يكتبه في الصفحة.
+ */
+const NOT_OPEN = {
+  ar: [
+    /نطاق|دومين/, /الدفع|يدفع|المدفوعات|دفع إلكتروني|بطاقة ائتمان|بطاقات الدفع|Paymob/, /التحويل البنكي|تحويل بنكي/,
+    /سلة|سلّة|إتمام الطلب|إتمام الشراء|الشراء من الموقع|اشترِ من/,
+    /الطلبات? (تصل|يصل)|يصلك الطلب|استقبل الطلبات|استقبال الطلبات|تستقبل الطلبات|الطلبات من موقعك|طلبات الموقع/,
+    /المتجر الإلكتروني والطلبات|الطلبات والمنتجات والعملاء ببقية/,
+  ],
+  en: [
+    /domain/i, /payment|pay |checkout|cash on delivery|bank transfer|credit card|debit card|Paymob/i, /cart|basket/i,
+    /orders? (reach|lands?|arrive)|take orders|accept orders|receive orders|orders from your website|online orders/i,
+    /online store and payments|orders, products and customers linked/i,
+  ],
+};
+
+test('neither page promises what an ordinary merchant site cannot do yet — no cart, checkout, payment, orders into the dashboard, or custom domain', () => {
+  for (const key of ['web', 'system']) {
+    for (const lang of ['ar', 'en']) {
+      const d = doc(pageFile(key, lang));
+      const main = d.querySelector('main').cloneNode(true);
+      /*
+       * والصندوقُ يبيع ويقبض فعلًا: جملُ بطاقتَي «المبيعات ونقاط البيع» و«المالية» في صفحة النظام،
+       * ورقاقاتُ وحداته، تُستثنى بنصّها كما هو — ولا استثناءَ في صفحة أبعاد ويب.
+       */
+      if (key === 'system') main.querySelectorAll('.items').forEach((el) => el.remove());
+      const said = [main.textContent, content(d, 'meta[name="description"]'), d.querySelector('script[type="application/ld+json"]').textContent].join('\n');
+      const POS = {
+        ar: ['أدر المبيعات والطلبات والفواتير والمدفوعات من تجربة بيع سريعة ومتكاملة.', 'نقاط البيع والطلبات والفواتير والمدفوعات في تجربة واحدة.', 'تابع الحركة المالية والمدفوعات والمصروفات والمستحقات والتقارير من مكان واحد.'],
+        en: ['Manage sales, orders, invoices and payments from a fast, complete selling experience.', 'Point of sale, orders, invoices and payments in one experience.', 'Track cash flow, payments, expenses, receivables and reports from one place.'],
+      };
+      const rest = key === 'system' ? POS[lang].reduce((t, line) => t.split(line).join(''), said) : said;
+      for (const claim of NOT_OPEN[lang]) assert.doesNotMatch(rest, claim, `${pageFile(key, lang)}: وعدٌ غير مفتوح ${claim}`);
+    }
   }
+  // والقناةُ المفتوحة فعلًا تُسمّى باسمها
+  assert.match(doc(pageFile('web', 'ar')).querySelector('main').textContent, /واتساب/);
+  assert.match(doc(pageFile('web', 'en')).querySelector('main').textContent, /WhatsApp/);
 });
 
 test('the home page links to both pages in its own language — in the sections and the footer', () => {

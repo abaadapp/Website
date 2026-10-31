@@ -9,10 +9,15 @@
  * HTML كاملٌ بلا JavaScript — يقرؤه الزاحف كما يراه الزائر. والملفّات الأربعة
  * تُولَّد من هنا بـ npm run prerender، فلا تُعدَّل يدويًّا.
  *
- * والمحتوى ما في النظام فعلًا (abaad.Saas): وحداتُه كما تصفها الصفحة الرئيسية،
- * والموقعُ الإلكترونيّ كما يبنيه التاجر من «الموقع الإلكتروني» في لوحته.
- * فلا نطاقٌ خاصّ ولا دفعٌ إلكترونيّ عامّ هنا — كلاهما غير مفتوحٍ للتجّار بعد
- * (`STOREFRONT_CUSTOM_DOMAINS`، وPaymob بمفاتيح كلّ متجر).
+ * والمحتوى ما في النظام فعلًا (abaad.Saas): وحداتُه، والموقعُ الإلكترونيّ كما
+ * يبنيه التاجر من «الموقع الإلكتروني» في لوحته. وذاك موقعٌ يعرض ولا يبيع:
+ *
+ *   - لا سلّةَ فيه ولا إتمامَ طلبٍ ولا دفع (`Website\Commerce::checkout`) — الطلبُ
+ *     محادثةُ واتساب يكتبها الزبون ويقرؤها التاجر بيده. والسلّةُ وإتمامُ الطلب
+ *     للواجهات الخاصّة وحدها (RIBBON، `Store\WebCheckout`)، فلا تُوعَد بها الصفحة.
+ *   - ولا نطاقٌ خاصّ (`STOREFRONT_CUSTOM_DOMAINS` مطفأ)، ولا دفعٌ إلكترونيّ.
+ *
+ * والحارسُ في tests/pages.test.mjs يُسقط أيَّ وعدٍ بغير ذلك.
  */
 
 export const SITE = 'https://abaadapp.om';
@@ -58,7 +63,7 @@ export const PAGES = {
           cards: [
             { t: 'المبيعات ونقاط البيع', d: 'أدر المبيعات والطلبات والفواتير والمدفوعات من تجربة بيع سريعة ومتكاملة.', items: ['POS', 'الطلبات', 'الفواتير', 'المدفوعات'] },
             { t: 'التجارة والمخزون', d: 'أدر المنتجات والمخزون والمشتريات والموردين، واربطها مباشرة بعمليات البيع.', items: ['المنتجات', 'المخزون', 'المشتريات', 'الموردون'] },
-            { t: 'التجارة الإلكترونية', d: 'أنشئ وأدر موقعك ومتجرك الإلكتروني واربط الطلبات والمنتجات والعملاء ببقية أعمالك.', items: ['الموقع', 'المتجر', 'المنتجات', 'الطلبات'], link: 'web' },
+            { t: 'الموقع الإلكتروني', d: 'أنشئ موقع نشاطك من النظام نفسه، واعرض فيه منتجاتك، ويتواصل معك زوّاره عبر واتساب.', items: ['الموقع', 'المنتجات', 'واتساب'], link: 'web' },
             { t: 'العملاء والتواصل', d: 'اجمع بيانات عملائك وتاريخ تعاملاتهم وتواصل معهم من نفس منظومة العمل.', items: ['العملاء', 'WhatsApp', 'الإشعارات', 'سجل التعاملات'] },
             { t: 'المالية والتقارير', d: 'تابع الحركة المالية والمدفوعات والمصروفات والمستحقات والتقارير من مكان واحد.', items: ['المالية', 'المصروفات', 'المستحقات', 'التقارير'] },
           ],
@@ -67,7 +72,7 @@ export const PAGES = {
           h2: 'نظام واحد ليومك كله',
           cards: [
             { t: 'أدر', d: 'لوحة تحكم واحدة لإدارة نشاطك وفروعك وعملياتك.' },
-            { t: 'بِع', d: 'نقاط البيع والمتجر الإلكتروني والطلبات والمدفوعات في تجربة واحدة.' },
+            { t: 'بِع', d: 'نقاط البيع والطلبات والفواتير والمدفوعات في تجربة واحدة.' },
             { t: 'تواصل', d: 'العملاء وواتساب والإشعارات والتواصل من نفس النظام.' },
             { t: 'حلّل', d: 'تقارير وتحليلات وبيانات تساعدك على اتخاذ قرارات أفضل وتنمية أعمالك.' },
           ],
@@ -92,7 +97,7 @@ export const PAGES = {
           cards: [
             { t: 'Sales & point of sale', d: 'Manage sales, orders, invoices and payments from a fast, complete selling experience.', items: ['POS', 'Orders', 'Invoices', 'Payments'] },
             { t: 'Commerce & inventory', d: 'Manage products, inventory, purchasing and suppliers, linked directly to your sales.', items: ['Products', 'Inventory', 'Purchasing', 'Suppliers'] },
-            { t: 'E-commerce', d: 'Build and run your website and online store, with orders, products and customers linked to the rest of your business.', items: ['Website', 'Store', 'Products', 'Orders'], link: 'web' },
+            { t: 'Website', d: 'Build your business website from the same system, show your products on it, and let visitors reach you on WhatsApp.', items: ['Website', 'Products', 'WhatsApp'], link: 'web' },
             { t: 'Customers & communication', d: 'Collect customer data and history, and reach customers from the same system you work in.', items: ['Customers', 'WhatsApp', 'Notifications', 'History'] },
             { t: 'Finance & reports', d: 'Track cash flow, payments, expenses, receivables and reports from one place.', items: ['Finance', 'Expenses', 'Receivables', 'Reports'] },
           ],
@@ -101,9 +106,9 @@ export const PAGES = {
           h2: 'One system for your whole day',
           cards: [
             { t: 'Manage', d: 'One dashboard to run your business, operations and team.' },
-            { t: 'Sell', d: 'Point of sale, orders, online store and payments.' },
+            { t: 'Sell', d: 'Point of sale, orders, invoices and payments in one experience.' },
             { t: 'Connect', d: 'Customers, WhatsApp, notifications and customer engagement.' },
-            { t: 'Grow', d: 'Finance, reports, automation and the data that helps you grow.' },
+            { t: 'Analyze', d: 'Reports, analytics and data that help you make better decisions and grow your business.' },
           ],
           chips: ['Cloud-based', 'Secure', 'Multi-device', 'Multilingual', 'Continuous updates'],
         },
@@ -119,7 +124,7 @@ export const PAGES = {
       title: 'أبعاد ويب | حضور رقمي يليق بنشاطك',
       description: 'أنشئ موقعك الإلكتروني، اعرض منتجاتك وخدماتك، واجعل الوصول إلى نشاطك أسهل.',
       h1: 'أبعاد ويب', h1Sub: 'حضور رقمي يليق بنشاطك',
-      intro: 'أبعاد ويب هو الموقع الإلكتروني لنشاطك داخل نظام أبعاد. تبنيه وتديره من حسابك في أبعاد نفسه، فتبقى منتجاتك وطلباتك وعملاؤك في المكان الذي تدير منه بقية أعمالك — بلا تطبيق آخر ولا حساب منفصل.',
+      intro: 'أبعاد ويب هو الموقع الإلكتروني لنشاطك داخل نظام أبعاد. تبنيه وتديره من حسابك في أبعاد نفسه، ويعرض منتجاتك من المكان الذي تدير منه بقية أعمالك — بلا تطبيق آخر ولا حساب منفصل.',
       ctas: [['startWeb', LINKS.register], ['manageWeb', LINKS.login], ['plans', '#pricing']],
       startWeb: 'ابدأ موقعك مع أبعاد', manageWeb: 'لديك حساب؟ أدر موقعك من نظام أبعاد', plans: 'اطّلع على الباقات',
       sections: [
@@ -128,10 +133,9 @@ export const PAGES = {
           cards: [
             { t: 'موقع باسم نشاطك', d: 'صفحة رئيسية وصفحات إضافية وقائمة تنقّل، تبنيها من قسم «الموقع الإلكتروني» في لوحتك.' },
             { t: 'شكل تختاره وتخصّصه', d: 'اختر طريقة عرض الترويسة والواجهة وبطاقات المنتجات والتصنيفات والتذييل، وأضف صورك ونصوصك.' },
-            { t: 'منتجاتك وخدماتك معروضة', d: 'تظهر منتجاتك من النظام نفسه بصورها وأسعارها وتصنيفاتها، فلا تُدخلها مرتين.' },
-            { t: 'الطلبات تصل إلى نظامك', d: 'يطلب زائرك من الموقع، ويصلك الطلب في لوحة أبعاد مع العميل والمخزون والمبيعات. والدفع عند الاستلام أو بالتحويل البنكي، بحسب ما تفعّله.' },
-            { t: 'وصول أسهل إليك', d: 'رابط واتساب ومعلومات التواصل في موقعك، ليصل إليك عملاؤك بضغطة.' },
-            { t: 'ظهور في البحث', d: 'اضبط عنوان موقعك ووصفه كما يظهران في محركات البحث، واربط أدوات التحليل لمتابعة الزيارات.' },
+            { t: 'منتجاتك معروضة', d: 'تظهر منتجاتك من النظام نفسه بصورها وتصنيفاتها، فلا تُدخلها مرتين — وتختار أنت إظهار أسعارها أو إخفاءها.' },
+            { t: 'تواصل عبر واتساب', d: 'يراسلك زائر موقعك على رقم واتساب نشاطك ليسأل أو يطلب، وتتابع المحادثة معه بنفسك.' },
+            { t: 'ظهور في البحث', d: 'اضبط عنوان موقعك ووصفه وصورة مشاركته كما تظهر في محركات البحث.' },
           ],
         },
         {
@@ -160,7 +164,7 @@ export const PAGES = {
       title: 'ABAAD Web | Build Your Digital Presence',
       description: 'Create your website, showcase your products and services, and make your business easier to reach.',
       h1: 'ABAAD Web', h1Sub: 'Build your digital presence',
-      intro: 'ABAAD Web is your business website inside ABAAD System. You build and run it from your ABAAD account, so your products, orders and customers stay where you run the rest of your business — no separate app, no separate account.',
+      intro: 'ABAAD Web is your business website inside ABAAD System. You build and run it from your ABAAD account, and it shows your products from where you run the rest of your business — no separate app, no separate account.',
       ctas: [['startWeb', LINKS.register], ['manageWeb', LINKS.login], ['plans', '#pricing']],
       startWeb: 'Start your website with ABAAD', manageWeb: 'Have an account? Manage your website in ABAAD System', plans: 'See the plans',
       sections: [
@@ -169,10 +173,9 @@ export const PAGES = {
           cards: [
             { t: 'A website in your business name', d: 'A home page, extra pages and a navigation menu, built from the Website section of your dashboard.' },
             { t: 'A look you choose and customize', d: 'Choose how your header, hero, product cards, categories and footer look, and add your own images and text.' },
-            { t: 'Your products and services on show', d: 'Your products appear straight from the system, with their images, prices and categories, so you never enter them twice.' },
-            { t: 'Orders reach your system', d: 'Visitors order from your website, and the order lands in your ABAAD dashboard with the customer, inventory and sales. Payment is cash on delivery or bank transfer, whichever you turn on.' },
-            { t: 'Easier to reach', d: 'A WhatsApp link and your contact details on your website, so customers reach you in one tap.' },
-            { t: 'Found in search', d: "Set how your website's title and description appear in search engines, and connect analytics to follow your visits." },
+            { t: 'Your products on show', d: 'Your products appear straight from the system, with their images and categories, so you never enter them twice — and you choose whether to show their prices.' },
+            { t: 'Contact on WhatsApp', d: "Visitors message your business's WhatsApp number to ask or to order, and you follow up the conversation yourself." },
+            { t: 'Found in search', d: "Set your website's title, description and sharing image as they appear in search engines." },
           ],
         },
         {
