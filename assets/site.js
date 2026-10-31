@@ -23,6 +23,8 @@
   var LINKS = { login: APP + '/login', register: APP + '/register' };
   // صفحتا اللغتين على الموقع نفسه
   var PAGES = { ar: '/', en: '/en/' };
+  // و«نظام أبعاد» و«أبعاد ويب» تحتهما بلغة الصفحة: /system/ و/en/system/ (tools/pages.mjs)
+  function sub(key) { return PAGES[S.lang] + key + '/'; }
   var MAIL = 'abaadappom@gmail.com';
   /*
    * نموذجُ «تواصل معنا» يُرسَل إلى CRM أبعاد على النظام — لا إلى بريد الزائر.
@@ -55,6 +57,7 @@
       langSwitch: 'English', langAria: 'التبديل إلى الإنجليزية', login: 'تسجيل الدخول', startNow: 'ابدأ الآن',
       brand: 'أبعاد', navAria: 'أقسام الموقع', menuAria: 'القائمة',
       navHome: 'الرئيسية', navPlatform: 'المنصة', navSolutions: 'الحلول', navContact: 'تواصل معنا', navPricing: 'الأسعار',
+      navSystem: 'نظام أبعاد', navWeb: 'أبعاد ويب', platMore: 'تعرّف على نظام أبعاد', storeMore: 'اكتشف أبعاد ويب',
       priceTitle: 'باقات واضحة تناسب نشاطك.', priceSub: 'اختر الباقة التي تناسب حجم نشاطك، وابدأ بما تحتاجه اليوم.',
       billMonthly: 'شهري', billHalf: 'نصف سنوي', billYearly: 'سنوي',
       heroTitle: 'كل أعمالك. في مكان واحد.',
@@ -77,9 +80,9 @@
       waSub: 'اربط واتساب بعملياتك في أبعاد، وشغّل الرسائل والإجراءات تلقائيًا بناءً على ما يحدث في أعمالك.',
       waKey: 'واتساب ليس منفصلًا عن أعمالك. إنه متصل بالعميل والطلب والعمليات داخل نظامك.',
       when: 'عند', waChip1: 'طلب جديد', waChip2: 'تم تحديث الحالة',
-      storeBadge: 'التجارة الإلكترونية', storeTitle: 'متجرك الإلكتروني متصل بأعمالك من البداية.',
-      storeSub: 'أنشئ متجرك مع أبعاد، وأدر المنتجات والطلبات والعملاء والمدفوعات من نفس النظام — بدون فصل متجرك عن عملياتك.',
-      storeKey: 'متجر واحد. بيانات موحّدة. إدارة أسهل.',
+      storeBadge: 'أبعاد ويب', storeTitle: 'موقعك الإلكتروني متصل بأعمالك من البداية.',
+      storeSub: 'أنشئ موقع نشاطك مع أبعاد، واعرض فيه منتجاتك وخدماتك من نفس النظام الذي تدير به أعمالك، ودع عملاءك يصلون إليك بسهولة عبر واتساب.',
+      storeKey: 'موقع واحد. بيانات موحّدة. إدارة أسهل.',
       addonBadge: 'خدمة إضافية', addonTitle: 'خصّص متجرك بما يناسب علامتك',
       addonSub: 'نصمم ونخصص واجهة متجرك لتناسب هوية علامتك ومتطلباتك، كخدمة إضافية مدفوعة.', addonCta: 'اطلب تخصيص متجرك',
       finBadge: 'المالية', finTitle: 'اعرف أين تذهب\nأموالك.',
@@ -107,41 +110,42 @@
     },
     en: {
       langSwitch: 'العربية', langAria: 'Switch to Arabic', login: 'Log in', startNow: 'Get started',
-      brand: 'Abaad', navAria: 'Site navigation', menuAria: 'Menu',
+      brand: 'ABAAD', navAria: 'Site navigation', menuAria: 'Menu',
       navHome: 'Home', navPlatform: 'Platform', navSolutions: 'Solutions', navContact: 'Contact us', navPricing: 'Pricing',
+      navSystem: 'ABAAD System', navWeb: 'ABAAD Web', platMore: 'Discover ABAAD System', storeMore: 'Explore ABAAD Web',
       priceTitle: 'Clear plans that fit your business.', priceSub: 'Pick the right plan, then add the devices or services you need.',
       billMonthly: 'Monthly', billHalf: 'Semi-annual', billYearly: 'Yearly',
       heroTitle: 'Your whole business. In one place.',
-      heroSub: 'Abaad is an integrated platform that brings together sales, management, e-commerce, customers, payments, finance and automation — so you run your business from one place and grow with more clarity.',
-      heroCta: 'Start with Abaad', heroCta2: 'Explore the platform',
-      slotHero: 'The Abaad dashboard, point of sale, online store and WhatsApp',
-      altPos: 'Abaad point of sale', altCheckout: 'Checkout', altProduct: 'Product card', altCosts: 'Abaad costs and losses',
+      heroSub: 'ABAAD is an integrated platform that brings together sales, management, e-commerce, customers, payments, finance and automation — so you run your business from one place and grow with more clarity.',
+      heroCta: 'Start with ABAAD', heroCta2: 'Explore the platform',
+      slotHero: 'The ABAAD dashboard, point of sale, online store and WhatsApp',
+      altPos: 'ABAAD point of sale', altCheckout: 'Checkout', altProduct: 'Product card', altCosts: 'ABAAD costs and losses',
       altWa: 'WhatsApp conversation', altStore: 'Online store',
-      aboutBadge: 'The Abaad platform', aboutTitle: 'One system instead of many.',
-      aboutSub: 'From running your day-to-day to selling, talking to customers and tracking your numbers, Abaad brings your business operations into one connected system.',
+      aboutBadge: 'The ABAAD platform', aboutTitle: 'One system instead of many.',
+      aboutSub: 'From running your day-to-day to selling, talking to customers and tracking your numbers, ABAAD brings your business operations into one connected system.',
       platBadge: 'Everything you need', platTitle: 'One platform. For every operation.',
       platSub: 'Integrated tools covering your business cycle, from management and sales to communication and finance.',
       dashBadge: 'Analytics & dashboard', dashTitle: 'See your whole business from one place.',
       dashSub: 'Everything you need to know about your business, clearly in front of you. Your sales, profits, orders and inventory in one dashboard that helps you decide faster.',
-      slotDash: 'The Abaad dashboard',
+      slotDash: 'The ABAAD dashboard',
       connTitle: 'The power is not just in the tools. It is in how they connect.',
-      connSub: 'Every operation in Abaad connects to the rest of the platform, reducing manual work and keeping your business data up to date in one place.',
+      connSub: 'Every operation in ABAAD connects to the rest of the platform, reducing manual work and keeping your business data up to date in one place.',
       waBadge: 'WhatsApp + Automation', autoLabel: 'Automation',
       waTitle: 'Let your business communicate automatically.',
-      waSub: 'Connect WhatsApp to your operations in Abaad, and run messages and actions automatically based on what happens in your business.',
+      waSub: 'Connect WhatsApp to your operations in ABAAD, and run messages and actions automatically based on what happens in your business.',
       waKey: 'WhatsApp is not separate from your business. It is connected to the customer, the order and the operations inside your system.',
       when: 'When', waChip1: 'New order', waChip2: 'Status updated',
-      storeBadge: 'E-commerce', storeTitle: 'Your online store, connected to your business from day one.',
-      storeSub: 'Build your website and store with Abaad, and manage products, orders, customers and payments from the same system that runs your internal operations.',
-      storeKey: 'No separate store. No separate data.',
+      storeBadge: 'ABAAD Web', storeTitle: 'Your website, connected to your business from day one.',
+      storeSub: 'Build your business website with ABAAD, show your products and services from the same system that runs your business, and let customers reach you easily on WhatsApp.',
+      storeKey: 'No separate website. No separate data.',
       addonBadge: 'Add-on service', addonTitle: 'Customize your store to fit your brand',
       addonSub: 'We offer a design and customization service for your online storefront, tailored to your brand identity and needs, for an additional fee.', addonCta: 'Request store customization',
       finBadge: 'Finance', finTitle: 'Know where your money goes.',
       finSub: 'Connect daily operations to the financial picture of your business, and track sales, purchases, payments, expenses, receivables and reports from one place.',
-      slotFin: 'The financial summary in Abaad',
-      typesTitle: 'Abaad adapts to the way you work.',
+      slotFin: 'The financial summary in ABAAD',
+      typesTitle: 'ABAAD adapts to the way you work.',
       ctaTitle: 'Everything you need to run your business, now closer.',
-      ctaSub: 'Start with Abaad and bring your operations, sales, customers and finances into one platform.',
+      ctaSub: 'Start with ABAAD and bring your operations, sales, customers and finances into one platform.',
       fName: 'Name', fCompany: 'Business name', fPhone: 'Phone number', fEmail: 'Email', fType: 'Business type', fMessage: 'Message',
       chooseType: 'Select a business type...', other: 'Other',
       submit: 'Send',
@@ -165,21 +169,21 @@
       trust: ['سحابي', 'آمن', 'متعدد الأجهزة', 'متعدد اللغات', 'تحديثات مستمرة'],
       pillars: [
         { title: 'أدر', sub: 'لوحة تحكم واحدة لإدارة نشاطك وفروعك وعملياتك.' },
-        { title: 'بِع', sub: 'نقاط البيع والمتجر الإلكتروني والطلبات والمدفوعات في تجربة واحدة.' },
+        { title: 'بِع', sub: 'نقاط البيع والطلبات والمدفوعات في تجربة واحدة.' },
         { title: 'تواصل', sub: 'العملاء وواتساب والإشعارات والتواصل من نفس النظام.' },
         { title: 'حلّل', sub: 'تقارير وتحليلات وبيانات تساعدك على اتخاذ قرارات أفضل وتنمية أعمالك.' }
       ],
       caps: [
         { title: 'المبيعات ونقاط البيع', sub: 'أدر المبيعات والطلبات والفواتير والمدفوعات من تجربة بيع سريعة ومتكاملة.', detail: 'بع بسهولة، وأدر الطلبات والفواتير والمدفوعات من تجربة واحدة سريعة ومتكاملة.', items: ['POS', 'الطلبات', 'الفواتير', 'المدفوعات'] },
         { title: 'التجارة والمخزون', sub: 'أدر المنتجات والمخزون والمشتريات والموردين، واربطها مباشرة بعمليات البيع.', detail: 'أدر المنتجات والمخزون والمشتريات والموردين من مكان واحد، واربطها مباشرة بعمليات البيع.', items: ['المنتجات', 'المخزون', 'المشتريات', 'الموردون'] },
-        { title: 'التجارة الإلكترونية', sub: 'أنشئ وأدر موقعك ومتجرك الإلكتروني واربط الطلبات والمنتجات والعملاء ببقية أعمالك.', items: ['الموقع', 'المتجر', 'المنتجات', 'الطلبات'] },
+        { title: 'الموقع الإلكتروني', sub: 'أنشئ موقع نشاطك وأدره من أبعاد، واعرض فيه منتجاتك وخدماتك، وتواصل مع عملائك عبر واتساب.', items: ['الموقع', 'المنتجات', 'الظهور في البحث', 'واتساب'] },
         { title: 'العملاء والتواصل', sub: 'اجمع بيانات عملائك وتاريخ تعاملاتهم وتواصل معهم من نفس منظومة العمل.', items: ['العملاء', 'WhatsApp', 'الإشعارات', 'سجل التعاملات'] },
         { title: 'المالية والتقارير', sub: 'تابع الحركة المالية والمدفوعات والمصروفات والمستحقات والتقارير من مكان واحد.', badge: 'التقارير', detailTitle: 'افهم التكاليف والخسائر بوضوح.', detail: 'تابع تكلفة المبيعات والتشغيل والخسائر والمصروفات الأخرى، وقارن أداءك بالفترة السابقة لمعرفة أين تتغيّر تكاليفك ولماذا.', items: ['تكلفة المبيعات', 'تكاليف التشغيل', 'الخسائر', 'المصروفات الأخرى'] }
       ],
       kpis: ['المبيعات', 'الطلبات', 'المخزون', 'العملاء', 'المالية', 'الأداء'],
       flows: [
         { name: 'المبيعات', steps: ['بيع', 'المخزون', 'العميل', 'المدفوعات', 'المالية', 'التقارير'] },
-        { name: 'التجارة الإلكترونية', steps: ['طلب إلكتروني', 'العميل', 'الدفع', 'المخزون', 'التنفيذ', 'WhatsApp'] },
+        { name: 'الموقع الإلكتروني', steps: ['المخزون', 'المنتجات', 'الموقع', 'الزائر', 'WhatsApp'] },
         { name: 'الحجوزات', steps: ['حجز', 'العميل', 'الدفع', 'Automation', 'WhatsApp'] }
       ],
       rules: [
@@ -187,11 +191,11 @@
         ['تحديث حالة الطلب', 'إشعار العميل'],
         ['اكتمال الطلب', 'إرسال تحديث للعميل']
       ],
-      storeFlow: ['المتجر', 'المنتجات', 'المخزون', 'الطلبات', 'العملاء'],
+      storeFlow: ['المخزون', 'المنتجات', 'الموقع', 'واتساب', 'العملاء'],
       finItems: ['المبيعات', 'المشتريات', 'المصروفات', 'المدفوعات', 'المستحقات', 'التقارير المالية'],
       types: [
         { title: 'التجزئة', sub: 'نقاط البيع، المنتجات، المخزون، العملاء والمشتريات.' },
-        { title: 'التجارة الإلكترونية', sub: 'الموقع، المنتجات، الطلبات، المدفوعات والعملاء.' },
+        { title: 'التجارة الإلكترونية', sub: 'الموقع، المنتجات، المخزون، العملاء والتواصل عبر واتساب.' },
         { title: 'الخدمات والحجوزات', sub: 'الخدمات، المواعيد، الحجوزات والتواصل مع العملاء.' },
         { title: 'الاشتراكات', sub: 'إدارة العملاء والخدمات والعمليات والمدفوعات المتكررة.' }
       ]
@@ -200,21 +204,21 @@
       trust: ['Cloud-based', 'Secure', 'Multi-device', 'Multilingual', 'Continuous updates'],
       pillars: [
         { title: 'Manage', sub: 'One dashboard to run your business, operations and team.' },
-        { title: 'Sell', sub: 'Point of sale, orders, online store and payments.' },
+        { title: 'Sell', sub: 'Point of sale, orders and payments.' },
         { title: 'Connect', sub: 'Customers, WhatsApp, notifications and customer engagement.' },
         { title: 'Grow', sub: 'Finance, reports, automation and the data that helps you grow.' }
       ],
       caps: [
         { title: 'Sales & point of sale', sub: 'Manage sales, orders, invoices and payments from a fast, complete selling experience.', detail: 'Sell with ease, and manage orders, invoices and payments from one fast, complete experience.', items: ['POS', 'Orders', 'Invoices', 'Payments'] },
         { title: 'Commerce & inventory', sub: 'Manage products, inventory, purchasing and suppliers, linked directly to your sales.', detail: 'Manage products, inventory, purchasing and suppliers from one place, and link it all directly to your sales.', items: ['Products', 'Inventory', 'Purchasing', 'Suppliers'] },
-        { title: 'E-commerce', sub: 'Build and run your website and online store, with orders, products and customers linked to the rest of your business.', items: ['Website', 'Store', 'Products', 'Orders'] },
+        { title: 'Website', sub: 'Build and run your business website with ABAAD, show your products and services on it, and talk to your customers on WhatsApp.', items: ['Website', 'Products', 'Search visibility', 'WhatsApp'] },
         { title: 'Customers & communication', sub: 'Collect customer data and history, and reach customers from the same system you work in.', items: ['Customers', 'WhatsApp', 'Notifications', 'History'] },
         { title: 'Finance & reports', sub: 'Track cash flow, payments, expenses, receivables and reports from one place.', items: ['Finance', 'Expenses', 'Receivables', 'Reports'] }
       ],
       kpis: ['Sales', 'Orders', 'Inventory', 'Customers', 'Finance', 'Performance'],
       flows: [
         { name: 'Sales', steps: ['Sale', 'Inventory', 'Customer', 'Payments', 'Finance', 'Reports'] },
-        { name: 'E-commerce', steps: ['Online order', 'Customer', 'Payment', 'Inventory', 'Fulfilment', 'WhatsApp'] },
+        { name: 'Website', steps: ['Inventory', 'Products', 'Website', 'Visitor', 'WhatsApp'] },
         { name: 'Bookings', steps: ['Booking', 'Customer', 'Payment', 'Automation', 'WhatsApp'] }
       ],
       rules: [
@@ -222,11 +226,11 @@
         ['Order status updated', 'Notify the customer'],
         ['Order completed', 'Send an update to the customer']
       ],
-      storeFlow: ['Store', 'Products', 'Inventory', 'Orders', 'Customers'],
+      storeFlow: ['Inventory', 'Products', 'Website', 'WhatsApp', 'Customers'],
       finItems: ['Sales', 'Purchases', 'Expenses', 'Payments', 'Receivables', 'Financial reports'],
       types: [
         { title: 'Retail', sub: 'Point of sale, products, inventory, customers and purchasing.' },
-        { title: 'E-commerce', sub: 'Website, products, orders, payments and customers.' },
+        { title: 'E-commerce', sub: 'Website, products, inventory, customers and WhatsApp.' },
         { title: 'Services & bookings', sub: 'Services, appointments, bookings and customer communication.' },
         { title: 'Subscriptions', sub: 'Manage customers, services, operations and recurring payments.' }
       ]
@@ -279,7 +283,7 @@
       { name: 'الاحترافية', tag: 'إدارة + نمو', desc: 'شغّل متجرك وطوّر مبيعاتك بحضور رقمي وأدوات نمو متكاملة.', m: '29.900', h: '179.400', y: '299', was: '358.800', featured: true,
         limits: ['حتى 3 فروع', 'حتى 15 مستخدمًا نشطًا مع المالك', 'حتى 10,000 منتج'], incH: 'كل ما في الأساسية، ومعها',
         inc: [
-          { t: 'الموقع الإلكتروني', d: 'متجرك أونلاين بتصميمه ونطاقه وظهوره في البحث.' },
+          { t: 'الموقع الإلكتروني', d: 'موقعك الإلكتروني بتصميمه ومنتجاته وظهوره في البحث.' },
           { t: 'أدوات التسويق', d: 'الكوبونات والعروض وتقييمات العملاء.' },
           { t: 'برنامج الولاء', d: 'نقاط يجمعها عملاؤك ويستبدلونها عند الصندوق.' },
           { t: 'التقارير المتقدمة', d: 'تحليل الهالك وتصدير التقارير.' },
@@ -329,7 +333,7 @@
     cur: 'OMR', perMonth: 'month', perHalf: '6 months', perYear: 'year', popular: 'Most popular', save: 'Save two months', instead: 'instead of',
     limitsH: 'Usage limits', waH: 'WhatsApp', excH: 'Not included in this plan',
     addH: 'Optional customizations', addTag: 'Optional add-on', addCta: 'Contact us to activate',
-    waNote: 'On plans that include WhatsApp: 100 free messages a month through the Abaad number.',
+    waNote: 'On plans that include WhatsApp: 100 free messages a month through the ABAAD number.',
     waPack: '500 extra messages — 7.500 OMR',
     onRequest: 'On request',
     extras: [
@@ -345,15 +349,15 @@
       { name: 'Professional', tag: 'Management + growth', desc: 'Run your store and grow your sales with a digital presence and integrated growth tools.', m: '29.900', h: '179.400', y: '299', was: '358.800', featured: true,
         limits: ['Up to 3 branches', 'Up to 15 active users, including the owner', 'Up to 10,000 products'], incH: 'Everything in Basic, plus',
         inc: [
-          { t: 'Website', d: 'Your store online, with its own design, domain and search visibility.' },
+          { t: 'Website', d: 'Your website, with its own design, products and search visibility.' },
           { t: 'Marketing tools', d: 'Coupons, offers and customer reviews.' },
           { t: 'Loyalty program', d: 'Points your customers earn and redeem at the till.' },
           { t: 'Advanced reports', d: 'Waste analysis and report export.' },
           { t: 'Custom permissions', d: 'Choose which sections each employee can reach.' },
           { t: 'Integrations', d: 'Google Maps and your Google Business profile.' }
         ],
-        wa: ['WhatsApp notifications through the Abaad number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
-        add: [{ t: "Use your store's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the Abaad number — available as an optional add-on.' }] },
+        wa: ['WhatsApp notifications through the ABAAD number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
+        add: [{ t: "Use your store's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the ABAAD number — available as an optional add-on.' }] },
       { name: 'Enterprise', tag: 'Advanced management for all your branches', desc: 'For multi-branch businesses that need to monitor performance and manage inventory, requests, and approvals from one system.', m: '69.900', h: '419.400', y: '699', was: '838.800',
         limits: ['Up to 10 branches', 'Up to 100 active users, including the owner', 'Unlimited products'], incH: 'Everything in Professional, plus',
         more: 'More than 10 branches? Contact us for custom pricing',
@@ -369,8 +373,8 @@
           { t: 'Centralized alerts', d: 'Stay informed about low stock, pending requests, and delayed transfers.' },
           { t: 'Weekly branch report', d: 'Review weekly sales, profit, inventory, and operational performance.' }
         ],
-        wa: ['WhatsApp notifications through the Abaad number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
-        add: [{ t: "Use your company's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the Abaad number — available as an optional add-on.' }] }
+        wa: ['WhatsApp notifications through the ABAAD number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
+        add: [{ t: "Use your company's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the ABAAD number — available as an optional add-on.' }] }
     ],
     custom: { name: 'Custom', tag: 'Built around your needs', desc: 'For companies and individuals who need customization and features built around their needs.',
       incH: 'What you get',
@@ -446,7 +450,7 @@
   PRICING.en.cycleLabel = { m: 'Monthly', h: 'Semi-annual', y: 'Yearly' };
   PRICING.en.planKeys = ['basic', 'professional', 'enterprise'];
   PRICING.en.subscribeMsg = {
-    hello: 'Hello Abaad team,', want: "I'd like to subscribe to one of Abaad's plans.", plan: 'Plan: ', cycle: 'Billing: ',
+    hello: 'Hello ABAAD team,', want: "I'd like to subscribe to one of ABAAD's plans.", plan: 'Plan: ', cycle: 'Billing: ',
     ask: "I'd like to know how to subscribe, pay and activate it.", thanks: 'Thank you.',
     add: "I'd like to ask about activating optional add-ons for my plan.", addList: 'Add-ons:', addAsk: 'Please send me the prices, details and how to activate them.',
     custom: "I'd like to ask about a custom plan for my business.", customAsk: 'Please contact me with the details and the price.',
@@ -467,7 +471,7 @@
     copyFail: 'تعذّر النسخ تلقائيًا — حدّد الرسالة أدناه وانسخها، ثمّ أرسلها في واتساب إلى +968 71141624.',
     items: {
       pos: { name: 'نظام الكاشير ونقاط البيع POS', desc: 'البيع من صندوق المحل وإصدار الإيصالات ومتابعة جلسات الكاشير.' },
-      website: { name: 'المتجر الإلكتروني وإدارة الطلبات', desc: 'متجر إلكتروني باسمك يستقبل طلبات زبائنك وتديرها من لوحتك.' },
+      website: { name: 'المتجر الإلكتروني وإدارة الطلبات', desc: 'موقع باسم نشاطك يعرض منتجاتك، ويتواصل معك زبائنك منه عبر واتساب، وتديره من لوحتك.' },
       marketing: { name: 'العروض والخصومات والكوبونات', desc: 'الكوبونات والعروض وتقييمات العملاء.' },
       loyalty: { name: 'برنامج الولاء والمكافآت', desc: 'نقاط يجمعها عملاؤك من مشترياتهم ويستبدلونها عند الصندوق.' },
       whatsapp: { name: 'إشعارات واتساب', desc: 'إرسال حالة الطلب إلى العميل عبر واتساب.' },
@@ -486,7 +490,7 @@
   };
   PRICING.en.addonsTag = 'Add-ons';
   PRICING.en.addonsTitle = 'Grow your system with your business';
-  PRICING.en.addonsSub = 'With Abaad, start with the essentials and add more features as your business grows — with full flexibility.';
+  PRICING.en.addonsSub = 'With ABAAD, start with the essentials and add more features as your business grows — with full flexibility.';
   PRICING.en.addons = {
     heads: { basic: 'Add-ons for the Basic plan', professional: 'Add-ons for the Professional plan', enterprise: 'Add-ons for the Enterprise plan' },
     planLabel: { basic: 'Basic', professional: 'Professional', enterprise: 'Enterprise' },
@@ -497,7 +501,7 @@
     copyFail: 'Could not copy automatically — select the message below and copy it, then send it on WhatsApp to +968 71141624.',
     items: {
       pos: { name: 'Cashier & point of sale (POS)', desc: 'Sell from the shop till, issue receipts and follow cashier sessions.' },
-      website: { name: 'Online store & order management', desc: "An online store in your name that takes your customers' orders, managed from your dashboard." },
+      website: { name: 'Online store & order management', desc: 'A website in your business name that shows your products, lets customers reach you on WhatsApp, and is managed from your dashboard.' },
       marketing: { name: 'Offers, discounts & coupons', desc: 'Coupons, offers and customer reviews.' },
       loyalty: { name: 'Loyalty & rewards', desc: 'Points your customers earn on purchases and redeem at the till.' },
       whatsapp: { name: 'WhatsApp notifications', desc: 'Send order status to the customer on WhatsApp.' },
@@ -506,10 +510,10 @@
       gift_orders: { name: 'Gift & custom orders', desc: 'Gift orders with the recipient and occasion, and custom orders with their own fields.' },
       whatsapp_own_number: { name: 'WhatsApp on your own number', desc: "Send your store's messages from its own WhatsApp number instead of the shared one.",
         by: { enterprise: { name: "WhatsApp on your company's number", desc: "Send your company's messages from its own WhatsApp number instead of the shared one." } } },
-      api_integrations: { name: 'External systems integration (API)', desc: 'Connect Abaad to your other systems through an API, scoped with the Abaad team to your needs.' }
+      api_integrations: { name: 'External systems integration (API)', desc: 'Connect ABAAD to your other systems through an API, scoped with the ABAAD team to your needs.' }
     },
     msg: {
-      hello: 'Hello Abaad team,', one: "I'd like to ask about one of Abaad's add-ons.", many: "I'd like to ask about the following add-ons:",
+      hello: 'Hello ABAAD team,', one: "I'd like to ask about one of ABAAD's add-ons.", many: "I'd like to ask about the following add-ons:",
       plan: 'Plan: ', addon: 'Add-on: ', addons: 'Add-ons:',
       askOne: "I'd like to know the add-on's price and how to subscribe and activate it.", askMany: 'Please send me the prices, details and how to activate them.', thanks: 'Thank you.'
     }
@@ -842,7 +846,7 @@
       }).join('');
     },
     footNav: function (t) {
-      return [[t.navPlatform, '#platform'], [t.navSolutions, '#solutions'], [t.navContact, '#contact'], [t.login, LINKS.login]].map(function (s) {
+      return [[t.navPlatform, '#platform'], [t.navSystem, sub('system')], [t.navWeb, sub('web')], [t.navSolutions, '#solutions'], [t.navContact, '#contact'], [t.login, LINKS.login]].map(function (s) {
         return '<a href="' + s[1] + '" class="hv-white" style="color:#d9d9d9;font-size:15px;font-weight:600">' + esc(s[0]) + '</a>';
       }).join('');
     },
@@ -966,6 +970,7 @@
     if (panel) panel.setAttribute('data-g', capGrid());
     $$('[data-arrow]', root).forEach(function (el) { el.textContent = arrow(); });
     $$('[data-mail]', root).forEach(function (el) { el.textContent = MAIL; el.setAttribute('href', 'mailto:' + MAIL); });
+    $$('[data-sub]', root).forEach(function (a) { a.setAttribute('href', sub(a.getAttribute('data-sub'))); });
     var other = S.lang === 'ar' ? 'en' : 'ar';
     $$('[data-lang-link]', root).forEach(function (a) {
       a.setAttribute('href', PAGES[other]); a.setAttribute('hreflang', other); a.setAttribute('lang', other);

@@ -2,6 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://abaadapp.om/</loc></url>
   <url><loc>https://abaadapp.om/en/</loc></url>
+  <url><loc>https://abaadapp.om/system/</loc></url>
+  <url><loc>https://abaadapp.om/en/system/</loc></url>
+  <url><loc>https://abaadapp.om/web/</loc></url>
+  <url><loc>https://abaadapp.om/en/web/</loc></url>
   <url><loc>https://abaadapp.om/privacy/</loc></url>
   <url><loc>https://abaadapp.om/terms/</loc></url>
   <url><loc>https://abaadapp.om/data-deletion/</loc></url>

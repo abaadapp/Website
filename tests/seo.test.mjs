@@ -83,7 +83,7 @@ test('the labels, image texts and landmarks of /en/ are the approved English, an
   });
   assert.deepEqual(read(en), {
     badge: 'WhatsApp + Automation', label: 'Automation', wa: 'WhatsApp conversation', store: 'Online store',
-    pos: ['Abaad point of sale', 'Checkout', 'Product card'], nav: 'Site navigation', menu: 'Menu', brand: ['Abaad', 'Abaad', 'Abaad'],
+    pos: ['ABAAD point of sale', 'Checkout', 'Product card'], nav: 'Site navigation', menu: 'Menu', brand: ['ABAAD', 'ABAAD', 'ABAAD'],
   });
   assert.deepEqual(read(ar), {
     badge: 'واتساب + الأتمتة', label: 'الأتمتة', wa: 'محادثة واتساب من أبعاد', store: 'متجر إلكتروني من أبعاد على اللابتوب والجوال',
@@ -115,10 +115,12 @@ test('hreflang is reciprocal on both pages, with x-default to the Arabic', () =>
 
 test('title and description read naturally in each language', () => {
   const ar = doc(PAGES.ar.file), en = doc(PAGES.en.file);
-  assert.equal(ar.title, 'أبعاد | Abaad | نظام نقاط بيع وإدارة أعمال في عُمان');
-  // الاسمُ اللاتينيّ وحده — لمن يبحث بـ Abaad — ولا إنجليزيَّ سواه في العنوان العربي
-  assert.deepEqual(ar.title.match(/[A-Za-z]+/g), ['Abaad'], 'إنجليزيٌّ في العنوان العربي');
-  assert.equal(en.title, 'Abaad | POS & Business Management Platform in Oman');
+  // الاسمُ المعتمد «أبعاد | ABAAD» وعبارتُه «حلول رقمية تساعدك على تطوير أعمالك.» كما أُقرّا
+  assert.equal(ar.title, 'أبعاد | ABAAD | حلول رقمية تساعدك على تطوير أعمالك');
+  // الاسمُ اللاتينيّ وحده — لمن يبحث بـ ABAAD — ولا إنجليزيَّ سواه في العنوان العربي
+  assert.deepEqual(ar.title.match(/[A-Za-z]+/g), ['ABAAD'], 'إنجليزيٌّ في العنوان العربي');
+  assert.ok(content(ar, 'meta[name="description"]').startsWith('حلول رقمية تساعدك على تطوير أعمالك.'), 'العبارة المعتمدة في الوصف');
+  assert.equal(en.title, 'ABAAD | Digital Solutions to Grow Your Business');
   assert.doesNotMatch(en.title, ARABIC);
   for (const [d, lang] of [[ar, 'ar'], [en, 'en']]) {
     assert.equal(d.querySelectorAll('title').length, 1);
@@ -170,14 +172,14 @@ test('structured data is valid JSON-LD with the Organization and the WebSite —
     const site = data['@graph'].find((n) => n['@type'] === 'WebSite');
     assert.ok(org && site, `${p.file}: Organization وWebSite`);
 
-    const [name, alt] = lang === 'ar' ? ['أبعاد', 'Abaad'] : ['Abaad', 'أبعاد'];
+    const [name, alt] = lang === 'ar' ? ['أبعاد', ['ABAAD', 'Abaad', 'ابعاد', 'abaadapp']] : ['ABAAD', ['أبعاد', 'Abaad', 'abaadapp']];
     for (const n of [org, site]) {
       assert.equal(n.name, name);
       assert.equal(n.url, `${SITE}/`);
     }
-    assert.equal(org.alternateName, alt);
+    assert.deepEqual(org.alternateName, alt);
     // واسمُ الموقع في الصفحة الرئيسية بكلّ ما يُبحث به — منه يأخذ Google اسمَ الموقع
-    assert.deepEqual(site.alternateName, lang === 'ar' ? ['Abaad', 'Abaad App', 'abaadapp.om'] : alt);
+    assert.deepEqual(site.alternateName, lang === 'ar' ? ['ABAAD', 'Abaad', 'ابعاد', 'Abaad App', 'abaadapp', 'abaadapp.om'] : alt);
     assert.equal(org['@id'], `${SITE}/#organization`);
     assert.equal(site['@id'], `${SITE}/#website`);
     assert.equal(site.publisher['@id'], org['@id']);
@@ -198,7 +200,10 @@ test('sitemap.xml is valid and lists each page at its canonical address', () => 
   assert.equal(xml.documentElement.localName, 'urlset');
   assert.equal(xml.documentElement.namespaceURI, 'http://www.sitemaps.org/schemas/sitemap/0.9');
   const locs = [...xml.getElementsByTagName('loc')].map((l) => l.textContent);
-  assert.deepEqual(locs, [`${SITE}/`, `${SITE}/en/`, `${SITE}/privacy/`, `${SITE}/terms/`, `${SITE}/data-deletion/`]);
+  assert.deepEqual(locs, [
+    `${SITE}/`, `${SITE}/en/`, `${SITE}/system/`, `${SITE}/en/system/`, `${SITE}/web/`, `${SITE}/en/web/`,
+    `${SITE}/privacy/`, `${SITE}/terms/`, `${SITE}/data-deletion/`,
+  ]);
   for (const loc of locs) {
     const file = loc.replace(SITE + '/', '') + 'index.html';
     assert.ok(exists(file), `${loc}: لا صفحة`);

@@ -156,10 +156,10 @@ test('/en/ stays English in every capability card and flow tab the script draws'
     await wait(250);
     assert.deepEqual(arabicLeft(d), [], `بطاقة القدرة ${i}`);
   }
-  assert.equal(d.querySelector('[data-cap-panel] img[src$="pos.webp"]').alt, 'Abaad point of sale');
+  assert.equal(d.querySelector('[data-cap-panel] img[src$="pos.webp"]').alt, 'ABAAD point of sale');
   click(w, '[data-cap="4"]');
   await wait(250);
-  assert.equal(d.querySelector('[data-cap-panel] img[src$="costs.webp"]').alt, 'Abaad costs and losses');
+  assert.equal(d.querySelector('[data-cap-panel] img[src$="costs.webp"]').alt, 'ABAAD costs and losses');
   for (const i of [1, 2, 0]) {
     click(w, `[data-flow="${i}"]`);
     await wait(250);

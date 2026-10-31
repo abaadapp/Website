@@ -4,6 +4,8 @@
  *   index.html      العربية على /       — وهي القالب: البنيةُ تُعدَّل فيها
  *   en/index.html   الإنجليزية على /en/  — تُولَّد من index.html، لا تُعدَّل يدويًّا
  *
+ * ومعهما صفحتا «نظام أبعاد» و«أبعاد ويب» بلغتيهما (tools/pages.mjs)، وsitemap.xml.
+ *
  * ويكتب رأسَ كلٍّ منهما من SEO أدناه — العنوان، الوصف، canonical، hreflang،
  * Open Graph، وJSON-LD — ويحدّث بصمة site.css وsite.js في روابطهما كي لا يبقى
  * زائرٌ على نسخةٍ قديمة (nginx يخزّنهما 30 يومًا).
@@ -14,6 +16,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { JSDOM } from 'jsdom';
+import { SUBPAGES, renderPage, pageFile, sitemap } from './pages.mjs';
 
 const root = new URL('../', import.meta.url);
 const read = (p) => readFileSync(new URL(p, root), 'utf8');
@@ -26,24 +29,25 @@ export const HREFLANG = { ar: 'ar-OM', en: 'en-OM' };
 /** ما يقرؤه البحث والمشاركة لكل لغة — وصفٌ لما في الصفحة فعلًا، بلا حشو */
 export const SEO = {
   ar: {
-    title: 'أبعاد | Abaad | نظام نقاط بيع وإدارة أعمال في عُمان',
-    description: 'أبعاد منصة متكاملة لإدارة المبيعات ونقاط البيع والمخزون والعملاء والفواتير والمالية والمتجر الإلكتروني وواتساب في عُمان.',
+    // الاسمُ المعتمد «أبعاد | ABAAD» وعبارتُه «حلول رقمية تساعدك على تطوير أعمالك.» — لا يُعاد صوغهما
+    title: 'أبعاد | ABAAD | حلول رقمية تساعدك على تطوير أعمالك',
+    description: 'حلول رقمية تساعدك على تطوير أعمالك. أبعاد منصة متكاملة لإدارة المبيعات ونقاط البيع والمخزون والعملاء والفواتير والمالية والمتجر الإلكتروني وواتساب في عُمان.',
     locale: 'ar_OM',
     name: 'أبعاد',
-    alternateName: 'Abaad',
+    alternateName: ['ABAAD', 'Abaad', 'ابعاد', 'abaadapp'],
     // أسماءُ الموقع التي يُبحث بها — Google يقرأ اسمَ الموقع من WebSite في الصفحة الرئيسية
-    siteAlternateName: ['Abaad', 'Abaad App', 'abaadapp.om'],
+    siteAlternateName: ['ABAAD', 'Abaad', 'ابعاد', 'Abaad App', 'abaadapp', 'abaadapp.om'],
     // الفهرسةُ مسموحةٌ بلا وسم؛ يُقال صراحةً على الصفحة الرئيسية وحدها
     robots: 'index, follow',
     imageAlt: 'أبعاد — كل أعمالك في مكان واحد',
   },
   en: {
-    title: 'Abaad | POS & Business Management Platform in Oman',
-    description: 'Abaad is an integrated POS and business management platform for sales, inventory, customers, invoicing, finance, e-commerce and WhatsApp in Oman.',
+    title: 'ABAAD | Digital Solutions to Grow Your Business',
+    description: 'Digital solutions to grow your business. ABAAD brings sales, point of sale, inventory, customers, invoicing, finance, e-commerce and WhatsApp together in Oman.',
     locale: 'en_OM',
-    name: 'Abaad',
-    alternateName: 'أبعاد',
-    imageAlt: 'Abaad — Your whole business. In one place.',
+    name: 'ABAAD',
+    alternateName: ['أبعاد', 'Abaad', 'abaadapp'],
+    imageAlt: 'ABAAD — Your whole business. In one place.',
   },
 };
 
@@ -179,5 +183,13 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   writeFileSync(new URL('index.html', root), ar);
   mkdirSync(new URL('en/', root), { recursive: true });
   writeFileSync(new URL('en/index.html', root), withStamps(prerender(ar, js, 'en')));
-  console.log('index.html ✓  en/index.html ✓');
+  const ctx = { css: stamp('assets/site.css'), mail: js.match(/var MAIL = '([^']+)'/)[1], phone: js.match(/ciPhoneV: '([^']+)'/)[1] };
+  for (const key of SUBPAGES) {
+    for (const lang of ['ar', 'en']) {
+      mkdirSync(new URL(pageFile(key, lang).replace(/index\.html$/, ''), root), { recursive: true });
+      writeFileSync(new URL(pageFile(key, lang), root), renderPage(key, lang, ctx));
+    }
+  }
+  writeFileSync(new URL('sitemap.xml', root), sitemap());
+  console.log('index.html ✓  en/index.html ✓  ' + SUBPAGES.flatMap((k) => [pageFile(k, 'ar'), pageFile(k, 'en')]).join(' ✓  ') + ' ✓  sitemap.xml ✓');
 }
