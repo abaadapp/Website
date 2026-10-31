@@ -11,11 +11,13 @@
 |---|---|
 | `index.html` | الصفحة العربية على `/` — وهي القالب: البنيةُ تُعدَّل فيها |
 | `en/index.html` | الصفحة الإنجليزية على `/en/` — **تُولَّد** من `index.html` بـ `npm run prerender`، لا تُعدَّل يدويًّا |
+| `system/`، `web/`، `en/system/`، `en/web/` | «نظام أبعاد» و«أبعاد ويب» بلغتيهما — **تُولَّد** من `tools/pages.mjs` بـ `npm run prerender`، لا تُعدَّل يدويًّا |
+| `404.html` | صفحة «غير موجودة» بلغتين، بلا فهرسة — يقدّمها nginx برمز 404 |
 | `assets/site.js` | النصوص بالعربية والإنجليزية، وكل ما يتحرّك: القائمة، القدرات، الأسعار، النموذج |
 | `assets/site.css` | الألوان والقواعد المتجاوبة وحالات المرور |
 | `assets/img/` | الصور (WebP) والشعار ‎`logo.svg`‎ وصورة المشاركة ‎`og.png`‎ |
 | `favicon.ico`، `favicon.svg`، `apple-touch-icon.png` | الأيقونات (و`apple-touch-icon.png` هو الشعار في JSON-LD) |
-| `robots.txt`، `sitemap.xml` | الزواحف وخريطة الصفحات الخمس |
+| `robots.txt`، `sitemap.xml` | الزواحف وخريطة الصفحات التسع — `sitemap.xml` يكتبه `npm run prerender` |
 | `privacy/`، `terms/`، `data-deletion/` | الصفحات التي يقرؤها مراجعُ ميتا وGoogle — **لا تُنقل ولا تُحذف** |
 | `uploads/Artboard 2.svg` | الشعار القديم، باقٍ لمن يشير إليه من الخارج |
 | `deploy/nginx-abaadapp.om.conf` | كتلتا nginx للموقع و‎www‎ |
@@ -29,7 +31,11 @@
   وOpen Graph وJSON-LD (Organization وWebSite) — كلّها من `SEO` أعلى `tools/prerender.mjs`،
   يكتبها `npm run prerender` في الصفحتين. لا تعدّلها في HTML مباشرة.
 - **الصفحات القانونية** عربيةٌ وحدها، وcanonical كلٍّ منها بعنوانها النهائيّ (`/privacy/` بالشرطة الأخيرة).
-- **`sitemap.xml`** يُعدَّل يدويًّا إن أُضيفت صفحة؛ والاختبار يتأكّد أن كل رابطٍ فيه هو canonical صفحته.
+- **«نظام أبعاد» و«أبعاد ويب»** (`/system/` و`/web/` وبالإنجليزية تحت `/en/`): HTML ثابت بلا سكربت،
+  عنوانُ كلٍّ منهما ووصفُه كما أُقرّا، وcanonical وhreflang وOpen Graph وJSON-LD (WebPage وBreadcrumbList).
+  محتواهما وما يُولَّد منه في `tools/pages.mjs`. «أبعاد ويب» لا تذكر النطاقَ الخاصّ ولا الدفعَ الإلكترونيّ حتى يُفتحا للتجّار.
+- **الاسم:** «أبعاد | ABAAD» في العنوان العربي، و`ABAAD` في الإنجليزية، والأسماءُ التي يُبحث بها في `alternateName`.
+- **`sitemap.xml`** يكتبه `npm run prerender` من قائمة الصفحات (`tools/pages.mjs`)؛ والاختبار يتأكّد أن كل رابطٍ فيه هو canonical صفحته.
 
 الخط **IBM Plex Sans Arabic** من Google Fonts.
 
@@ -98,3 +104,6 @@ ssh root@165.227.145.219 '
 ```
 
 لا خطوة build ولا إعادة تحميل لـnginx — ملفّات ثابتة تظهر فور السحب.
+
+**إلّا إن تغيّر `deploy/nginx-abaadapp.om.conf`:** فهو لا يُطبَّق بالسحب. انسخ كتلته إلى إعداد nginx على السيرفر،
+ثمّ `nginx -t` وبعده `systemctl reload nginx`. (مثاله: ردُّ الرابط المجهول بـ404 بدل الرئيسية.)

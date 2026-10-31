@@ -8,6 +8,7 @@
  *   - القائمة على الجوّال تبلغ آخرَ أزرارها (الدخول، اللغة، ابدأ الآن) ولو قصُرت الشاشة.
  *   - خاناتُ النموذج 16px على الجوّال كي لا يكبّر Safari على iOS الصفحةَ عند التركيز.
  *   - سطح المكتب كما كان.
+ *   - «نظام أبعاد» و«أبعاد ويب» بلغتيهما بلا فيضٍ، وروابطُ رأسهما ظاهرةٌ بكلّ حجم.
  *
  * npx playwright install webkit chromium   (مرّةً واحدة)
  * npm run test:layout
@@ -227,6 +228,28 @@ for (const engine of ['webkit', 'chromium']) {
       assert.deepEqual(d.fields, ['15.5px'], `${at}: خطّ النموذج تغيّر على سطح المكتب`);
       assert.equal((await finance(s.page)).columns, 2, `${at}: «الملخّص المالي» صار عمودًا واحدًا`);
       await s.close();
+    }
+  });
+
+  // «نظام أبعاد» و«أبعاد ويب» بلغتيهما — ثابتتان بلا سكربت، فالقائمةُ تلتفّ ولا تختفي
+  test(`${engine}: the System and Web pages fit every screen, and their menu and start button stay reachable`, async () => {
+    for (const path of ['system/', 'web/', 'en/system/', 'en/web/']) {
+      for (const size of [...PHONES, ...TABLETS, ...DESKTOP]) {
+        const s = await open(engine, size, path);
+        const at = `${size.join('×')} /${path}`;
+        const o = await overflow(s.page);
+        assert.equal(o.scroll, 0, `${at}: الصفحة تتمرّر أفقيًّا`);
+        assert.deepEqual(o.out, [], `${at}: عناصر خارج الشاشة`);
+        const reach = await s.page.evaluate(() => {
+          const vw = document.documentElement.clientWidth;
+          return [...document.querySelectorAll('header.bar nav a, header.bar .btn, header.bar [data-lang-link]')].map((a) => {
+            const b = a.getBoundingClientRect();
+            return b.width > 0 && b.height > 0 && b.left >= -1 && b.right <= vw + 1;
+          });
+        });
+        assert.ok(reach.length >= 6 && reach.every(Boolean), `${at}: رابطٌ في الرأس لا يظهر`);
+        await s.close();
+      }
     }
   });
 }

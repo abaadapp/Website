@@ -23,6 +23,8 @@
   var LINKS = { login: APP + '/login', register: APP + '/register' };
   // صفحتا اللغتين على الموقع نفسه
   var PAGES = { ar: '/', en: '/en/' };
+  // و«نظام أبعاد» و«أبعاد ويب» تحتهما بلغة الصفحة: /system/ و/en/system/ (tools/pages.mjs)
+  function sub(key) { return PAGES[S.lang] + key + '/'; }
   var MAIL = 'abaadappom@gmail.com';
   /*
    * نموذجُ «تواصل معنا» يُرسَل إلى CRM أبعاد على النظام — لا إلى بريد الزائر.
@@ -55,6 +57,7 @@
       langSwitch: 'English', langAria: 'التبديل إلى الإنجليزية', login: 'تسجيل الدخول', startNow: 'ابدأ الآن',
       brand: 'أبعاد', navAria: 'أقسام الموقع', menuAria: 'القائمة',
       navHome: 'الرئيسية', navPlatform: 'المنصة', navSolutions: 'الحلول', navContact: 'تواصل معنا', navPricing: 'الأسعار',
+      navSystem: 'نظام أبعاد', navWeb: 'أبعاد ويب', platMore: 'تعرّف على نظام أبعاد', storeMore: 'اكتشف أبعاد ويب',
       priceTitle: 'باقات واضحة تناسب نشاطك.', priceSub: 'اختر الباقة التي تناسب حجم نشاطك، وابدأ بما تحتاجه اليوم.',
       billMonthly: 'شهري', billHalf: 'نصف سنوي', billYearly: 'سنوي',
       heroTitle: 'كل أعمالك. في مكان واحد.',
@@ -107,41 +110,42 @@
     },
     en: {
       langSwitch: 'العربية', langAria: 'Switch to Arabic', login: 'Log in', startNow: 'Get started',
-      brand: 'Abaad', navAria: 'Site navigation', menuAria: 'Menu',
+      brand: 'ABAAD', navAria: 'Site navigation', menuAria: 'Menu',
       navHome: 'Home', navPlatform: 'Platform', navSolutions: 'Solutions', navContact: 'Contact us', navPricing: 'Pricing',
+      navSystem: 'ABAAD System', navWeb: 'ABAAD Web', platMore: 'Discover ABAAD System', storeMore: 'Explore ABAAD Web',
       priceTitle: 'Clear plans that fit your business.', priceSub: 'Pick the right plan, then add the devices or services you need.',
       billMonthly: 'Monthly', billHalf: 'Semi-annual', billYearly: 'Yearly',
       heroTitle: 'Your whole business. In one place.',
-      heroSub: 'Abaad is an integrated platform that brings together sales, management, e-commerce, customers, payments, finance and automation — so you run your business from one place and grow with more clarity.',
-      heroCta: 'Start with Abaad', heroCta2: 'Explore the platform',
-      slotHero: 'The Abaad dashboard, point of sale, online store and WhatsApp',
-      altPos: 'Abaad point of sale', altCheckout: 'Checkout', altProduct: 'Product card', altCosts: 'Abaad costs and losses',
+      heroSub: 'ABAAD is an integrated platform that brings together sales, management, e-commerce, customers, payments, finance and automation — so you run your business from one place and grow with more clarity.',
+      heroCta: 'Start with ABAAD', heroCta2: 'Explore the platform',
+      slotHero: 'The ABAAD dashboard, point of sale, online store and WhatsApp',
+      altPos: 'ABAAD point of sale', altCheckout: 'Checkout', altProduct: 'Product card', altCosts: 'ABAAD costs and losses',
       altWa: 'WhatsApp conversation', altStore: 'Online store',
-      aboutBadge: 'The Abaad platform', aboutTitle: 'One system instead of many.',
-      aboutSub: 'From running your day-to-day to selling, talking to customers and tracking your numbers, Abaad brings your business operations into one connected system.',
+      aboutBadge: 'The ABAAD platform', aboutTitle: 'One system instead of many.',
+      aboutSub: 'From running your day-to-day to selling, talking to customers and tracking your numbers, ABAAD brings your business operations into one connected system.',
       platBadge: 'Everything you need', platTitle: 'One platform. For every operation.',
       platSub: 'Integrated tools covering your business cycle, from management and sales to communication and finance.',
       dashBadge: 'Analytics & dashboard', dashTitle: 'See your whole business from one place.',
       dashSub: 'Everything you need to know about your business, clearly in front of you. Your sales, profits, orders and inventory in one dashboard that helps you decide faster.',
-      slotDash: 'The Abaad dashboard',
+      slotDash: 'The ABAAD dashboard',
       connTitle: 'The power is not just in the tools. It is in how they connect.',
-      connSub: 'Every operation in Abaad connects to the rest of the platform, reducing manual work and keeping your business data up to date in one place.',
+      connSub: 'Every operation in ABAAD connects to the rest of the platform, reducing manual work and keeping your business data up to date in one place.',
       waBadge: 'WhatsApp + Automation', autoLabel: 'Automation',
       waTitle: 'Let your business communicate automatically.',
-      waSub: 'Connect WhatsApp to your operations in Abaad, and run messages and actions automatically based on what happens in your business.',
+      waSub: 'Connect WhatsApp to your operations in ABAAD, and run messages and actions automatically based on what happens in your business.',
       waKey: 'WhatsApp is not separate from your business. It is connected to the customer, the order and the operations inside your system.',
       when: 'When', waChip1: 'New order', waChip2: 'Status updated',
       storeBadge: 'E-commerce', storeTitle: 'Your online store, connected to your business from day one.',
-      storeSub: 'Build your website and store with Abaad, and manage products, orders, customers and payments from the same system that runs your internal operations.',
+      storeSub: 'Build your website and store with ABAAD, and manage products, orders, customers and payments from the same system that runs your internal operations.',
       storeKey: 'No separate store. No separate data.',
       addonBadge: 'Add-on service', addonTitle: 'Customize your store to fit your brand',
       addonSub: 'We offer a design and customization service for your online storefront, tailored to your brand identity and needs, for an additional fee.', addonCta: 'Request store customization',
       finBadge: 'Finance', finTitle: 'Know where your money goes.',
       finSub: 'Connect daily operations to the financial picture of your business, and track sales, purchases, payments, expenses, receivables and reports from one place.',
-      slotFin: 'The financial summary in Abaad',
-      typesTitle: 'Abaad adapts to the way you work.',
+      slotFin: 'The financial summary in ABAAD',
+      typesTitle: 'ABAAD adapts to the way you work.',
       ctaTitle: 'Everything you need to run your business, now closer.',
-      ctaSub: 'Start with Abaad and bring your operations, sales, customers and finances into one platform.',
+      ctaSub: 'Start with ABAAD and bring your operations, sales, customers and finances into one platform.',
       fName: 'Name', fCompany: 'Business name', fPhone: 'Phone number', fEmail: 'Email', fType: 'Business type', fMessage: 'Message',
       chooseType: 'Select a business type...', other: 'Other',
       submit: 'Send',
@@ -329,7 +333,7 @@
     cur: 'OMR', perMonth: 'month', perHalf: '6 months', perYear: 'year', popular: 'Most popular', save: 'Save two months', instead: 'instead of',
     limitsH: 'Usage limits', waH: 'WhatsApp', excH: 'Not included in this plan',
     addH: 'Optional customizations', addTag: 'Optional add-on', addCta: 'Contact us to activate',
-    waNote: 'On plans that include WhatsApp: 100 free messages a month through the Abaad number.',
+    waNote: 'On plans that include WhatsApp: 100 free messages a month through the ABAAD number.',
     waPack: '500 extra messages — 7.500 OMR',
     onRequest: 'On request',
     extras: [
@@ -352,8 +356,8 @@
           { t: 'Custom permissions', d: 'Choose which sections each employee can reach.' },
           { t: 'Integrations', d: 'Google Maps and your Google Business profile.' }
         ],
-        wa: ['WhatsApp notifications through the Abaad number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
-        add: [{ t: "Use your store's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the Abaad number — available as an optional add-on.' }] },
+        wa: ['WhatsApp notifications through the ABAAD number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
+        add: [{ t: "Use your store's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the ABAAD number — available as an optional add-on.' }] },
       { name: 'Enterprise', tag: 'Advanced management for all your branches', desc: 'For multi-branch businesses that need to monitor performance and manage inventory, requests, and approvals from one system.', m: '69.900', h: '419.400', y: '699', was: '838.800',
         limits: ['Up to 10 branches', 'Up to 100 active users, including the owner', 'Unlimited products'], incH: 'Everything in Professional, plus',
         more: 'More than 10 branches? Contact us for custom pricing',
@@ -369,8 +373,8 @@
           { t: 'Centralized alerts', d: 'Stay informed about low stock, pending requests, and delayed transfers.' },
           { t: 'Weekly branch report', d: 'Review weekly sales, profit, inventory, and operational performance.' }
         ],
-        wa: ['WhatsApp notifications through the Abaad number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
-        add: [{ t: "Use your company's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the Abaad number — available as an optional add-on.' }] }
+        wa: ['WhatsApp notifications through the ABAAD number', '100 free WhatsApp messages a month', 'Option to buy extra message credit'],
+        add: [{ t: "Use your company's WhatsApp number", d: 'Connect your own business WhatsApp number instead of the ABAAD number — available as an optional add-on.' }] }
     ],
     custom: { name: 'Custom', tag: 'Built around your needs', desc: 'For companies and individuals who need customization and features built around their needs.',
       incH: 'What you get',
@@ -446,7 +450,7 @@
   PRICING.en.cycleLabel = { m: 'Monthly', h: 'Semi-annual', y: 'Yearly' };
   PRICING.en.planKeys = ['basic', 'professional', 'enterprise'];
   PRICING.en.subscribeMsg = {
-    hello: 'Hello Abaad team,', want: "I'd like to subscribe to one of Abaad's plans.", plan: 'Plan: ', cycle: 'Billing: ',
+    hello: 'Hello ABAAD team,', want: "I'd like to subscribe to one of ABAAD's plans.", plan: 'Plan: ', cycle: 'Billing: ',
     ask: "I'd like to know how to subscribe, pay and activate it.", thanks: 'Thank you.',
     add: "I'd like to ask about activating optional add-ons for my plan.", addList: 'Add-ons:', addAsk: 'Please send me the prices, details and how to activate them.',
     custom: "I'd like to ask about a custom plan for my business.", customAsk: 'Please contact me with the details and the price.',
@@ -486,7 +490,7 @@
   };
   PRICING.en.addonsTag = 'Add-ons';
   PRICING.en.addonsTitle = 'Grow your system with your business';
-  PRICING.en.addonsSub = 'With Abaad, start with the essentials and add more features as your business grows — with full flexibility.';
+  PRICING.en.addonsSub = 'With ABAAD, start with the essentials and add more features as your business grows — with full flexibility.';
   PRICING.en.addons = {
     heads: { basic: 'Add-ons for the Basic plan', professional: 'Add-ons for the Professional plan', enterprise: 'Add-ons for the Enterprise plan' },
     planLabel: { basic: 'Basic', professional: 'Professional', enterprise: 'Enterprise' },
@@ -506,10 +510,10 @@
       gift_orders: { name: 'Gift & custom orders', desc: 'Gift orders with the recipient and occasion, and custom orders with their own fields.' },
       whatsapp_own_number: { name: 'WhatsApp on your own number', desc: "Send your store's messages from its own WhatsApp number instead of the shared one.",
         by: { enterprise: { name: "WhatsApp on your company's number", desc: "Send your company's messages from its own WhatsApp number instead of the shared one." } } },
-      api_integrations: { name: 'External systems integration (API)', desc: 'Connect Abaad to your other systems through an API, scoped with the Abaad team to your needs.' }
+      api_integrations: { name: 'External systems integration (API)', desc: 'Connect ABAAD to your other systems through an API, scoped with the ABAAD team to your needs.' }
     },
     msg: {
-      hello: 'Hello Abaad team,', one: "I'd like to ask about one of Abaad's add-ons.", many: "I'd like to ask about the following add-ons:",
+      hello: 'Hello ABAAD team,', one: "I'd like to ask about one of ABAAD's add-ons.", many: "I'd like to ask about the following add-ons:",
       plan: 'Plan: ', addon: 'Add-on: ', addons: 'Add-ons:',
       askOne: "I'd like to know the add-on's price and how to subscribe and activate it.", askMany: 'Please send me the prices, details and how to activate them.', thanks: 'Thank you.'
     }
@@ -842,7 +846,7 @@
       }).join('');
     },
     footNav: function (t) {
-      return [[t.navPlatform, '#platform'], [t.navSolutions, '#solutions'], [t.navContact, '#contact'], [t.login, LINKS.login]].map(function (s) {
+      return [[t.navPlatform, '#platform'], [t.navSystem, sub('system')], [t.navWeb, sub('web')], [t.navSolutions, '#solutions'], [t.navContact, '#contact'], [t.login, LINKS.login]].map(function (s) {
         return '<a href="' + s[1] + '" class="hv-white" style="color:#d9d9d9;font-size:15px;font-weight:600">' + esc(s[0]) + '</a>';
       }).join('');
     },
@@ -966,6 +970,7 @@
     if (panel) panel.setAttribute('data-g', capGrid());
     $$('[data-arrow]', root).forEach(function (el) { el.textContent = arrow(); });
     $$('[data-mail]', root).forEach(function (el) { el.textContent = MAIL; el.setAttribute('href', 'mailto:' + MAIL); });
+    $$('[data-sub]', root).forEach(function (a) { a.setAttribute('href', sub(a.getAttribute('data-sub'))); });
     var other = S.lang === 'ar' ? 'en' : 'ar';
     $$('[data-lang-link]', root).forEach(function (a) {
       a.setAttribute('href', PAGES[other]); a.setAttribute('hreflang', other); a.setAttribute('lang', other);

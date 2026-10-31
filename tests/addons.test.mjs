@@ -203,8 +203,8 @@ test('the message is encoded whole — Arabic, spaces and line breaks — and th
 
   const en = await page(t, 'en');
   assert.equal(textOf(askOf(en, 'basic', 'pos')), [
-    'Hello Abaad team,', '',
-    "I'd like to ask about one of Abaad's add-ons.", '',
+    'Hello ABAAD team,', '',
+    "I'd like to ask about one of ABAAD's add-ons.", '',
     'Plan: Basic', '',
     'Add-on: Cashier & point of sale (POS).', '',
     "I'd like to know the add-on's price and how to subscribe and activate it.", '',
