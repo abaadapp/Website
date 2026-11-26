@@ -621,7 +621,8 @@ test('one official contact number on the site and the three legal pages', () => 
  */
 const LEGAL_NAME = 'مشاريع الذهلي الجديده';
 const CR = '1031484';
-const ADDRESS = { ar: 'المسفاة الغربية، بوشر، محافظة مسقط', en: 'Al Misfa Al Gharbiyya, Bousher, Muscat Governorate' };
+// ‏‏المركزُ الرئيسيّ كما في الصفحة الأولى من السجلّ: «الانصب / بوشر / محافظة مسقط — Alnsab / Bousher / Muscat Governorate»
+const ADDRESS = { ar: 'الانصب، بوشر، محافظة مسقط', en: 'Alnsab, Bousher, Muscat Governorate' };
 const PUBLIC = { ar: ['index.html', 'system/index.html', 'web/index.html'], en: ['en/index.html', 'en/system/index.html', 'en/web/index.html'] };
 
 test('every page names the owning company exactly as its commercial registration', () => {
@@ -640,6 +641,8 @@ test('every page names the owning company exactly as its commercial registration
   // ‏‏ولا اسمٌ لاتينيٌّ مخترَع في أيّ صفحة — قُدّم به التوثيقُ مرّةً فرُفض
   for (const f of [...PUBLIC.ar, ...PUBLIC.en, 'privacy/index.html', 'terms/index.html', 'data-deletion/index.html', 'assets/site.js']) {
     assert.doesNotMatch(read(f), /zahli|dhahli|thahli/i, `${f}: اسمٌ لاتينيٌّ ليس في السجلّ`);
+    // ‏‏والعنوانُ «المركزُ الرئيسيّ» في السجلّ (الانصب)، لا مكانُ نشاطٍ فيه (المسفاة) — وبه قُدّم التوثيق
+    assert.doesNotMatch(read(f), /المسفاة|misfa/i, `${f}: مكانُ نشاطٍ بدل المقرّ الرئيسيّ`);
   }
 });
 
