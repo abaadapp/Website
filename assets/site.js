@@ -112,7 +112,7 @@
       errEmail: 'الرجاء إدخال بريد إلكتروني صحيح.', errType: 'الرجاء اختيار نوع النشاط.', errMessage: 'الرجاء كتابة رسالة قصيرة.',
       privacy: 'سياسة الخصوصية', terms: 'الشروط',
       ciEmail: 'البريد', ciPhone: 'الهاتف', ciEmailV: MAIL, ciPhoneV: '+968 71141624',
-      legalBy: 'تملكها وتشغّلها', legalType: 'ش م م', legalCr: 'سجل تجاري', legalAddr: 'المسفاة الغربية، بوشر، محافظة مسقط، سلطنة عُمان',
+      legalBy: 'تملكها وتشغّلها', legalType: 'ش م م', legalCr: 'سجل تجاري', legalAddr: 'الانصب، بوشر، محافظة مسقط، سلطنة عُمان',
       screenshot: 'لقطة شاشة: '
     },
     en: {
@@ -167,7 +167,7 @@
       errEmail: 'Please enter a valid email address.', errType: 'Please select a business type.', errMessage: 'Please write a short message.',
       privacy: 'Privacy policy', terms: 'Terms',
       ciEmail: 'Email', ciPhone: 'Phone', ciEmailV: MAIL, ciPhoneV: '+968 71141624',
-      legalBy: 'Owned and operated by', legalType: 'LLC', legalCr: 'Commercial Registration No.', legalAddr: 'Al Misfa Al Gharbiyya, Bousher, Muscat Governorate, Sultanate of Oman',
+      legalBy: 'Owned and operated by', legalType: 'LLC', legalCr: 'Commercial Registration No.', legalAddr: 'Alnsab, Bousher, Muscat Governorate, Sultanate of Oman',
       screenshot: 'Screenshot: '
     }
   };
