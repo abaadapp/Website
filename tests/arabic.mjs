@@ -5,6 +5,8 @@
  *   - الملخّص المالي:            role="img"
  *   - محادثة واتساب وفقاعتها:     lang="ar" dir="rtl"
  * ورابطُ «العربية» نفسُه.
+ * واسمُ الشركة المالكة في التذييل (`[data-legal]`): عربيٌّ في سجلّها التجاريّ ولا اسمَ إنجليزيًّا له،
+ * فيُكتب كما هو بـlang="ar" — ويعدّه seo.test.mjs وحده.
  */
 export const DRAWINGS = '[role="img"], [lang="ar"][dir="rtl"]';
 const SKIP = `${DRAWINGS}, [data-lang-link], script, style`;

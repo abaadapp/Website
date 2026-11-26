@@ -612,3 +612,50 @@ test('one official contact number on the site and the three legal pages', () => 
     numbers.forEach((n) => assert.equal(n, OFFICIAL, `${f}: رقمٌ غير الرسمي ${n}`));
   }
 });
+
+/* ═══════════ الشركةُ المالكة — كما في سجلّها التجاريّ ═══════════ */
+
+/*
+ * مراجعُ Meta وغيرُه يفتح الموقع ليعرف لمن هو: فكلُّ صفحةٍ تسمّي الشركة باسمها في السجلّ حرفًا بحرف،
+ * وبرقم سجلّها وعنوانه. والاسمُ عربيٌّ وحده في السجلّ: لا ترجمةَ ولا حروفَ لاتينيّة تخترع اسمًا ثانيًا.
+ */
+const LEGAL_NAME = 'مشاريع الذهلي الجديده';
+const CR = '1031484';
+const ADDRESS = { ar: 'المسفاة الغربية، بوشر، محافظة مسقط', en: 'Al Misfa Al Gharbiyya, Bousher, Muscat Governorate' };
+const PUBLIC = { ar: ['index.html', 'system/index.html', 'web/index.html'], en: ['en/index.html', 'en/system/index.html', 'en/web/index.html'] };
+
+test('every page names the owning company exactly as its commercial registration', () => {
+  for (const [lang, files] of Object.entries(PUBLIC)) {
+    for (const f of files) {
+      const d = new JSDOM(read(f)).window.document;
+      const line = d.querySelectorAll('[data-legal]');
+      assert.equal(line.length, 1, `${f}: لا سطرَ للشركة المالكة، أو أكثر من واحد`);
+      const name = line[0].querySelector('bdi[lang="ar"][dir="rtl"]');
+      assert.equal(name?.textContent, LEGAL_NAME, `${f}: الاسمُ ليس كما في السجلّ`);
+      assert.match(line[0].textContent, new RegExp(`${CR}`), `${f}: لا رقمَ سجلّ`);
+      assert.ok(line[0].textContent.includes(ADDRESS[lang]), `${f}: العنوانُ ليس كما في السجلّ`);
+      assert.ok(line[0].closest('footer'), `${f}: السطرُ خارج التذييل`);
+    }
+  }
+  // ‏‏ولا اسمٌ لاتينيٌّ مخترَع في أيّ صفحة — قُدّم به التوثيقُ مرّةً فرُفض
+  for (const f of [...PUBLIC.ar, ...PUBLIC.en, 'privacy/index.html', 'terms/index.html', 'data-deletion/index.html', 'assets/site.js']) {
+    assert.doesNotMatch(read(f), /zahli|dhahli|thahli/i, `${f}: اسمٌ لاتينيٌّ ليس في السجلّ`);
+  }
+});
+
+test('the legal pages carry the same company, registration and address', () => {
+  for (const f of ['privacy/index.html', 'terms/index.html', 'data-deletion/index.html']) {
+    const text = new JSDOM(read(f)).window.document.body.textContent;
+    for (const s of [LEGAL_NAME, CR, ADDRESS.ar]) assert.ok(text.includes(s), `${f}: ينقصها «${s}»`);
+  }
+});
+
+test('the company line survives site.js in both languages, and is the same as the sub-pages', async (t) => {
+  for (const lang of ['ar', 'en']) {
+    const w = await page(t, lang);
+    const line = w.document.querySelector('[data-list="footLegal"]');
+    assert.equal(line.querySelector('bdi[lang="ar"]').textContent, LEGAL_NAME, `${lang}: محاه site.js`);
+    const sub = new JSDOM(read(PUBLIC[lang][1])).window.document.querySelector('[data-legal]');
+    assert.equal(line.textContent.trim(), sub.textContent.trim(), `${lang}: الرئيسيةُ وصفحةُ النظام تقولان شيئين`);
+  }
+});

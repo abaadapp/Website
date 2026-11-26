@@ -62,7 +62,10 @@ test('/en/ is a complete English page without JavaScript', () => {
   assert.equal(d.querySelector('h1').textContent, 'Your whole business. In one place.');
   // لا عربية ظاهرة ولا في alt / aria-label، إلّا رسمَي الواجهة داخل الصور ورابطَ «العربية»
   assert.deepEqual(arabicLeft(d), [], 'عربيّ في /en/');
-  assert.equal(d.querySelectorAll(DRAWINGS).length, 2, 'رسمٌ عربيّ جديد في /en/ — هل هو رسمٌ حقًّا؟');
+  // ‏‏واسمُ الشركة المالكة في التذييل عربيٌّ كما في سجلّها، ولا اسمَ إنجليزيًّا له — يُعدّ وحده
+  const drawings = [...d.querySelectorAll(DRAWINGS)].filter((el) => !el.closest('[data-legal]'));
+  assert.equal(drawings.length, 2, 'رسمٌ عربيّ جديد في /en/ — هل هو رسمٌ حقًّا؟');
+  assert.deepEqual([...d.querySelectorAll('[data-legal] [lang="ar"]')].map((el) => el.textContent), ['مشاريع الذهلي الجديده'], 'عربيٌّ في سطر الشركة غيرُ اسمها');
   for (const h of d.querySelectorAll('[data-site] h1, [data-site] h2, [data-site] h3, nav a, [data-plan] li')) {
     assert.doesNotMatch(h.textContent, ARABIC, `عربيّ في /en/: ${h.textContent.trim().slice(0, 40)}`);
   }
@@ -217,4 +220,13 @@ test('robots.txt allows everything and points to the sitemap', () => {
   assert.match(robots, /^Allow: \/$/m);
   assert.match(robots, /^Sitemap: https:\/\/abaadapp\.om\/sitemap\.xml$/m);
   assert.doesNotMatch(robots, /^Disallow: *\/\S/m, 'robots يمنع شيئًا');
+});
+
+/* ═══════════ توثيقُ النطاق عند Meta ═══════════ */
+
+// ‏‏Meta تقرأ هذا الوسم من رأس الصفحة الرئيسية لتثبت أنّ abaadapp.om لنشاط أبعاد — إن غاب سقط توثيقُ النطاق
+test('the home page head carries the Meta domain verification tag', () => {
+  const tags = doc(PAGES.ar.file).head.querySelectorAll('meta[name="facebook-domain-verification"]');
+  assert.equal(tags.length, 1, 'وسمُ توثيق النطاق غائبٌ من رأس / أو مكرّر');
+  assert.equal(tags[0].getAttribute('content'), 'i69ne6nbidgdpe2qpmbn20uo4xysd3');
 });

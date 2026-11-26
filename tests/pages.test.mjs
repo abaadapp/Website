@@ -16,6 +16,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { JSDOM } from 'jsdom';
 import { arabicLeft } from './arabic.mjs';
 import { renderPage, pageFile, SUBPAGES } from '../tools/pages.mjs';
+import { legalOf } from '../tools/prerender.mjs';
 
 const root = new URL('../', import.meta.url);
 const read = (p) => readFileSync(new URL(p, root), 'utf8');
@@ -44,7 +45,7 @@ function served(path) {
 
 test('the four pages are generated from tools/pages.mjs and nobody edited them by hand', () => {
   const js = read('assets/site.js');
-  const ctx = { css: read(ALL[0].file).match(/site\.css\?v=([^"]+)/)[1], mail: js.match(/var MAIL = '([^']+)'/)[1], phone: js.match(/ciPhoneV: '([^']+)'/)[1] };
+  const ctx = { css: read(ALL[0].file).match(/site\.css\?v=([^"]+)/)[1], mail: js.match(/var MAIL = '([^']+)'/)[1], phone: js.match(/ciPhoneV: '([^']+)'/)[1], legal: legalOf(js) };
   for (const p of ALL) assert.equal(read(p.file), renderPage(p.key, p.lang, ctx), `${p.file}: يختلف عن المولِّد — شغّل npm run prerender`);
   assert.deepEqual(SUBPAGES, ['system', 'web']);
 });
