@@ -221,3 +221,12 @@ test('robots.txt allows everything and points to the sitemap', () => {
   assert.match(robots, /^Sitemap: https:\/\/abaadapp\.om\/sitemap\.xml$/m);
   assert.doesNotMatch(robots, /^Disallow: *\/\S/m, 'robots يمنع شيئًا');
 });
+
+/* ═══════════ توثيقُ النطاق عند Meta ═══════════ */
+
+// ‏‏Meta تقرأ هذا الوسم من رأس الصفحة الرئيسية لتثبت أنّ abaadapp.om لنشاط أبعاد — إن غاب سقط توثيقُ النطاق
+test('the home page head carries the Meta domain verification tag', () => {
+  const tags = doc(PAGES.ar.file).head.querySelectorAll('meta[name="facebook-domain-verification"]');
+  assert.equal(tags.length, 1, 'وسمُ توثيق النطاق غائبٌ من رأس / أو مكرّر');
+  assert.equal(tags[0].getAttribute('content'), 'i69ne6nbidgdpe2qpmbn20uo4xysd3');
+});
