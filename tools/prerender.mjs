@@ -51,6 +51,18 @@ export const SEO = {
   },
 };
 
+/**
+ * الشركةُ المالكة وسطرُها بكلّ لغة — من site.js نفسه، فلا يفترق ما في الصفحة الرئيسية عمّا في صفحتَي النظام والويب.
+ * ترتيبُ اللغتين في site.js: العربية ثمّ الإنجليزية.
+ */
+export function legalOf(js) {
+  const [, name, cr] = js.match(/var LEGAL = \{ name: '([^']+)', cr: '(\d+)' \}/);
+  const at = (key) => [...js.matchAll(new RegExp(key + ": '([^']+)'", 'g'))].map((m) => m[1]);
+  const [by, type, crLabel, addr] = ['legalBy', 'legalType', 'legalCr', 'legalAddr'].map(at);
+  const line = (i) => ({ by: by[i], type: type[i], cr: crLabel[i], addr: addr[i] });
+  return { name, cr, ar: line(0), en: line(1) };
+}
+
 /** أبعاد كيانٌ واحد (@id ثابت) باسمه في لغة الصفحة؛ البريد والرقم من site.js نفسه */
 export function structuredData(lang, js) {
   const s = SEO[lang];
@@ -183,7 +195,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   writeFileSync(new URL('index.html', root), ar);
   mkdirSync(new URL('en/', root), { recursive: true });
   writeFileSync(new URL('en/index.html', root), withStamps(prerender(ar, js, 'en')));
-  const ctx = { css: stamp('assets/site.css'), mail: js.match(/var MAIL = '([^']+)'/)[1], phone: js.match(/ciPhoneV: '([^']+)'/)[1] };
+  const ctx = { css: stamp('assets/site.css'), mail: js.match(/var MAIL = '([^']+)'/)[1], phone: js.match(/ciPhoneV: '([^']+)'/)[1], legal: legalOf(js) };
   for (const key of SUBPAGES) {
     for (const lang of ['ar', 'en']) {
       mkdirSync(new URL(pageFile(key, lang).replace(/index\.html$/, ''), root), { recursive: true });

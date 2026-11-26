@@ -62,7 +62,10 @@ test('/en/ is a complete English page without JavaScript', () => {
   assert.equal(d.querySelector('h1').textContent, 'Your whole business. In one place.');
   // لا عربية ظاهرة ولا في alt / aria-label، إلّا رسمَي الواجهة داخل الصور ورابطَ «العربية»
   assert.deepEqual(arabicLeft(d), [], 'عربيّ في /en/');
-  assert.equal(d.querySelectorAll(DRAWINGS).length, 2, 'رسمٌ عربيّ جديد في /en/ — هل هو رسمٌ حقًّا؟');
+  // ‏‏واسمُ الشركة المالكة في التذييل عربيٌّ كما في سجلّها، ولا اسمَ إنجليزيًّا له — يُعدّ وحده
+  const drawings = [...d.querySelectorAll(DRAWINGS)].filter((el) => !el.closest('[data-legal]'));
+  assert.equal(drawings.length, 2, 'رسمٌ عربيّ جديد في /en/ — هل هو رسمٌ حقًّا؟');
+  assert.deepEqual([...d.querySelectorAll('[data-legal] [lang="ar"]')].map((el) => el.textContent), ['مشاريع الذهلي الجديده'], 'عربيٌّ في سطر الشركة غيرُ اسمها');
   for (const h of d.querySelectorAll('[data-site] h1, [data-site] h2, [data-site] h3, nav a, [data-plan] li')) {
     assert.doesNotMatch(h.textContent, ARABIC, `عربيّ في /en/: ${h.textContent.trim().slice(0, 40)}`);
   }

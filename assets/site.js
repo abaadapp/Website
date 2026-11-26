@@ -27,6 +27,12 @@
   function sub(key) { return PAGES[S.lang] + key + '/'; }
   var MAIL = 'abaadappom@gmail.com';
   /*
+   * الشركةُ المالكة كما في سجلّها التجاريّ حرفًا بحرف — يقرؤها مراجعُ Meta وغيرُه ليعرف لمن الموقع.
+   * والاسمُ عربيٌّ في السجلّ ولا اسمَ إنجليزيًّا له، فلا يُترجَم ولا يُكتب بحروفٍ لاتينيّة.
+   * وصفحاتُ «نظام أبعاد» و«أبعاد ويب» تقرؤها من هنا (tools/prerender.mjs).
+   */
+  var LEGAL = { name: 'مشاريع الذهلي الجديده', cr: '1031484' };
+  /*
    * نموذجُ «تواصل معنا» يُرسَل إلى CRM أبعاد على النظام — لا إلى بريد الزائر.
    * بابٌ عامّ بلا مفتاحٍ ولا سرّ: يحرسه الخادم (الأصل، والخنق، والفخّ، والتحقّق).
    */
@@ -106,6 +112,7 @@
       errEmail: 'الرجاء إدخال بريد إلكتروني صحيح.', errType: 'الرجاء اختيار نوع النشاط.', errMessage: 'الرجاء كتابة رسالة قصيرة.',
       privacy: 'سياسة الخصوصية', terms: 'الشروط',
       ciEmail: 'البريد', ciPhone: 'الهاتف', ciEmailV: MAIL, ciPhoneV: '+968 71141624',
+      legalBy: 'تملكها وتشغّلها', legalType: 'ش م م', legalCr: 'سجل تجاري', legalAddr: 'المسفاة الغربية، بوشر، محافظة مسقط، سلطنة عُمان',
       screenshot: 'لقطة شاشة: '
     },
     en: {
@@ -160,6 +167,7 @@
       errEmail: 'Please enter a valid email address.', errType: 'Please select a business type.', errMessage: 'Please write a short message.',
       privacy: 'Privacy policy', terms: 'Terms',
       ciEmail: 'Email', ciPhone: 'Phone', ciEmailV: MAIL, ciPhoneV: '+968 71141624',
+      legalBy: 'Owned and operated by', legalType: 'LLC', legalCr: 'Commercial Registration No.', legalAddr: 'Al Misfa Al Gharbiyya, Bousher, Muscat Governorate, Sultanate of Oman',
       screenshot: 'Screenshot: '
     }
   };
@@ -854,8 +862,17 @@
       return contacts(t).map(function (ci) {
         return '<span dir="ltr" style="unicode-bidi:isolate;text-align:start"><a href="' + ci.href + '" style="color:inherit">' + esc(ci.v) + '</a></span>';
       }).join('');
+    },
+    // ‏‏من يملك الموقع — والاسمُ عربيٌّ في الصفحتين كما في السجلّ (lang="ar")
+    footLegal: function (t) {
+      return legalLine(t);
     }
   };
+
+  function legalLine(t) {
+    return esc(t.legalBy) + ' <bdi lang="ar" dir="rtl">' + esc(LEGAL.name) + '</bdi> ' + esc(t.legalType)
+      + ' · ' + esc(t.legalCr) + ' <bdi dir="ltr">' + LEGAL.cr + '</bdi> · ' + esc(t.legalAddr);
+  }
 
   function contacts(t) {
     return [

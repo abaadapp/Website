@@ -290,6 +290,7 @@ footer.foot a{color:#d9d9d9;font-weight:600}
 footer.foot a:hover{color:#fff}
 footer.foot p{margin:6px 0 0;color:#a7a7a7}
 footer.foot [dir="ltr"]{unicode-bidi:isolate}
+footer.foot p.legal{font-size:12.5px;line-height:1.9;color:#8a8a8a}
 `;
 
 /** «اكتشف أيضًا» — وصفُ كلّ صفحةٍ بوصفها المعتمد */
@@ -319,7 +320,7 @@ function section(s, p, lang) {
 const label = (k, p, c) => p[k] ?? c[k];
 
 /** الصفحةُ كاملة بلغتها — `css` بصمةُ site.css كي لا يبقى زائرٌ على نسخةٍ قديمة */
-export function renderPage(key, lang, { css, mail, phone }) {
+export function renderPage(key, lang, { css, mail, phone, legal }) {
   const p = PAGES[key][lang], c = COMMON[lang], other = lang === 'ar' ? 'en' : 'ar';
   const dir = lang === 'ar' ? 'rtl' : 'ltr', url = pageUrl(key, lang);
   const locale = lang === 'ar' ? 'ar_OM' : 'en_OM', otherLocale = lang === 'ar' ? 'en_OM' : 'ar_OM';
@@ -399,6 +400,7 @@ ${p.sections.map((s) => section(s, p, lang)).join('')}<section class="block"><di
 <nav aria-label="${esc(c.footAria)}"><a href="${pagePath('', lang)}">${esc(c.home)}</a><a href="${pagePath('system', lang)}">${esc(c.system)}</a><a href="${pagePath('web', lang)}">${esc(c.web)}</a><a href="${href('#contact', lang)}">${esc(c.contact)}</a><a href="/privacy/">${esc(c.privacy)}</a><a href="/terms/">${esc(c.terms)}</a></nav>
 <p>${esc(c.footNote)}</p>
 <p><a href="mailto:${mail}" dir="ltr">${mail}</a> · <a href="tel:${phone.replace(/\s+/g, '')}" dir="ltr">${phone}</a></p>
+<p class="legal" data-legal="">${esc(legal[lang].by)} <bdi lang="ar" dir="rtl">${esc(legal.name)}</bdi> ${esc(legal[lang].type)} · ${esc(legal[lang].cr)} <bdi dir="ltr">${legal.cr}</bdi> · ${esc(legal[lang].addr)}</p>
 </div></footer>
 </div>
 </body>
